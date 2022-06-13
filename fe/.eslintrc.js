@@ -4,7 +4,13 @@ module.exports = {
     node: true,
     es2021: true,
   },
-  extends: ['plugin:react/recommended', 'airbnb', 'plugin:prettier/recommended', 'plugin:storybook/recommended'],
+  extends: [
+    'plugin:react/recommended',
+    'airbnb',
+    'plugin:prettier/recommended',
+    'plugin:storybook/recommended',
+    'plugin:storybook/recommended',
+  ],
   settings: {
     'import/resolver': {
       node: {
