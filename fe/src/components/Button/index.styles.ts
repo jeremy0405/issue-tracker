@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 interface StyledButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
-  borderStyle: 'STANDARD' | 'SECONDARY';
+  borderStyle?: 'SECONDARY';
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -31,6 +31,7 @@ const StyledButton = styled.button<StyledButtonProps>`
         return css`
           ${({ theme }) => theme.buttonSize.small};
           ${({ theme }) => theme.fontStyles.linkXsmall};
+          border-radius: 11px;
         `;
     }
   }}

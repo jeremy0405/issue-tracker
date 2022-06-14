@@ -1,16 +1,21 @@
+import { ReactNode } from 'react';
 import StyledButton from 'components/Button/index.styles';
 
 interface ButtonProps {
+  size: 'SMALL' | 'MEDIUM' | 'LARGE';
+  borderStyle?: 'SECONDARY';
   disabled: boolean;
   label: string;
-  size: 'SMALL' | 'MEDIUM' | 'LARGE';
-  borderStyle: 'STANDARD' | 'SECONDARY';
+  children: ReactNode;
   onClick: () => void;
 }
 
-const Button = ({ size = 'MEDIUM', label, disabled, onClick, borderStyle }: ButtonProps) => {
+const Button = (props: ButtonProps) => {
+  const { label, children } = props;
+
   return (
-    <StyledButton type="button" size={size} disabled={disabled} onClick={onClick} borderStyle={borderStyle}>
+    <StyledButton type="button" {...props}>
+      {children}
       {label}
     </StyledButton>
   );
