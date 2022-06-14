@@ -29,6 +29,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'react/require-default-props': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
@@ -58,7 +59,7 @@ module.exports = {
         unnamedComponents: 'arrow-function',
       },
     ],
-    'react/jsx-props-no-spreading': ['warn'],
+    'react/jsx-props-no-spreading': 'off',
     'prettier/prettier': [
       'error',
       {
