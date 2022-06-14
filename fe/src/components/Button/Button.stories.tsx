@@ -21,3 +21,11 @@ Disabled.args = {
   label: 'BUTTON',
   size: 'LARGE',
 };
+
+export const SmallSecondary = Template.bind({});
+SmallSecondary.args = {
+  disabled: false,
+  label: 'BUTTON',
+  size: 'SMALL',
+  borderStyle: 'SECONDARY',
+};

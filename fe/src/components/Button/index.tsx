@@ -1,15 +1,16 @@
-import StyledButton from './index.styles';
+import StyledButton from 'components/Button/index.styles';
 
 interface ButtonProps {
   disabled: boolean;
-  size: 'SMALL' | 'MEDIUM' | 'LARGE';
   label: string;
+  size: 'SMALL' | 'MEDIUM' | 'LARGE';
+  borderStyle: 'STANDARD' | 'SECONDARY';
   onClick: () => void;
 }
 
-const Button = ({ size = 'MEDIUM', label, disabled, onClick }: ButtonProps) => {
+const Button = ({ size = 'MEDIUM', label, disabled, onClick, borderStyle }: ButtonProps) => {
   return (
-    <StyledButton type="button" size={size} disabled={disabled} onClick={onClick}>
+    <StyledButton type="button" size={size} disabled={disabled} onClick={onClick} borderStyle={borderStyle}>
       {label}
     </StyledButton>
   );
