@@ -29,6 +29,7 @@ module.exports = {
   },
   plugins: ['react', '@typescript-eslint', 'prettier'],
   rules: {
+    'react/require-default-props': 'off',
     'import/no-extraneous-dependencies': [
       'error',
       {
