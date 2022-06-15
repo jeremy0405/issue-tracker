@@ -4,9 +4,9 @@ import StyledButton from 'components/Atoms/Button/index.styles';
 interface ButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
   buttonStyle: 'DEFAULT' | 'SECONDARY' | 'GITHUB_LOGIN';
-  disabled: boolean;
+  disabled?: boolean;
   label: string;
-  children: ReactNode;
+  children?: ReactNode;
   onClick: () => void;
 }
 

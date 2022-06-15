@@ -5,13 +5,13 @@ import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 interface InputProps {
   inputType: string;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
-  disabled: boolean;
+  disabled?: boolean;
   placeholder: string;
   // eslint-disable-next-line react/no-unused-prop-types
   onChange?: () => void;
 }
 
-const Input = ({ inputType, inputSize, disabled, placeholder }: InputProps) => {
+const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<string>('');
