@@ -5,7 +5,7 @@ const colors = {
   placeHolder: '#A0A3BD',
   line: '#D9DBE9',
   inputBackground: '#EFF0F6',
-  background: '#D9DBE9',
+  background: '#F7F7FC',
   offWhite: '#FEFEFE',
 
   primary: {
@@ -32,52 +32,52 @@ const colors = {
 
 const fontStyles = {
   displayRegular: {
-    weight: 400,
+    fontWeight: 400,
     fontSize: '32px',
     lineHeight: '48px',
   },
   displayBold: {
-    weight: 700,
+    fontWeight: 700,
     fontSize: '32px',
     lineHeight: '48px',
   },
   textLarge: {
-    weight: 400,
+    fontWeight: 400,
     fontSize: '24px',
     lineHeight: '40px',
   },
   textMedium: {
-    weight: 400,
+    fontWeight: 400,
     fontSize: '18px',
     lineHeight: '32px',
   },
   textSmall: {
-    weight: 400,
+    fontWeight: 400,
     fontSize: '16px',
     lineHeight: '28px',
   },
   textXSmall: {
-    weight: 500,
+    fontWeight: 500,
     fontSize: '12px',
     lineHeight: '20px',
   },
   linkLarge: {
-    weight: 700,
+    fontWeight: 700,
     fontSize: '24px',
     lineHeight: '40px',
   },
   linkMedium: {
-    weight: 700,
+    fontWeight: 700,
     fontSize: '18px',
     lineHeight: '32px',
   },
   linkSmall: {
-    weight: 700,
+    fontWeight: 700,
     fontSize: '16px',
     lineHeight: '28px',
   },
   linkXsmall: {
-    weight: 700,
+    fontWeight: 700,
     fontSize: '12px',
     lineHeight: '20px',
   },

@@ -1,16 +1,17 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import { useRef, useState, useEffect } from 'react';
-import { Form, StyledInput } from './index.styles';
+import React, { useRef, useState, useEffect } from 'react';
+import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 
 interface InputProps {
+  inputType: string;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
-  disabled: boolean;
+  disabled?: boolean;
   placeholder: string;
   // eslint-disable-next-line react/no-unused-prop-types
   onChange?: () => void;
 }
 
-const Input = ({ inputSize, disabled, placeholder }: InputProps) => {
+const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<string>('');
@@ -37,12 +38,13 @@ const Input = ({ inputSize, disabled, placeholder }: InputProps) => {
     <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
       {isTyping && <label>{placeholder}</label>}
       <StyledInput
+        inputType={inputType}
         inputSize={inputSize}
         disabled={disabled}
         placeholder={placeholder}
         ref={inputRef}
         onBlur={() => setIsActive(false)}
-        onChange={(event) => setIsTyping(event.target.value)}
+        onChange={(event: React.FormEvent<HTMLInputElement>) => setIsTyping(event.currentTarget.value)}
       />
     </Form>
   );
