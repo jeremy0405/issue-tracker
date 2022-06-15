@@ -1,5 +1,5 @@
 import { ReactNode } from 'react';
-import StyledButton from 'components/Button/index.styles';
+import StyledButton from 'components/Atoms/Button/index.styles';
 
 interface ButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';

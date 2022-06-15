@@ -1,6 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import React, { useRef, useState, useEffect } from 'react';
-import { Form, StyledInput } from 'components/Input/index.styles';
+import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 
 interface InputProps {
   inputType: string;
