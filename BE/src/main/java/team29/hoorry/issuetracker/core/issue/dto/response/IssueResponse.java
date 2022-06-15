@@ -13,6 +13,7 @@ import team29.hoorry.issuetracker.core.label.domain.Label;
 public class IssueResponse {
 
 	private Long id;
+	private String status;
 	private String title;
 	private List<Label> labels;
 	private List<IssueMemberResponse> assignees;

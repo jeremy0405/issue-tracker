@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.data.domain.Page;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -15,11 +16,10 @@ public class IssuesResponse {
 	private Integer labelCount;
 	private Integer milestoneCount;
 
-	private List<IssueResponse> issues;
-
 	private List<IssueMemberResponse> assignees;
 	private List<IssueLabelResponse> labels;
 	private List<IssueMilestoneSimpleResponse> milestones;
 	private List<IssueMemberResponse> writers;
 
+	private Page<IssueResponse> issues;
 }

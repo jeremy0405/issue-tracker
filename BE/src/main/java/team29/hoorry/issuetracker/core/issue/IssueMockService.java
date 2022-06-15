@@ -5,6 +5,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
@@ -34,7 +37,7 @@ public class IssueMockService {
 		return null;
 	}
 
-	public IssuesResponse findAll() {
+	public IssuesResponse findAll(String searchParam, Integer page) {
 
 		List<Label> issueLabels = List.of(
 			Label.of(1L, "bug", "#0000FF", "#B9062F", "Something isn't working"),
@@ -51,15 +54,15 @@ public class IssueMockService {
 			"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200");
 
 		List<IssueResponse> issues = List.of(
-			new IssueResponse(1L, "골든다람쥐 가기", issueLabels, assignees, "1주차 마일스톤 BE", writer,
+			new IssueResponse(1L, "OPEN", "골든다람쥐 가기", issueLabels, assignees, "1주차 마일스톤 BE", writer,
 				LocalDateTime.now()),
-			new IssueResponse(2L, "맛있겠다", issueLabels, assignees, "1주차 마일스톤 BE", writer,
+			new IssueResponse(2L, "OPEN", "맛있겠다", issueLabels, assignees, "1주차 마일스톤 BE", writer,
 				LocalDateTime.now()),
-			new IssueResponse(3L, "제리 바보 아님", issueLabels, assignees, "1주차 마일스톤 BE", writer,
+			new IssueResponse(3L, "CLOSED", "제리 바보 아님", issueLabels, assignees, "1주차 마일스톤 BE",
+				writer, LocalDateTime.now()),
+			new IssueResponse(4L, "OPEN", "천제리", issueLabels, assignees, "1주차 마일스톤 FE", writer,
 				LocalDateTime.now()),
-			new IssueResponse(4L, "천제리", issueLabels, assignees, "1주차 마일스톤 FE", writer,
-				LocalDateTime.now()),
-			new IssueResponse(5L, "후 천재", issueLabels, assignees, "1주차 마일스톤 FE", writer,
+			new IssueResponse(5L, "OPEN", "후 천재", issueLabels, assignees, "1주차 마일스톤 FE", writer,
 				LocalDateTime.now())
 		);
 
@@ -85,8 +88,12 @@ public class IssueMockService {
 				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
 		);
 
-		return new IssuesResponse(4, 2, 3, 1, issues, assignees, issueLabelResponses, milestones,
-			writers);
+		PageRequest pageable = PageRequest.of(0, 10);
+
+		Page<IssueResponse> pagedIssues = new PageImpl<>(issues, pageable, issues.size());
+
+		return new IssuesResponse(4, 2, labels.size(), milestones.size(), assignees,
+			issueLabelResponses, milestones, writers, pagedIssues);
 	}
 
 	public IssueDetailResponse findById(Long id) {
@@ -116,10 +123,13 @@ public class IssueMockService {
 		);
 
 		List<CommentResponse> comments = List.of(
-			new CommentResponse(writer, LocalDateTime.now(), LocalDateTime.now(), "배고프다..", reactions),
-			new CommentResponse(writer, LocalDateTime.now(), LocalDateTime.now(), "하리보 냠 냠", reactions)
-			);
-		return new IssueDetailResponse(1L, "도비와 도토리와 친해지고 싶은 후", labels, assignees, writer, milestone, comments);
+			new CommentResponse(writer, LocalDateTime.now(), LocalDateTime.now(), "배고프다..",
+				reactions),
+			new CommentResponse(writer, LocalDateTime.now(), LocalDateTime.now(), "하리보 냠 냠",
+				reactions)
+		);
+		return new IssueDetailResponse(1L, "도비와 도토리와 친해지고 싶은 후", labels, assignees, writer,
+			milestone, comments);
 	}
 
 	public List<Long> updateAllStatus(IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
