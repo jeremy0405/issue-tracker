@@ -17,7 +17,7 @@ public class IssueLabelResponse {
 
 	public static IssueLabelResponse from(Label label) {
 		return new IssueLabelResponse(
-			label.getLabelId(),
+			label.getId(),
 			label.getTitle(),
 			label.getBackgroundColor()
 		);
