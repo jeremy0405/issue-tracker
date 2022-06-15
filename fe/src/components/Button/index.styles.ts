@@ -3,7 +3,7 @@ import styled, { css } from 'styled-components';
 
 interface StyledButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
-  borderStyle?: 'SECONDARY';
+  buttonStyle: 'DEFAULT' | 'SECONDARY' | 'GITHUB_LOGIN';
 }
 
 const StyledButton = styled.button<StyledButtonProps>`
@@ -36,22 +36,37 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
   }}
 
-  &:hover:not([disabled]) {
-    background: ${({ theme }) => theme.colors.primary.darkBlue};
-  }
+  ${({ buttonStyle }) => {
+    if (buttonStyle === 'DEFAULT') {
+      return css`
+        &:hover:not([disabled]) {
+          background: ${({ theme }) => theme.colors.primary.darkBlue};
+        }
 
-  &:active:not([disabled]) {
-    border: 4px solid ${({ theme }) => theme.colors.primary.lightBlue};
-  }
+        &:active:not([disabled]) {
+          border: 4px solid ${({ theme }) => theme.colors.primary.lightBlue};
+        }
 
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
+        &:disabled {
+          opacity: 0.5;
+          cursor: default;
+        }
+      `;
+    }
+  }} 
 
-  ${({ size, borderStyle }) => {
+  ${({ size, buttonStyle }) => {
+    if (size !== 'LARGE') return;
+    if (buttonStyle === 'GITHUB_LOGIN') {
+      return css`
+        background: ${({ theme }) => theme.colors.titleActive};
+      `;
+    }
+  }}
+
+  ${({ size, buttonStyle }) => {
     if (size !== 'SMALL') return;
-    if (borderStyle === 'SECONDARY') {
+    if (buttonStyle === 'SECONDARY') {
       return css`
         border: 2px solid ${({ theme }) => theme.colors.primary.blue};
         color: ${({ theme }) => theme.colors.primary.blue};
