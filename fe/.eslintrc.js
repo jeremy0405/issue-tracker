@@ -72,5 +72,9 @@ module.exports = {
         semi: true,
       },
     ],
+    'no-unused-vars': 'warn',
+  },
+  globals: {
+    JSX: true,
   },
 };
