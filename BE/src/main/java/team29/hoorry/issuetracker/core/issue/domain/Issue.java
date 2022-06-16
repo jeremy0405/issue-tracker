@@ -9,6 +9,7 @@ import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -35,7 +36,7 @@ public class Issue {
 	private Status status;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "writer_id", referencedColumnName = "member_id", nullable = false)
+	@JoinColumn(name = "writer_id", nullable = false)
 	private Member writer;
 
 	@OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
