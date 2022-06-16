@@ -1,14 +1,17 @@
 import * as icons from 'components/Atoms/Icon/svgs';
+import { colors } from 'styles/theme';
 
-type IconType = keyof typeof icons;
+export type IconType = keyof typeof icons;
 
 type IconProps = {
   icon: IconType;
-  stroke: string;
+  stroke?: string;
   fill?: string;
 };
 
-const Icon = ({ icon, stroke, fill = 'none' }: IconProps) => {
+const defaultColor = colors.titleActive;
+
+const Icon = ({ icon, stroke = defaultColor, fill = 'none' }: IconProps) => {
   const SVGIcon = icons[icon];
   return <SVGIcon stroke={stroke} fill={fill} />;
 };
