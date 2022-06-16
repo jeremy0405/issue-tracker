@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 
 interface InputProps {
@@ -15,7 +15,7 @@ const defaultMaxLength = 12;
 const Input = ({ inputType, inputSize, maxLength = defaultMaxLength, disabled = false, placeholder }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isTyping, setIsTyping] = useState<string>('');
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
   const handleFormClick = () => {
     if (disabled) return;
@@ -23,17 +23,13 @@ const Input = ({ inputType, inputSize, maxLength = defaultMaxLength, disabled = 
     setIsActive(true);
   };
 
-  const checkMaxLength = (inputElement: HTMLInputElement) => {
-    if (isTyping.length >= inputElement?.maxLength) {
-      // eslint-disable-next-line no-param-reassign
-      inputElement.value = isTyping.slice(0, inputElement?.maxLength);
-    }
+  const handleFormChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    if (!value) return setIsTyping(false);
+    // eslint-disable-next-line no-param-reassign
+    if (Number(value) >= maxLength) event.currentTarget.value = value.slice(0, maxLength);
+    return setIsTyping(true);
   };
-
-  useEffect(() => {
-    if (!isTyping || !inputRef.current) return;
-    checkMaxLength(inputRef.current);
-  }, [isTyping]);
 
   return (
     <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
@@ -45,7 +41,7 @@ const Input = ({ inputType, inputSize, maxLength = defaultMaxLength, disabled = 
         placeholder={placeholder}
         ref={inputRef}
         onBlur={() => setIsActive(false)}
-        onChange={(event: React.FormEvent<HTMLInputElement>) => setIsTyping(event.currentTarget.value)}
+        onChange={handleFormChange}
       />
     </Form>
   );
