@@ -27,7 +27,7 @@ const StyledLoginAndRegister = styled.div`
 const LoginAndRegister = (): JSX.Element => {
   return (
     <StyledLoginAndRegister>
-      <Button buttonStyle="GITHUB_LOGIN" label="GitHub 계정으로 로그인" onClick={() => {}} size="LARGE" />
+      <Button buttonStyle="GITHUB_LOGIN" label="GitHub 계정으로 로그인" size="LARGE" />
       <p>or</p>
       <LoginForm />
       <Link to="#!">회원가입</Link>

@@ -11,9 +11,9 @@ const Form = styled.div`
 const LoginForm = (): JSX.Element => {
   return (
     <Form>
-      <Input inputSize="LARGE" inputType="text" onChange={() => {}} placeholder="아이디" />
-      <Input inputSize="LARGE" inputType="password" onChange={() => {}} placeholder="비밀번호" />
-      <Button buttonStyle="DEFAULT" label="아이디로 로그인" onClick={() => {}} size="LARGE" />
+      <Input inputSize="LARGE" inputType="text" placeholder="아이디" />
+      <Input inputSize="LARGE" inputType="password" placeholder="비밀번호" />
+      <Button buttonStyle="DEFAULT" label="아이디로 로그인" size="LARGE" />
     </Form>
   );
 };
