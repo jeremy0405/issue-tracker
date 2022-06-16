@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
-import Label from '.';
+import Label from 'components/Atoms/Label';
 
 export default {
   title: 'Components/Label',

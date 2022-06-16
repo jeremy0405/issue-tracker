@@ -9,6 +9,7 @@ const StyledLabel = styled.div<LabelStyleProps>`
   border-radius: 30px;
   background: ${({ color }) => color};
   ${({ theme }) => theme.fontStyles.textXSmall};
+  cursor: default;
 
   ${({ textStyle }) =>
     textStyle === 'LIGHT'

@@ -10,6 +10,7 @@ interface tabStyleProps {
 const StyledNavLink = styled(NavLink)<tabStyleProps>`
   display: flex;
   align-items: center;
+  width: fit-content;
   ${({ theme }) => theme.fontStyles.linkSmall};
   color: ${({ theme }) => theme.colors.label};
 
