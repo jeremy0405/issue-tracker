@@ -9,9 +9,9 @@ type IconProps = {
   fill?: string;
 };
 
-const defaultColor = colors.titleActive;
+const DEFAULT_COLOR = colors.titleActive;
 
-const Icon = ({ icon, stroke = defaultColor, fill = 'none' }: IconProps) => {
+const Icon = ({ icon, stroke = DEFAULT_COLOR, fill = 'none' }: IconProps) => {
   const SVGIcon = icons[icon];
   return <SVGIcon stroke={stroke} fill={fill} />;
 };

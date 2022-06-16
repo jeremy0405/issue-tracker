@@ -1,11 +1,6 @@
 export { ReactComponent as AlertCircle } from 'assets/icons/alertCircle.svg';
 export { ReactComponent as Archive } from 'assets/icons/archive.svg';
 export { ReactComponent as Calendar } from 'assets/icons/calendar.svg';
-export { ReactComponent as CheckBoxActive } from 'assets/icons/checkBoxActive.svg';
-export { ReactComponent as CheckBoxDisable } from 'assets/icons/checkBoxDisable.svg';
-export { ReactComponent as CheckBoxInitial } from 'assets/icons/checkBoxInitial.svg';
-export { ReactComponent as CheckOffCircle } from 'assets/icons/checkOffCircle.svg';
-export { ReactComponent as CheckOnCircle } from 'assets/icons/checkOnCircle.svg';
 export { ReactComponent as Edit } from 'assets/icons/edit.svg';
 export { ReactComponent as Milestone } from 'assets/icons/milestone.svg';
 export { ReactComponent as Plus } from 'assets/icons/plus.svg';

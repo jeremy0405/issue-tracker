@@ -30,41 +30,6 @@ Calendar.args = {
   fill: `${colors.primary.lightBlue}`,
 };
 
-export const CheckboxActive = Template.bind({});
-CheckboxActive.args = {
-  icon: 'CheckBoxActive',
-  stroke: `${colors.offWhite}`,
-  fill: `${colors.success.green}`,
-};
-
-export const CheckboxDisable = Template.bind({});
-CheckboxDisable.args = {
-  icon: 'CheckBoxDisable',
-  stroke: `${colors.offWhite}`,
-  fill: `${colors.error.red}`,
-};
-
-export const CheckboxInitial = Template.bind({});
-CheckboxInitial.args = {
-  icon: 'CheckBoxInitial',
-  stroke: `${colors.titleActive}`,
-  fill: `${colors.offWhite}`,
-};
-
-export const CheckoffCircle = Template.bind({});
-CheckoffCircle.args = {
-  icon: 'CheckOffCircle',
-  stroke: `${colors.titleActive}`,
-  fill: `${colors.offWhite}`,
-};
-
-export const CheckonCircle = Template.bind({});
-CheckonCircle.args = {
-  icon: 'CheckOnCircle',
-  stroke: `${colors.primary.blue}`,
-  fill: `${colors.offWhite}`,
-};
-
 export const Edit = Template.bind({});
 Edit.args = {
   icon: 'Edit',
