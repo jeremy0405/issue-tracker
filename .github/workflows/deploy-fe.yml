@@ -1,0 +1,66 @@
+name: deploy fe
+
+on:
+  push:
+    branches: [ "fe-deploy" ]
+
+permissions:
+  contents: read
+
+jobs:
+  job:
+    name: build and deploy
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: ./fe
+
+    steps:
+    - name: checkout repository
+      uses: actions/checkout@v3
+      
+    - name: set up node
+      uses: actions/setup-node@v3
+      with:
+        node-version: 14
+
+    - name: cache node modules
+      uses: actions/cache@v1
+      with:
+        path: node_modules
+        key: ${{ runner.OS }} --bulid-${{ hashFiles('**/package-lock.json') }}
+        restore-keys: |
+          ${{ runner.OS }}-build-
+          ${{ runner.OS }}-
+
+    - name: install dependencies
+      run: npm ci
+    
+    - name: react build
+      env:
+        CI: false
+      run: npm run build
+
+    - name: zip build file
+      run: zip -qq -r ./build.zip .
+      shell: bash
+
+    - name: configure AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1 
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_S3_ACCESS_KEY_ID }} 
+        aws-secret-access-key: ${{ secrets.AWS_S3_SECRET_ACCESS_KEY_ID }} 
+        aws-region: ap-northeast-2
+
+    - name: upload to S3
+      run: aws s3 cp ./build.zip s3://${{ secrets.AWS_S3_BUCKET_NAME }}/fe/build.zip
+
+    - name: configure AWS credentials 
+      uses: aws-actions/configure-aws-credentials@v1 
+      with: 
+        aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }} 
+        aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY_ID }} 
+        aws-region: ap-northeast-2
+
+    - name: CodeDeploy
+      run: aws deploy create-deployment --application-name issue-tarcker-codedeploy --deployment-config-name CodeDeployDefault.AllAtOnce --deployment-group-name issue-tracker-codedeploy-group --s3-location bucket=team29-issue-tracker,bundleType=zip,key=fe/build.zip
