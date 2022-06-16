@@ -1,10 +1,8 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
+import { ButtonProps } from 'components/Atoms/Button';
 
-interface StyledButtonProps {
-  size: 'SMALL' | 'MEDIUM' | 'LARGE';
-  buttonStyle: 'DEFAULT' | 'SECONDARY' | 'GITHUB_LOGIN';
-}
+type StyledButtonProps = Pick<ButtonProps, 'size' | 'buttonStyle'>;
 
 const StyledButton = styled.button<StyledButtonProps>`
   padding: 0px 24px;
