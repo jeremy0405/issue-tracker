@@ -30,7 +30,7 @@ public class Comment {
 	private Issue issue;
 
 	@OneToOne(fetch = FetchType.LAZY)
-	@JoinColumn(name = "writer_id", referencedColumnName = "member_id", nullable = false)
+	@JoinColumn(name = "writer_id", nullable = false)
 	private Member writer;
 
 	@Column(nullable = false)

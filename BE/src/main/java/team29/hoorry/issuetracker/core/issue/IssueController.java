@@ -6,7 +6,6 @@ import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -151,7 +150,7 @@ public class IssueController {
 	}
 
 	@Operation(
-			summary = "이슈 제목 수정",
+		summary = "이슈 제목 수정",
 		description = "이슈의 제목을 수정합니다.",
 		responses = {
 			@ApiResponse(
