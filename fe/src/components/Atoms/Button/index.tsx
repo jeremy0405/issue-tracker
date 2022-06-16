@@ -1,7 +1,7 @@
 import { ReactNode } from 'react';
 import StyledButton from 'components/Atoms/Button/index.styles';
 
-interface ButtonProps {
+export interface ButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
   buttonStyle: 'DEFAULT' | 'SECONDARY' | 'GITHUB_LOGIN';
   disabled?: boolean;
