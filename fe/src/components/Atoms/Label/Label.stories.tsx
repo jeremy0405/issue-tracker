@@ -28,6 +28,6 @@ Dark.args = {
 export const Line = Template.bind({});
 Line.args = {
   label: '레이블 이름',
-  labelStyle: 'Line',
+  labelStyle: 'LINE',
   color: colors.primary.blue,
 };
