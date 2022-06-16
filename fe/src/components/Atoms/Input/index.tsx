@@ -4,12 +4,15 @@ import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 
 interface InputProps {
   inputType: string;
+  maxLength?: number;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   disabled?: boolean;
   placeholder: string;
 }
 
-const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputProps) => {
+const defaultMaxLength = 12;
+
+const Input = ({ inputType, inputSize, maxLength = defaultMaxLength, disabled = false, placeholder }: InputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<string>('');
@@ -36,7 +39,8 @@ const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputPro
     <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
       {isTyping && <label>{placeholder}</label>}
       <StyledInput
-        inputType={inputType}
+        maxLength={maxLength}
+        type={inputType}
         disabled={disabled}
         placeholder={placeholder}
         ref={inputRef}

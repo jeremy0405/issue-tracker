@@ -14,6 +14,7 @@ Initial.args = {
   disabled: false,
   inputSize: 'LARGE',
   placeholder: '아이디',
+  maxLength: 12,
 };
 
 export const Disabled = Template.bind({});
@@ -35,4 +36,5 @@ Password.args = {
   ...Initial.args,
   inputType: 'password',
   placeholder: '비밀번호',
+  maxLength: 18,
 };

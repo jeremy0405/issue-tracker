@@ -1,10 +1,6 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
 
-type InputStyleProps = {
-  inputType: string;
-};
-
 type FormStyleProps = {
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   isActive: boolean;
@@ -73,16 +69,7 @@ export const Form = styled.form<FormStyleProps>`
   }
 `;
 
-type StyleInputAttrsProps = {
-  type: string;
-  maxLength: number;
-};
-
-const maxLength = 12;
-export const StyledInput = styled.input.attrs<InputStyleProps, StyleInputAttrsProps>(({ inputType }) => ({
-  type: inputType,
-  maxLength,
-}))<InputStyleProps>`
+export const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   border: transparent;
