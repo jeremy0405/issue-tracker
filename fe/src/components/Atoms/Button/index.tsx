@@ -7,7 +7,6 @@ interface ButtonProps {
   disabled?: boolean;
   label: string;
   children?: ReactNode;
-  onClick: () => void;
 }
 
 const Button = ({ buttonStyle = 'DEFAULT', ...props }: ButtonProps) => {

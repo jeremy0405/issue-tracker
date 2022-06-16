@@ -7,8 +7,6 @@ interface InputProps {
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   disabled?: boolean;
   placeholder: string;
-  // eslint-disable-next-line react/no-unused-prop-types
-  onChange?: () => void;
 }
 
 const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputProps) => {
@@ -39,7 +37,6 @@ const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputPro
       {isTyping && <label>{placeholder}</label>}
       <StyledInput
         inputType={inputType}
-        inputSize={inputSize}
         disabled={disabled}
         placeholder={placeholder}
         ref={inputRef}
