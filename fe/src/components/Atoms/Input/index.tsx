@@ -39,7 +39,6 @@ const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputPro
       {isTyping && <label>{placeholder}</label>}
       <StyledInput
         inputType={inputType}
-        inputSize={inputSize}
         disabled={disabled}
         placeholder={placeholder}
         ref={inputRef}

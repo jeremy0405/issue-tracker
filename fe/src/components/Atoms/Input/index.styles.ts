@@ -2,9 +2,7 @@
 import styled, { css } from 'styled-components';
 
 type InputStyleProps = {
-  inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   inputType: string;
-  disabled?: boolean;
 };
 
 type FormStyleProps = {
@@ -75,8 +73,13 @@ export const Form = styled.form<FormStyleProps>`
   }
 `;
 
+type StyleInputAttrsProps = {
+  type: string;
+  maxLength: number;
+};
+
 const maxLength = 12;
-export const StyledInput = styled.input.attrs(({ inputType }) => ({
+export const StyledInput = styled.input.attrs<InputStyleProps, StyleInputAttrsProps>(({ inputType }) => ({
   type: inputType,
   maxLength,
 }))<InputStyleProps>`
