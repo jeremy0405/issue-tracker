@@ -16,6 +16,7 @@ export const DropdonwTitle = styled.h3`
 
 export const DropdownList = styled.ul<DropdownListProps>`
   li {
+    display: grid;
     height: 44px;
 
     input {

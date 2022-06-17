@@ -24,7 +24,7 @@ ${({ theme }) => theme.dropdownIndicatorSize};
 
   &::after {
     content: ${({ icon }) => `url(${icon});`};
-    margin-top: 2px;
+    margin-top: 4px;
   }
 
   ${({ indicatorStyle }) =>

@@ -3,6 +3,8 @@ import {
   DropdonwTitle,
   DropdownList,
 } from 'components/Atoms/Dropdown/DropdownPanels/index.styles';
+import checkBoxInitial from 'assets/icons/checkBoxInitial.svg';
+import checkBoxActive from 'assets/icons/checkBoxActive.svg';
 import checkOffCircle from 'assets/icons/checkOffCircle.svg';
 import checkOnCircle from 'assets/icons/checkOnCircle.svg';
 
@@ -12,27 +14,16 @@ type DropdownListType = {
 };
 
 export interface DropdownPanelsProps {
-  panelType?: 'checkbox' | 'radio';
+  dropdownList: DropdownListType[];
+  panelType: 'checkbox' | 'radio';
   dropdownTitle?: string;
-  dropdownList?: DropdownListType[];
-  initIcon?: string;
-  activeIcon?: string;
 }
 
-const defaultDropdownList = [
-  { id: 1, title: '선택된 필터' },
-  { id: 2, title: '선택되지 않은 필터1' },
-  { id: 3, title: '선택되지 않은 필터2' },
-];
+const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', ...props }: DropdownPanelsProps) => {
+  const { dropdownList } = props;
 
-const DropdownPanels = ({
-  panelType = 'radio',
-  dropdownTitle = '필터 이름',
-  dropdownList = defaultDropdownList,
-  initIcon = checkOffCircle,
-  activeIcon = checkOnCircle,
-  ...props
-}: DropdownPanelsProps) => {
+  const [initIcon, activeIcon] =
+    panelType === 'checkbox' ? [checkBoxInitial, checkBoxActive] : [checkOffCircle, checkOnCircle];
   return (
     <StyledDropdownPanels>
       <DropdonwTitle>{dropdownTitle}</DropdonwTitle>

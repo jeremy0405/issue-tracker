@@ -1,20 +1,18 @@
-import React, { ReactNode, useState, useRef, FC, SVGProps } from 'react';
-import { ReactComponent as PaperClip } from 'assets/icons/paperclip.svg';
+import React, { ReactNode, useState, useRef } from 'react';
 import { Form, StyledTextarea, AddFile, Count } from 'components/Atoms/Textarea/index.styles';
+import Icon from 'components/Atoms/Icon/';
 
 export interface TextareaProps {
   textareaSize: 'MEDIUM' | 'LARGE';
   textareaPlaceholder?: string;
   textareaMaxLength?: number;
   children?: ReactNode;
-  Icon?: FC<SVGProps<SVGSVGElement>>;
 }
 
 const defaultTextareaMaxLength = 1000;
 const Textarea = ({
   textareaSize = 'LARGE',
   textareaMaxLength = defaultTextareaMaxLength,
-  Icon = PaperClip,
   ...props
 }: TextareaProps) => {
   const { textareaPlaceholder } = props;
@@ -59,7 +57,7 @@ const Textarea = ({
       <AddFile>
         <label className="addFile" htmlFor="addFile">
           <input id="addFile" type="file" />
-          <Icon />
+          <Icon icon="PaperClip" />
           <span>파일 첨부하기</span>
         </label>
       </AddFile>

@@ -14,7 +14,7 @@ const IssueItemInfo: IssueItemTypes = {
   title: '이슈 트래커 개발',
   labelInfo: {
     label: 'documentation',
-    labelStyle: 'DEFAULT',
+    labelStyle: 'STANDARD',
     textStyle: 'LIGHT',
     color: colors.primary.blue,
   },

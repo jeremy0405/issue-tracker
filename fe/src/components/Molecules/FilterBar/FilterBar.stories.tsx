@@ -9,5 +9,21 @@ export default {
 
 const Template: ComponentStory<typeof FilterBar> = (args) => <FilterBar {...args} />;
 
+const dropdownList = [
+  { id: 1, title: '선택된 필터' },
+  { id: 2, title: '선택되지 않은 필터1' },
+  { id: 3, title: '선택되지 않은 필터2' },
+];
+
 export const Standard = Template.bind({});
-Standard.args = {};
+Standard.args = {
+  indicatorStyle: 'FILTERBAR',
+  indicatorLabel: 'Filter',
+  dropdownList,
+  panelType: 'radio',
+  inputSize: 'SMALL',
+  inputType: 'text',
+  inputStyle: 'FILTERBAR',
+  inputValue: 'is:issue is:open',
+  inputPlaceholder: 'Search all issues',
+};

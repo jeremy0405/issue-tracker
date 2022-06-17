@@ -43,7 +43,7 @@ const StyledButton = styled.button<StyledButtonProps>`
   }}
 
   ${({ buttonStyle }) => {
-    if (buttonStyle === 'DEFAULT') {
+    if (buttonStyle === 'STANDARD') {
       return css`
         &:hover:not([disabled]) {
           background: ${({ theme }) => theme.colors.primary.darkBlue};

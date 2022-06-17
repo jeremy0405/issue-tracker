@@ -35,14 +35,14 @@ const issuesInfo: TabProps[] = [
     link: '/labels',
     count: 3,
     iconInfo: { icon: 'AlertCircle' },
-    tabStyle: 'DEFAULT',
+    tabStyle: 'STANDARD',
   },
   {
     label: '닫힌 이슈',
     link: '/milestons',
     count: 2,
     iconInfo: { icon: 'Archive', stroke: colors.titleActive },
-    tabStyle: 'DEFAULT',
+    tabStyle: 'STANDARD',
   },
 ];
 
