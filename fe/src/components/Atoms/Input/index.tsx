@@ -1,8 +1,7 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState, FC, SVGProps, Dispatch, SetStateAction } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
-
-type ActiveState = boolean;
+import Icon from 'components/Atoms/Icon/';
 
 export interface InputProps {
   inputStyle?: 'STANDARD' | 'FILTERBAR';
@@ -12,9 +11,6 @@ export interface InputProps {
   inputMaxLength?: number;
   disabled?: boolean;
   inputPlaceholder: string;
-  Icon?: FC<SVGProps<SVGSVGElement>>;
-  // isActive?: ActiveState;
-  // setIsActive?: Dispatch<SetStateAction<ActiveState>>;
 }
 
 const defaultMaxLength = 12;
@@ -25,13 +21,10 @@ const Input = ({
   inputMaxLength = defaultMaxLength,
   ...props
 }: InputProps) => {
-  const { inputType, inputSize, inputValue, inputPlaceholder, Icon } = props;
+  const { inputType, inputSize, inputValue, inputPlaceholder } = props;
   const inputRef = useRef<HTMLInputElement>(null);
-  // const { isActive, setIsActive } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
-
-  // if (inputStyle === 'FILTERBAR' && !isActive && !setIsActive) return <div />;
 
   const handleFormClick = () => {
     if (disabled) return;
@@ -50,7 +43,7 @@ const Input = ({
   return (
     <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
       {inputStyle === 'STANDARD' && isTyping && <label>{inputPlaceholder}</label>}
-      {Icon && <Icon />}
+      {inputStyle === 'FILTERBAR' && <Icon icon="Search" />}
       <StyledInput
         maxLength={inputMaxLength}
         type={inputType}

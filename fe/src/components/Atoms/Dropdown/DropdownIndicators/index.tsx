@@ -4,17 +4,17 @@ import caret from 'assets/icons/caret.svg';
 
 export interface DropdownIndicatorProps {
   indicatorStyle: 'STANDARD' | 'FILTERBAR';
-  indicatorLabel?: string;
+  indicatorLabel: string;
   icon?: string;
   state?: 'ACTIVE';
   children?: ReactNode;
 }
 
-const DropdownIndicators = ({ indicatorLabel = 'Filter', icon = caret, ...props }: DropdownIndicatorProps) => {
+const DropdownIndicators = ({ indicatorLabel, ...props }: DropdownIndicatorProps) => {
   const { indicatorStyle, state } = props;
 
   return (
-    <StyledDropdownIndicators role="button" indicatorStyle={indicatorStyle} state={state} icon={icon}>
+    <StyledDropdownIndicators role="button" indicatorStyle={indicatorStyle} state={state} icon={caret}>
       <span>{indicatorLabel}</span>
     </StyledDropdownIndicators>
   );

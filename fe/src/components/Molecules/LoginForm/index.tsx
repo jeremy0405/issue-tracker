@@ -13,7 +13,7 @@ const LoginForm = (): JSX.Element => {
     <Form>
       <Input inputSize="LARGE" inputType="text" inputPlaceholder="아이디" />
       <Input inputSize="LARGE" inputType="password" inputPlaceholder="비밀번호" />
-      <Button buttonStyle="DEFAULT" label="아이디로 로그인" size="LARGE" />
+      <Button buttonStyle="STANDARD" label="아이디로 로그인" size="LARGE" />
     </Form>
   );
 };

@@ -10,13 +10,13 @@ export interface TabProps {
   };
   label: string;
   count: number;
-  tabStyle: 'DEFAULT' | 'FILL';
+  tabStyle: 'STANDARD' | 'FILL';
   border?: 'LEFT' | 'CENTER' | 'RIGHT';
 }
 
 const defaultLink = '#!';
 
-const Tab = ({ link = defaultLink, label, count, tabStyle = 'DEFAULT', iconInfo, border }: TabProps) => {
+const Tab = ({ link = defaultLink, label, count, tabStyle = 'STANDARD', iconInfo, border }: TabProps) => {
   return (
     <StyledNavLink to={link} tabStyle={tabStyle} border={border}>
       {iconInfo && <Icon icon={iconInfo.icon} fill={iconInfo.fill} stroke={iconInfo.stroke} />}

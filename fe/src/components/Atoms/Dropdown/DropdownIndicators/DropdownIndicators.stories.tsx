@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import DropdownIndicators from 'components/Atoms/Dropdown/DropdownIndicators';
-import caret from 'assets/icons/caret.svg';
 
 export default {
   title: 'Components/Dropdown/DropdownIndicators',
@@ -12,7 +11,7 @@ const Template: ComponentStory<typeof DropdownIndicators> = (args) => <DropdownI
 export const Standard = Template.bind({});
 Standard.args = {
   indicatorStyle: 'STANDARD',
-  icon: caret,
+  indicatorLabel: 'Filter',
 };
 
 export const FilterBar = Template.bind({});

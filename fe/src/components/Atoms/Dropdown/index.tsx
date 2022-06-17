@@ -4,21 +4,15 @@ import DropdownPanels, { DropdownPanelsProps } from 'components/Atoms/Dropdown/D
 
 export type DropdownProps = DropdownIndicatorProps & DropdownPanelsProps & { open?: boolean };
 
-const Dropdown = ({ indicatorLabel = 'Filter', open = false, ...props }: DropdownProps) => {
-  const { icon, state, indicatorStyle, panelType, dropdownList, dropdownTitle, initIcon, activeIcon } = props;
+const Dropdown = ({ open = false, ...props }: DropdownProps) => {
+  const { indicatorLabel, state, indicatorStyle, panelType, dropdownList, dropdownTitle } = props;
 
   return (
     <StyledDropdown {...props} open={open} indicatorStyle={indicatorStyle}>
-      <DropdownIndicators indicatorStyle={indicatorStyle} indicatorLabel={indicatorLabel} icon={icon} state={state}>
+      <DropdownIndicators indicatorStyle={indicatorStyle} indicatorLabel={indicatorLabel} state={state}>
         <span>{indicatorLabel}</span>
       </DropdownIndicators>
-      <DropdownPanels
-        panelType={panelType}
-        dropdownList={dropdownList}
-        dropdownTitle={dropdownTitle}
-        initIcon={initIcon}
-        activeIcon={activeIcon}
-      />
+      <DropdownPanels panelType={panelType} dropdownList={dropdownList} dropdownTitle={dropdownTitle} />
     </StyledDropdown>
   );
 };

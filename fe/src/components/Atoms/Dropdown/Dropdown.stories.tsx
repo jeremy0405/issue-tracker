@@ -1,10 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Dropdown from 'components/Atoms/Dropdown';
-import caret from 'assets/icons/caret.svg';
-import checkBoxInitial from 'assets/icons/checkBoxInitial.svg';
-import checkBoxActive from 'assets/icons/checkBoxActive.svg';
-import checkOffCircle from 'assets/icons/checkOffCircle.svg';
-import checkOnCircle from 'assets/icons/checkOnCircle.svg';
 
 export default {
   title: 'Components/Dropdown',
@@ -13,10 +8,17 @@ export default {
 
 const Template: ComponentStory<typeof Dropdown> = (args) => <Dropdown {...args} />;
 
+const dropdownList = [
+  { id: 1, title: '선택된 필터' },
+  { id: 2, title: '선택되지 않은 필터1' },
+  { id: 3, title: '선택되지 않은 필터2' },
+];
+
 export const Standard = Template.bind({});
 Standard.args = {
   indicatorStyle: 'STANDARD',
-  icon: caret,
+  indicatorLabel: 'Filter',
+  dropdownList,
   open: false,
 };
 
@@ -31,8 +33,6 @@ Radio.args = {
   ...FilterBar.args,
   open: true,
   panelType: 'radio',
-  initIcon: checkOffCircle,
-  activeIcon: checkOnCircle,
 };
 
 export const CheckBox = Template.bind({});
@@ -40,6 +40,4 @@ CheckBox.args = {
   ...FilterBar.args,
   open: true,
   panelType: 'checkbox',
-  initIcon: checkBoxInitial,
-  activeIcon: checkBoxActive,
 };
