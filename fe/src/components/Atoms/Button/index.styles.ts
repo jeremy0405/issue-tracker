@@ -5,12 +5,19 @@ import { ButtonProps } from 'components/Atoms/Button';
 type StyledButtonProps = Pick<ButtonProps, 'size' | 'buttonStyle'>;
 
 const StyledButton = styled.button<StyledButtonProps>`
+  display: flex;
+  align-items: center;
+  justify-content: center;
   padding: 0px 24px;
   border: none;
   border-radius: 20px;
   background: ${({ theme }) => theme.colors.primary.blue};
   color: ${({ theme }) => theme.colors.offWhite};
   cursor: pointer;
+
+  svg {
+    margin-right: 4px;
+  }
 
   ${({ size }) => {
     // eslint-disable-next-line default-case
@@ -27,9 +34,10 @@ const StyledButton = styled.button<StyledButtonProps>`
         `;
       case 'SMALL':
         return css`
+          padding: 0px 20px;
+          border-radius: 11px;
           ${({ theme }) => theme.buttonSize.small};
           ${({ theme }) => theme.fontStyles.linkXsmall};
-          border-radius: 11px;
         `;
     }
   }}
@@ -70,15 +78,27 @@ const StyledButton = styled.button<StyledButtonProps>`
         color: ${({ theme }) => theme.colors.primary.blue};
         background: ${({ theme }) => theme.colors.offWhite};
 
+        path {
+          stroke: ${({ theme }) => theme.colors.primary.blue};
+        }
+
         &:hover:not([disabled]) {
           border: 2px solid ${({ theme }) => theme.colors.primary.darkBlue};
           color: ${({ theme }) => theme.colors.primary.darkBlue};
           background: ${({ theme }) => theme.colors.offWhite};
+
+          path {
+            stroke: ${({ theme }) => theme.colors.primary.darkBlue};
+          }
         }
 
         &:active:not([disabled]) {
           border: 4px solid ${({ theme }) => theme.colors.primary.lightBlue};
-          color: ${({ theme }) => theme.colors.primary.lightBlue};
+          color: ${({ theme }) => theme.colors.primary.blue};
+
+          path {
+            stroke: ${({ theme }) => theme.colors.primary.blue};
+          }
         }
 
         &:disabled {

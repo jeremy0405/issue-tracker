@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   titleActive: '#14142B',
   body: '#4E4B66',
   label: '#6E7191',
