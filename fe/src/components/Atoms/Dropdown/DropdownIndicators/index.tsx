@@ -10,8 +10,8 @@ export interface DropdownIndicatorProps {
   children?: ReactNode;
 }
 
-const DropdownIndicators = ({ ...props }: DropdownIndicatorProps) => {
-  const { indicatorLabel, indicatorStyle, state } = props;
+const DropdownIndicators = ({ indicatorLabel, ...props }: DropdownIndicatorProps) => {
+  const { indicatorStyle, state } = props;
 
   return (
     <StyledDropdownIndicators role="button" indicatorStyle={indicatorStyle} state={state} icon={caret}>

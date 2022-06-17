@@ -1,7 +1,6 @@
 import Dropdown, { DropdownProps } from 'components/Atoms/Dropdown';
 import Input, { InputProps } from 'components/Atoms/Input';
 import styled from 'styled-components';
-import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 
 const StyledFilterBar = styled.div`
   display: flex;
@@ -41,7 +40,6 @@ const FilterBar = (props: FilterBarProps): JSX.Element => {
         inputMaxLength={inputMaxLength}
         inputValue={inputValue}
         inputPlaceholder={inputPlaceholder}
-        Icon={SearchIcon}
       />
     </StyledFilterBar>
   );

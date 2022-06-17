@@ -84,6 +84,10 @@ export const AddFile = styled.div`
 
     color:${({ theme }) => theme.colors.label};
   }
+
+  path {
+    stroke: ${({ theme }) => theme.colors.label};
+  }
 `;
 
 export const Count = styled.p`

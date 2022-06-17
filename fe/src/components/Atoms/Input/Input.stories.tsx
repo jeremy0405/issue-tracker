@@ -1,6 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Input from 'components/Atoms/Input';
-import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
 
 export default {
   title: 'Components/Input',
@@ -48,5 +47,4 @@ FilterBar.args = {
   inputValue: 'is:issue is:open',
   inputPlaceholder: 'Search all issues',
   inputMaxLength: 25,
-  Icon: SearchIcon,
 };
