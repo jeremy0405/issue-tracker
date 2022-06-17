@@ -12,7 +12,7 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 export const Light = Template.bind({});
 Light.args = {
   label: '레이블 이름',
-  labelStyle: 'DEFAULT',
+  labelStyle: 'STANDARD',
   textStyle: 'LIGHT',
   color: colors.primary.blue,
 };
@@ -20,7 +20,7 @@ Light.args = {
 export const Dark = Template.bind({});
 Dark.args = {
   label: '레이블 이름',
-  labelStyle: 'DEFAULT',
+  labelStyle: 'STANDARD',
   textStyle: 'DARK',
   color: colors.line,
 };

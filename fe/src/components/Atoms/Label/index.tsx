@@ -3,7 +3,7 @@ import StyledLabel from 'components/Atoms/Label/index.styles';
 
 export interface LabelProps {
   label: string;
-  labelStyle: 'DEFAULT' | 'LINE';
+  labelStyle: 'STANDARD' | 'LINE';
   textStyle: 'LIGHT' | 'DARK';
   color: string;
 }

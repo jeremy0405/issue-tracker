@@ -14,7 +14,7 @@ Initial.args = {
   disabled: false,
   label: 'BUTTON',
   size: 'LARGE',
-  buttonStyle: 'DEFAULT',
+  buttonStyle: 'STANDARD',
 };
 
 export const Disabled = Template.bind({});
@@ -22,7 +22,7 @@ Disabled.args = {
   disabled: true,
   label: 'BUTTON',
   size: 'LARGE',
-  buttonStyle: 'DEFAULT',
+  buttonStyle: 'STANDARD',
 };
 
 export const GithubLogin = Template.bind({});
@@ -38,7 +38,7 @@ WithIcon.args = {
   disabled: true,
   label: 'BUTTON',
   size: 'MEDIUM',
-  buttonStyle: 'DEFAULT',
+  buttonStyle: 'STANDARD',
   iconInfo: {
     icon: 'Milestone',
     stroke: colors.offWhite,

@@ -3,7 +3,7 @@ import { NavLink } from 'react-router-dom';
 import styled, { css } from 'styled-components';
 
 interface tabStyleProps {
-  tabStyle: 'DEFAULT' | 'FILL';
+  tabStyle: 'STANDARD' | 'FILL';
   border?: 'LEFT' | 'CENTER' | 'RIGHT';
 }
 
