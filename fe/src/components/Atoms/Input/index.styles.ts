@@ -14,6 +14,14 @@ export const Form = styled.form<FormStyleProps>`
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.inputBackground};
 
+  svg {
+    margin-right: 12px;
+  }
+
+  label {
+    ${({ theme }) => theme.fontStyles.textXSmall}
+  }
+
   ${({ isActive }) =>
     isActive &&
     css`
@@ -21,10 +29,6 @@ export const Form = styled.form<FormStyleProps>`
       background: ${({ theme }) => theme.colors.offWhite};
       border: 1px solid ${({ theme }) => theme.colors.titleActive};
     `}
-
-  label {
-    ${({ theme }) => theme.fontStyles.textXSmall}
-  }
 
   ${({ inputSize }) => {
     // eslint-disable-next-line default-case
@@ -51,7 +55,12 @@ export const Form = styled.form<FormStyleProps>`
           }
         `;
     }
-  }}
+  }}  
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
@@ -62,11 +71,6 @@ export const Form = styled.form<FormStyleProps>`
     background: ${({ theme }) => theme.colors.offWhite};
     outline: 1px solid ${({ theme }) => theme.colors.titleActive};
   }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
 `;
 
 export const StyledInput = styled.input`
@@ -74,11 +78,10 @@ export const StyledInput = styled.input`
   background: transparent;
   border: transparent;
   padding: 0;
+
   ${({ theme }) => theme.fontStyles.textSmall};
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.placeholder};
-  }
+  color: ${({ theme }) => theme.colors.titleActive};
 
   &:focus {
     outline: none;
@@ -87,5 +90,9 @@ export const StyledInput = styled.input`
   &:disabled {
     opacity: 0.5;
     cursor: default;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.placeholder};
   }
 `;

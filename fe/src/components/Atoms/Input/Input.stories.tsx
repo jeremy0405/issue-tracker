@@ -1,5 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Input from 'components/Atoms/Input';
+import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
+import { useState } from 'react';
+
+// const [isActive, setIsActive] = useState<boolean>(false);
 
 export default {
   title: 'Components/Input',
@@ -13,28 +17,41 @@ Initial.args = {
   inputType: 'text',
   disabled: false,
   inputSize: 'LARGE',
-  placeholder: '아이디',
-  maxLength: 12,
+  inputPlaceholder: '아이디',
+  inputMaxLength: 12,
+  // isActive,
+  // setIsActive,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
   inputSize: 'LARGE',
-  placeholder: '아이디',
+  inputPlaceholder: '아이디',
 };
 
 export const Typing = Template.bind({});
 Typing.args = {
   ...Initial.args,
   inputSize: 'SMALL',
-  placeholder: '제목',
+  inputPlaceholder: '제목',
 };
 
 export const Password = Template.bind({});
 Password.args = {
   ...Initial.args,
   inputType: 'password',
-  placeholder: '비밀번호',
-  maxLength: 18,
+  inputPlaceholder: '비밀번호',
+  inputMaxLength: 18,
+};
+
+export const FilterBar = Template.bind({});
+FilterBar.args = {
+  ...Initial.args,
+  inputSize: 'SMALL',
+  inputStyle: 'FILTERBAR',
+  inputValue: 'is:issue is:open',
+  inputPlaceholder: 'Search all issues',
+  inputMaxLength: 25,
+  Icon: SearchIcon,
 };
