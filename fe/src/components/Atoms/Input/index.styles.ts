@@ -1,10 +1,6 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
 
-type InputStyleProps = {
-  inputType: string;
-};
-
 type FormStyleProps = {
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   isActive: boolean;
@@ -18,6 +14,14 @@ export const Form = styled.form<FormStyleProps>`
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.inputBackground};
 
+  svg {
+    margin-right: 12px;
+  }
+
+  label {
+    ${({ theme }) => theme.fontStyles.textXSmall}
+  }
+
   ${({ isActive }) =>
     isActive &&
     css`
@@ -25,10 +29,6 @@ export const Form = styled.form<FormStyleProps>`
       background: ${({ theme }) => theme.colors.offWhite};
       border: 1px solid ${({ theme }) => theme.colors.titleActive};
     `}
-
-  label {
-    ${({ theme }) => theme.fontStyles.textXSmall}
-  }
 
   ${({ inputSize }) => {
     // eslint-disable-next-line default-case
@@ -55,7 +55,12 @@ export const Form = styled.form<FormStyleProps>`
           }
         `;
     }
-  }}
+  }}  
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: default;
+  }
 
   &::placeholder {
     color: ${({ theme }) => theme.colors.placeholder};
@@ -66,32 +71,17 @@ export const Form = styled.form<FormStyleProps>`
     background: ${({ theme }) => theme.colors.offWhite};
     outline: 1px solid ${({ theme }) => theme.colors.titleActive};
   }
-
-  &:disabled {
-    opacity: 0.5;
-    cursor: default;
-  }
 `;
 
-type StyleInputAttrsProps = {
-  type: string;
-  maxLength: number;
-};
-
-const maxLength = 12;
-export const StyledInput = styled.input.attrs<InputStyleProps, StyleInputAttrsProps>(({ inputType }) => ({
-  type: inputType,
-  maxLength,
-}))<InputStyleProps>`
+export const StyledInput = styled.input`
   width: 100%;
   background: transparent;
   border: transparent;
   padding: 0;
+
   ${({ theme }) => theme.fontStyles.textSmall};
 
-  &::placeholder {
-    color: ${({ theme }) => theme.colors.placeholder};
-  }
+  color: ${({ theme }) => theme.colors.titleActive};
 
   &:focus {
     outline: none;
@@ -100,5 +90,9 @@ export const StyledInput = styled.input.attrs<InputStyleProps, StyleInputAttrsPr
   &:disabled {
     opacity: 0.5;
     cursor: default;
+  }
+
+  &::placeholder {
+    color: ${({ theme }) => theme.colors.placeholder};
   }
 `;

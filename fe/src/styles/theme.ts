@@ -1,4 +1,4 @@
-const colors = {
+export const colors = {
   titleActive: '#14142B',
   body: '#4E4B66',
   label: '#6E7191',
@@ -96,8 +96,8 @@ const textInputSize = {
 };
 
 const textAreaSize = {
-  width: '880px',
-  height: '343px',
+  medium: { width: '340px', height: '220px' },
+  large: { width: '880px', height: '343px' },
 };
 
 const theme = {

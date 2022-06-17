@@ -1,20 +1,20 @@
-import { ReactNode } from 'react';
 import StyledButton from 'components/Atoms/Button/index.styles';
+import Icon, { IconType } from 'components/Atoms/Icon';
 
-interface ButtonProps {
+export interface ButtonProps {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
-  buttonStyle: 'DEFAULT' | 'SECONDARY' | 'GITHUB_LOGIN';
+  buttonStyle: 'STANDARD' | 'SECONDARY' | 'GITHUB_LOGIN';
   disabled?: boolean;
   label: string;
-  children?: ReactNode;
+  iconInfo?: { icon: IconType; stroke?: string; fill?: string };
 }
 
-const Button = ({ buttonStyle = 'DEFAULT', ...props }: ButtonProps) => {
-  const { label, children } = props;
+const Button = ({ buttonStyle = 'STANDARD', ...props }: ButtonProps) => {
+  const { label, iconInfo } = props;
 
   return (
     <StyledButton type="button" {...props} buttonStyle={buttonStyle}>
-      {children}
+      {iconInfo && <Icon icon={iconInfo.icon} stroke={iconInfo.stroke} fill={iconInfo.fill} />}
       {label}
     </StyledButton>
   );

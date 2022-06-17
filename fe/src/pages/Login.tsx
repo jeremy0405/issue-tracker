@@ -1,9 +1,6 @@
-import { Link } from 'react-router-dom';
-
 import styled from 'styled-components';
-
+import Logo from 'components/Atoms/Logo';
 import LoginAndRegister from 'components/Organisms/LoginAndRegister';
-import { ReactComponent as Logo } from 'assets/logo/LogotypeLarge.svg';
 
 const StyledLogin = styled.div`
   height: 100vh;
@@ -20,9 +17,7 @@ const StyledLogin = styled.div`
 const Login = () => {
   return (
     <StyledLogin>
-      <Link to="/">
-        <Logo />
-      </Link>
+      <Logo logoSize="Large" />
       <LoginAndRegister />
     </StyledLogin>
   );

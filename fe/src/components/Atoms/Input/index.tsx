@@ -1,18 +1,30 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
+import Icon from 'components/Atoms/Icon/';
 
-interface InputProps {
+export interface InputProps {
+  inputStyle?: 'STANDARD' | 'FILTERBAR';
   inputType: string;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
+  inputValue?: string;
+  inputMaxLength?: number;
   disabled?: boolean;
-  placeholder: string;
+  inputPlaceholder: string;
 }
 
-const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputProps) => {
+const defaultMaxLength = 12;
+
+const Input = ({
+  inputStyle = 'STANDARD',
+  disabled = false,
+  inputMaxLength = defaultMaxLength,
+  ...props
+}: InputProps) => {
+  const { inputType, inputSize, inputValue, inputPlaceholder } = props;
   const inputRef = useRef<HTMLInputElement>(null);
   const [isActive, setIsActive] = useState<boolean>(false);
-  const [isTyping, setIsTyping] = useState<string>('');
+  const [isTyping, setIsTyping] = useState<boolean>(false);
 
   const handleFormClick = () => {
     if (disabled) return;
@@ -20,28 +32,27 @@ const Input = ({ inputType, inputSize, disabled = false, placeholder }: InputPro
     setIsActive(true);
   };
 
-  const checkMaxLength = (inputElement: HTMLInputElement) => {
-    if (isTyping.length >= inputElement?.maxLength) {
-      // eslint-disable-next-line no-param-reassign
-      inputElement.value = isTyping.slice(0, inputElement?.maxLength);
-    }
+  const handleFormChange = (event: React.FormEvent<HTMLInputElement>) => {
+    const { value } = event.currentTarget;
+    if (!value) return setIsTyping(false);
+    // eslint-disable-next-line no-param-reassign
+    if (Number(value) >= inputMaxLength) event.currentTarget.value = value.slice(0, inputMaxLength);
+    return setIsTyping(true);
   };
-
-  useEffect(() => {
-    if (!isTyping || !inputRef.current) return;
-    checkMaxLength(inputRef.current);
-  }, [isTyping]);
 
   return (
     <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
-      {isTyping && <label>{placeholder}</label>}
+      {inputStyle === 'STANDARD' && isTyping && <label>{inputPlaceholder}</label>}
+      {inputStyle === 'FILTERBAR' && <Icon icon="Search" />}
       <StyledInput
-        inputType={inputType}
+        maxLength={inputMaxLength}
+        type={inputType}
         disabled={disabled}
-        placeholder={placeholder}
+        defaultValue={inputValue}
+        placeholder={inputPlaceholder}
         ref={inputRef}
         onBlur={() => setIsActive(false)}
-        onChange={(event: React.FormEvent<HTMLInputElement>) => setIsTyping(event.currentTarget.value)}
+        onChange={handleFormChange}
       />
     </Form>
   );

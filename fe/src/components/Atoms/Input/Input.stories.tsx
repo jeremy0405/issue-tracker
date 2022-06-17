@@ -13,26 +13,38 @@ Initial.args = {
   inputType: 'text',
   disabled: false,
   inputSize: 'LARGE',
-  placeholder: '아이디',
+  inputPlaceholder: '아이디',
+  inputMaxLength: 12,
 };
 
 export const Disabled = Template.bind({});
 Disabled.args = {
   disabled: true,
   inputSize: 'LARGE',
-  placeholder: '아이디',
+  inputPlaceholder: '아이디',
 };
 
 export const Typing = Template.bind({});
 Typing.args = {
   ...Initial.args,
   inputSize: 'SMALL',
-  placeholder: '제목',
+  inputPlaceholder: '제목',
 };
 
 export const Password = Template.bind({});
 Password.args = {
   ...Initial.args,
   inputType: 'password',
-  placeholder: '비밀번호',
+  inputPlaceholder: '비밀번호',
+  inputMaxLength: 18,
+};
+
+export const FilterBar = Template.bind({});
+FilterBar.args = {
+  ...Initial.args,
+  inputSize: 'SMALL',
+  inputStyle: 'FILTERBAR',
+  inputValue: 'is:issue is:open',
+  inputPlaceholder: 'Search all issues',
+  inputMaxLength: 25,
 };
