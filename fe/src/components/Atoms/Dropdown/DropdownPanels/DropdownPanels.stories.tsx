@@ -1,9 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import DropdownPanels from 'components/Atoms/Dropdown/DropdownPanels';
-import checkBoxInitial from 'assets/icons/checkBoxInitial.svg';
-import checkBoxActive from 'assets/icons/checkBoxActive.svg';
-import checkOffCircle from 'assets/icons/checkOffCircle.svg';
-import checkOnCircle from 'assets/icons/checkOnCircle.svg';
 
 export default {
   title: 'Components/Dropdown/DropdownPanels',
@@ -23,14 +19,10 @@ Radio.args = {
   dropdownTitle: '필터이름',
   dropdownList,
   panelType: 'radio',
-  initIcon: checkOffCircle,
-  activeIcon: checkOnCircle,
 };
 
 export const CheckBox = Template.bind({});
 CheckBox.args = {
   ...Radio.args,
   panelType: 'checkbox',
-  initIcon: checkBoxInitial,
-  activeIcon: checkBoxActive,
 };

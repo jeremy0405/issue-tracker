@@ -87,6 +87,7 @@ export const AddFile = styled.div`
 `;
 
 export const Count = styled.p`
+  width: 100px;
   position: absolute;
   right: 50px;
   bottom: 60px;
