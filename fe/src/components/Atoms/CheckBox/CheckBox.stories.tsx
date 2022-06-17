@@ -6,4 +6,4 @@ export default {
   component: CheckBox,
 } as ComponentMeta<typeof CheckBox>;
 
-export const Checkbox = <CheckBox />;
+export const Checkbox = <CheckBox id={1} />;
