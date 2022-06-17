@@ -96,8 +96,8 @@ const textInputSize = {
 };
 
 const textAreaSize = {
-  width: '880px',
-  height: '343px',
+  medium: { width: '340px', height: '220px' },
+  large: { width: '880px', height: '343px' },
 };
 
 const theme = {
