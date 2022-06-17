@@ -1,9 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Input from 'components/Atoms/Input';
 import { ReactComponent as SearchIcon } from 'assets/icons/search.svg';
-import { useState } from 'react';
-
-// const [isActive, setIsActive] = useState<boolean>(false);
 
 export default {
   title: 'Components/Input',
@@ -19,8 +16,6 @@ Initial.args = {
   inputSize: 'LARGE',
   inputPlaceholder: '아이디',
   inputMaxLength: 12,
-  // isActive,
-  // setIsActive,
 };
 
 export const Disabled = Template.bind({});

@@ -1,8 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState, FC, SVGProps, Dispatch, SetStateAction } from 'react';
+import React, { useRef, useState, FC, SVGProps } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
-
-type ActiveState = boolean;
 
 export interface InputProps {
   inputStyle?: 'STANDARD' | 'FILTERBAR';
@@ -13,8 +11,6 @@ export interface InputProps {
   disabled?: boolean;
   inputPlaceholder: string;
   Icon?: FC<SVGProps<SVGSVGElement>>;
-  // isActive?: ActiveState;
-  // setIsActive?: Dispatch<SetStateAction<ActiveState>>;
 }
 
 const defaultMaxLength = 12;
@@ -27,11 +23,8 @@ const Input = ({
 }: InputProps) => {
   const { inputType, inputSize, inputValue, inputPlaceholder, Icon } = props;
   const inputRef = useRef<HTMLInputElement>(null);
-  // const { isActive, setIsActive } = props;
   const [isActive, setIsActive] = useState<boolean>(false);
   const [isTyping, setIsTyping] = useState<boolean>(false);
-
-  // if (inputStyle === 'FILTERBAR' && !isActive && !setIsActive) return <div />;
 
   const handleFormClick = () => {
     if (disabled) return;
