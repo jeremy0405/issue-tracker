@@ -7,7 +7,7 @@ export default {
   component: FilterBar,
 } as ComponentMeta<typeof FilterBar>;
 
-const Template: ComponentStory<typeof FilterBar> = (args) => <FilterBar {...args} />;
+const Template: ComponentStory<typeof FilterBar> = () => <FilterBar />;
 
 export const Standard = Template.bind({});
 Standard.args = {};
