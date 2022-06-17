@@ -1,4 +1,5 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
+import { colors } from 'styles/theme';
 import Button from 'components/Atoms/Button';
 
 export default {
@@ -32,10 +33,26 @@ GithubLogin.args = {
   buttonStyle: 'GITHUB_LOGIN',
 };
 
+export const WithIcon = Template.bind({});
+WithIcon.args = {
+  disabled: true,
+  label: 'BUTTON',
+  size: 'MEDIUM',
+  buttonStyle: 'DEFAULT',
+  iconInfo: {
+    icon: 'Milestone',
+    stroke: colors.offWhite,
+    fill: colors.offWhite,
+  },
+};
+
 export const SmallSecondary = Template.bind({});
 SmallSecondary.args = {
   disabled: false,
   label: 'BUTTON',
   size: 'SMALL',
   buttonStyle: 'SECONDARY',
+  iconInfo: {
+    icon: 'Plus',
+  },
 };
