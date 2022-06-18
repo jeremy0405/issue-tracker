@@ -31,6 +31,9 @@ public class Member {
 	@Column(length = 1000, nullable = false)
 	private String profileImageUrl;
 
+	@Column(unique = true)
+	private Long oauthId;
+
 	@Embedded
 	private DateTimeTracker dateTimeTracker;
 }
