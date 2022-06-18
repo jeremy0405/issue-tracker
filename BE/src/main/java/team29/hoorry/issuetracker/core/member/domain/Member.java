@@ -1,15 +1,14 @@
 package team29.hoorry.issuetracker.core.member.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import team29.hoorry.issuetracker.core.common.embeddable.DateTimeTracker;
+import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
 
 	@Id
 	@Column(name = "member_id")
@@ -34,6 +33,4 @@ public class Member {
 	@Column(unique = true)
 	private Long oauthId;
 
-	@Embedded
-	private DateTimeTracker dateTimeTracker;
 }
