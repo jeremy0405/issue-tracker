@@ -4,8 +4,8 @@ import java.util.List;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
 public class IssueUpdateRequest {
 
 	private Long id;

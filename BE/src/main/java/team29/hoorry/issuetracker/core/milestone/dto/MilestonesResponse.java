@@ -5,8 +5,8 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 
-@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Getter
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 public class MilestonesResponse {
 
 	private List<MilestoneDetailResponse> milestones;
