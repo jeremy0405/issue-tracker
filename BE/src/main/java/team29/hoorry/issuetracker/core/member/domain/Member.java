@@ -5,8 +5,15 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Member extends BaseTimeEntity {
 
@@ -33,4 +40,8 @@ public class Member extends BaseTimeEntity {
 	@Column(unique = true)
 	private Long oauthId;
 
+	public static Member of(String loginId, String loginPassword, String name, String email,
+		String profileImageUrl, Long oauthId) {
+		return new Member(null, loginId, loginPassword, name, email, profileImageUrl, oauthId);
+	}
 }
