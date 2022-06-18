@@ -8,7 +8,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import team29.hoorry.issuetracker.core.issue.domain.Issue;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 
 @Entity

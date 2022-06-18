@@ -17,16 +17,16 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssueFilter;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssueTitleUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
+import team29.hoorry.issuetracker.core.issue.dto.request.IssueFilter;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
+import team29.hoorry.issuetracker.core.issue.dto.request.IssueTitleUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
+import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
+import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 
 @RestController
 @RequestMapping("/api/issues")
