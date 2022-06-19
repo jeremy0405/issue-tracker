@@ -6,8 +6,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import team29.hoorry.issuetracker.core.auth.dto.AuthMemberResponse;
-import team29.hoorry.issuetracker.core.auth.dto.AuthToken;
+import team29.hoorry.issuetracker.core.auth.dto.AuthResponse;
 
 @RestController
 @RequestMapping("/api/auth")
@@ -17,11 +16,10 @@ public class AuthController {
 	private final AuthService authService;
 
 	@GetMapping
-	public ResponseEntity<AuthMemberResponse> publishToken(@RequestParam String code) {
-		AuthToken authToken = authService.publishAuthToken(code);
-		AuthMemberResponse authMemberResponse = authService.getAuthUser(authToken);
+	public ResponseEntity<AuthResponse> publishToken(@RequestParam String code) {
+		AuthResponse authResponse = authService.getAuthUser(code);
 
-		return ResponseEntity.ok(authMemberResponse);
+		return ResponseEntity.ok(authResponse);
 	}
 
 }

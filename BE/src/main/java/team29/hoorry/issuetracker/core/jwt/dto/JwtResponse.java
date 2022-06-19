@@ -14,6 +14,10 @@ public class JwtResponse {
 
 	private String refreshToken;
 
+	public JwtResponse(Long memberId) {
+		createResponse(memberId);
+	}
+
 	public void createResponse(Long memberId) {
 		this.accessToken = JwtGenerator.generateAccessToken(memberId).getToken();
 		this.refreshToken = JwtGenerator.generateRefreshToken(memberId).getToken();
