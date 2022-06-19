@@ -27,8 +27,8 @@ import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.ReactionResponse;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 
-@Service
 @Slf4j
+@Service
 public class IssueMockService {
 
 	public Long save(IssuesSaveRequest issuesSaveRequest) {

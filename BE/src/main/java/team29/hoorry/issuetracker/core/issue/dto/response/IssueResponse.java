@@ -7,9 +7,9 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueResponse {
 
 	private Long id;

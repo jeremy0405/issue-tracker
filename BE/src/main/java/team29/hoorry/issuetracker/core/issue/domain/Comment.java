@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
@@ -14,11 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
-import team29.hoorry.issuetracker.core.common.embeddable.DateTimeTracker;
+import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 import team29.hoorry.issuetracker.core.member.domain.Member;
 
 @Entity
-public class Comment {
+public class Comment extends BaseTimeEntity {
 
 	@Id
 	@Column(name = "comment_id")
@@ -38,8 +37,5 @@ public class Comment {
 
 	@OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private List<CommentReaction> reactions = new ArrayList<>();
-
-	@Embedded
-	private DateTimeTracker dateTimeTracker;
 
 }
