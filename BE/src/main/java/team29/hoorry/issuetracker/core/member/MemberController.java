@@ -19,7 +19,7 @@ public class MemberController {
 
 	@PostMapping
 	public ResponseEntity<JwtResponse> join(@RequestBody MemberRequest memberRequest) {
-		Long memberId = memberService.join(memberRequest);
-		return ResponseEntity.ok(new JwtResponse(memberId));
+		JwtResponse jwtResponse = memberService.join(memberRequest);
+		return ResponseEntity.ok(jwtResponse);
 	}
 }
