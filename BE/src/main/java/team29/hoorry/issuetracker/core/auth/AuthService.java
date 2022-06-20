@@ -12,6 +12,10 @@ import team29.hoorry.issuetracker.core.auth.dto.AuthMemberResponse;
 import team29.hoorry.issuetracker.core.auth.dto.AuthResponse;
 import team29.hoorry.issuetracker.core.auth.dto.AuthToken;
 import team29.hoorry.issuetracker.core.auth.dto.AuthTokenRequest;
+import team29.hoorry.issuetracker.core.jwt.AccessToken;
+import team29.hoorry.issuetracker.core.jwt.JwtGenerator;
+import team29.hoorry.issuetracker.core.jwt.JwtRepository;
+import team29.hoorry.issuetracker.core.jwt.RefreshToken;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.MemberRepository;
 import team29.hoorry.issuetracker.core.member.domain.Member;
@@ -22,6 +26,7 @@ import team29.hoorry.issuetracker.core.member.domain.Member;
 public class AuthService {
 
 	private final MemberRepository memberRepository;
+	private final JwtRepository jwtRepository;
 
 	public AuthResponse getAuthUser(String code) {
 		AuthMemberResponse authMemberResponse = requestAuthUser(requestAuthToken(code));
@@ -29,7 +34,13 @@ public class AuthService {
 		JwtResponse jwtResponse = new JwtResponse();
 
 		Optional<Member> findMember = memberRepository.findByOauthId(authMemberResponse.getAuthId());
-		findMember.ifPresent(member -> jwtResponse.createResponse(member.getId()));
+		if (findMember.isPresent()) {
+			Member member = findMember.get();
+			AccessToken accessToken = JwtGenerator.generateAccessToken(member.getId());
+			RefreshToken refreshToken = JwtGenerator.generateRefreshToken(member.getId());
+			jwtRepository.save(refreshToken);
+			jwtResponse = new JwtResponse(accessToken, refreshToken);
+		}
 
 		return new AuthResponse(findMember.isPresent(), authMemberResponse, jwtResponse);
 	}
