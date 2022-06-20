@@ -1,8 +1,8 @@
 import CheckBox from 'components/Atoms/CheckBox';
 import Issue from 'components/Atoms/Issue';
-import UserImage, { UserImageProps } from 'components/Atoms/UserImage';
+import UserImage, { UserTypes } from 'components/Atoms/UserImage';
 import { LabelProps } from 'components/Atoms/Label';
-import FlexDiv from 'components/Molecules/IssueList/IssueItem/index.styles';
+import FlexDiv, { AssigneeDiv } from 'components/Molecules/IssueList/IssueItem/index.styles';
 
 export interface IssueItemTypes {
   id: number;
@@ -13,19 +13,24 @@ export interface IssueItemTypes {
     id: number;
     title: string;
   };
-  userInfo: UserImageProps;
+  assignees: UserTypes[];
+  writer: UserTypes;
 }
 
 const IssueItem = (props: IssueItemTypes) => {
-  const { id, userInfo } = props;
+  const { id, assignees } = props;
+
+  const assigneeList = assignees.map((user) => {
+    return <UserImage {...user} />;
+  });
 
   return (
     <FlexDiv>
       <div>
         <CheckBox id={id} />
-        <Issue {...props} writer={userInfo.userName} />
+        <Issue {...props} />
       </div>
-      <UserImage {...userInfo} />
+      <AssigneeDiv>{assigneeList}</AssigneeDiv>
     </FlexDiv>
   );
 };

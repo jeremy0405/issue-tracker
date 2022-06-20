@@ -19,4 +19,10 @@ const FlexDiv = styled.div`
   }
 `;
 
+export const AssigneeDiv = styled.div`
+  img {
+    margin-left: -8px;
+  }
+`;
+
 export default FlexDiv;

@@ -26,11 +26,33 @@ const IssueItemInfo: IssueItemTypes = {
     id: 1,
     title: '이슈 트래커',
   },
-  userInfo: {
-    imgUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-    userName: '도톨',
-    imgSize: 'SMALL',
+  writer: {
+    id: 0,
+    loginId: '도톨',
+    profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
   },
+  assignees: [
+    {
+      id: 0,
+      loginId: '도톨',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
+    },
+    {
+      id: 1,
+      loginId: '도비',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
+    },
+    {
+      id: 2,
+      loginId: '후',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/68011320?v=4',
+    },
+    {
+      id: 3,
+      loginId: '제리',
+      profileImageUrl: 'https://avatars.githubusercontent.com/u/81368630?v=4',
+    },
+  ],
 };
 
 export const Default = Template.bind({});

@@ -1,15 +1,18 @@
 import { Link } from 'react-router-dom';
 import { colors } from 'styles/theme';
+
 import Icon from 'components/Atoms/Icon';
 import Label, { LabelProps } from 'components/Atoms/Label';
 import { InfoWrapper, StyledLi, TitleWrapper } from 'components/Atoms/Issue/Issue.styles';
+import { UserTypes } from 'components/Atoms/UserImage';
+
 import convertPreviousDate from 'helpers/convertPreviousDate';
 
 export interface IssueInfoType {
   id: number;
   title: string;
   labels: LabelProps[];
-  writer: string;
+  writer: UserTypes;
   timeStamp: string;
   milestoneInfo?: {
     id: number;
@@ -35,7 +38,7 @@ const Issue = (props: IssueInfoType) => {
       </TitleWrapper>
       <InfoWrapper>
         <span>#{id}</span>
-        <span>{`이 이슈가 ${convertPreviousDate(timeStamp)}, ${writer}님에 의해 작성되었습니다.`}</span>
+        <span>{`이 이슈가 ${convertPreviousDate(timeStamp)}, ${writer.loginId}님에 의해 작성되었습니다.`}</span>
         {milestoneInfo && (
           <Link to={`/milestones/:${milestoneInfo.id}`}>
             <Icon fill={colors.label} stroke={colors.label} icon="Milestone" />
