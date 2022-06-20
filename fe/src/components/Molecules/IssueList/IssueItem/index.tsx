@@ -7,7 +7,7 @@ import FlexDiv from 'components/Molecules/IssueList/IssueItem/index.styles';
 export interface IssueItemTypes {
   id: number;
   title: string;
-  labelInfo: LabelProps;
+  labels: LabelProps[];
   timeStamp: string;
   milestoneInfo: {
     id: number;

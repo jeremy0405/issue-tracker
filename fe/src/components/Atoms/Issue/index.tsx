@@ -8,7 +8,7 @@ import convertPreviousDate from 'helpers/convertPreviousDate';
 export interface IssueInfoType {
   id: number;
   title: string;
-  labelInfo: LabelProps;
+  labels: LabelProps[];
   writer: string;
   timeStamp: string;
   milestoneInfo?: {
@@ -18,15 +18,20 @@ export interface IssueInfoType {
 }
 
 const Issue = (props: IssueInfoType) => {
-  const { id, title, labelInfo, writer, timeStamp, milestoneInfo } = props;
-  const { label, color, labelStyle, textStyle } = labelInfo;
+  const { id, title, labels, writer, timeStamp, milestoneInfo } = props;
+
+  const labelList = labels.map((label: LabelProps) => {
+    const { titleColor, backgroundColor } = label;
+
+    return <Label {...label} backgroundColor={backgroundColor} titleColor={titleColor} />;
+  });
 
   return (
     <StyledLi>
       <TitleWrapper>
         <Icon fill={colors.primary.lightBlue} icon="AlertCircle" stroke={colors.primary.blue} />
         <Link to={`/issues/:${id}`}>{title}</Link>
-        <Label color={color} label={label} labelStyle={labelStyle} textStyle={textStyle} />
+        {labelList}
       </TitleWrapper>
       <InfoWrapper>
         <span>#{id}</span>

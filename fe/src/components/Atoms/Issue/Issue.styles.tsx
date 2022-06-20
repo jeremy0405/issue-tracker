@@ -17,6 +17,10 @@ export const TitleWrapper = styled.div`
     margin: 0 10px 0 8px;
     ${({ theme }) => theme.fontStyles.linkMedium};
   }
+
+  a + div {
+    margin-right: 4px;
+  }
 `;
 
 export const InfoWrapper = styled.div`

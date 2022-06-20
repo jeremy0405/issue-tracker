@@ -12,12 +12,22 @@ const Template: ComponentStory<typeof Issue> = (args) => <Issue {...args} />;
 const IssueInfo: IssueInfoType = {
   id: 1,
   title: '이슈 트래커 개발',
-  labelInfo: {
-    label: 'documentation',
-    labelStyle: 'STANDARD',
-    textStyle: 'LIGHT',
-    color: colors.primary.blue,
-  },
+  labels: [
+    {
+      labelId: 0,
+      labelTitle: 'documentation',
+      labelStyle: 'STANDARD',
+      titleColor: 'LIGHT',
+      backgroundColor: colors.primary.blue,
+    },
+    {
+      labelId: 1,
+      labelTitle: 'FE',
+      labelStyle: 'STANDARD',
+      titleColor: 'DARK',
+      backgroundColor: colors.secondary.lightPurple,
+    },
+  ],
   writer: '도비',
   timeStamp: '2022-06-17 13:30:00',
   milestoneInfo: {

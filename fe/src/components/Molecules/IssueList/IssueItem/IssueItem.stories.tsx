@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 import IssueItem, { IssueItemTypes } from 'components/Molecules/IssueList/IssueItem/';
 
 export default {
-  title: 'Molecules/IssueList/IssueItem',
+  title: 'Molecules/IssueList/Item',
   component: IssueItem,
 } as ComponentMeta<typeof IssueItem>;
 
@@ -12,12 +12,15 @@ const Template: ComponentStory<typeof IssueItem> = (args) => <IssueItem {...args
 const IssueItemInfo: IssueItemTypes = {
   id: 1,
   title: '이슈 트래커 개발',
-  labelInfo: {
-    label: 'documentation',
-    labelStyle: 'STANDARD',
-    textStyle: 'LIGHT',
-    color: colors.primary.blue,
-  },
+  labels: [
+    {
+      labelId: 0,
+      labelTitle: 'documentation',
+      labelStyle: 'STANDARD',
+      titleColor: 'LIGHT',
+      backgroundColor: colors.primary.blue,
+    },
+  ],
   timeStamp: '2022-06-17 13:30:00',
   milestoneInfo: {
     id: 1,
