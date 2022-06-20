@@ -1,3 +1,4 @@
+import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
 import IssueItem, { IssueItemTypes } from 'components/Molecules/IssueList/IssueItem/';
@@ -12,6 +13,7 @@ const Template: ComponentStory<typeof IssueItem> = (args) => <IssueItem {...args
 const IssueItemInfo: IssueItemTypes = {
   id: 1,
   title: '이슈 트래커 개발',
+  status: 'string',
   labels: [
     {
       labelId: 0,
@@ -21,7 +23,7 @@ const IssueItemInfo: IssueItemTypes = {
       backgroundColor: colors.primary.blue,
     },
   ],
-  timeStamp: '2022-06-17 13:30:00',
+  createdAt: '2022-06-17 13:30:00',
   milestoneInfo: {
     id: 1,
     title: '이슈 트래커',

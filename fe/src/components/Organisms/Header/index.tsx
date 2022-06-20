@@ -12,16 +12,17 @@ type UserImageType = Omit<UserTypes, 'imgSize'>;
 
 const Header = () => {
   const userInfo: UserImageType = {
+    id: 0,
     loginId: '도톨',
     profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
   };
 
-  const { loginId, profileImageUrl } = userInfo;
+  const { id, loginId, profileImageUrl } = userInfo;
 
   return (
     <FlexDiv>
       <Logo logoSize="Medium" />
-      <UserImage profileImageUrl={profileImageUrl} loginId={loginId} imgSize="MEDIUM" />
+      <UserImage id={id} profileImageUrl={profileImageUrl} loginId={loginId} imgSize="MEDIUM" />
     </FlexDiv>
   );
 };

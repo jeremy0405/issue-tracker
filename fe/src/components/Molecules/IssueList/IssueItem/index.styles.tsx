@@ -1,10 +1,10 @@
 import styled from 'styled-components';
 
-const FlexDiv = styled.div`
+const FlexDiv = styled.li`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 0 54px 0 32px;
+  padding: 16px 54px 16px 32px;
 
   div {
     display: flex;
@@ -13,8 +13,8 @@ const FlexDiv = styled.div`
       padding-top: 6px;
     }
 
-    div + li {
-      margin-left: 20px;
+    .checkbox {
+      margin-right: 32px;
     }
   }
 `;

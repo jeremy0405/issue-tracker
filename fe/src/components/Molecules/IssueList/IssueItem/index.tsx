@@ -1,3 +1,5 @@
+import React from 'react';
+
 import CheckBox from 'components/Atoms/CheckBox';
 import Issue from 'components/Atoms/Issue';
 import UserImage, { UserTypes } from 'components/Atoms/UserImage';
@@ -6,9 +8,10 @@ import FlexDiv, { AssigneeDiv } from 'components/Molecules/IssueList/IssueItem/i
 
 export interface IssueItemTypes {
   id: number;
+  status: string;
   title: string;
   labels: LabelProps[];
-  timeStamp: string;
+  createdAt: string;
   milestoneInfo: {
     id: number;
     title: string;
@@ -21,7 +24,7 @@ const IssueItem = (props: IssueItemTypes) => {
   const { id, assignees } = props;
 
   const assigneeList = assignees.map((user) => {
-    return <UserImage {...user} />;
+    return <UserImage {...user} key={`assignees-${user.id}`} />;
   });
 
   return (

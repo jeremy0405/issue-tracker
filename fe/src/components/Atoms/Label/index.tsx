@@ -4,7 +4,7 @@ import StyledLabel from 'components/Atoms/Label/index.styles';
 export interface LabelProps {
   labelId: number;
   labelTitle: string;
-  labelStyle: 'STANDARD' | 'LINE';
+  labelStyle?: 'STANDARD' | 'LINE';
   titleColor: 'LIGHT' | 'DARK';
   backgroundColor: string;
   description?: string;

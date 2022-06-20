@@ -14,7 +14,17 @@ const Tabs = ({ tabInfos }: TabInfoTypes) => {
   const Tabs1 = tabInfos.map((tab: TabProps) => {
     const { label, link, count, iconInfo, tabStyle, border } = tab;
 
-    return <Tab label={label} link={link} count={count} iconInfo={iconInfo} tabStyle={tabStyle} border={border} />;
+    return (
+      <Tab
+        key={`tab-${label}`}
+        label={label}
+        link={link}
+        count={count}
+        iconInfo={iconInfo}
+        tabStyle={tabStyle}
+        border={border}
+      />
+    );
   });
   return <StyledTabs>{Tabs1}</StyledTabs>;
 };

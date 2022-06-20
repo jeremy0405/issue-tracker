@@ -1,7 +1,8 @@
 import styled from 'styled-components';
 
-export const StyledLi = styled.li`
-  list-style: none;
+export const StyledLi = styled.div`
+  display: flex;
+  flex-direction: column;
 `;
 
 export const TitleWrapper = styled.div`
@@ -18,7 +19,7 @@ export const TitleWrapper = styled.div`
     ${({ theme }) => theme.fontStyles.linkMedium};
   }
 
-  a + div {
+  div {
     margin-right: 4px;
   }
 `;

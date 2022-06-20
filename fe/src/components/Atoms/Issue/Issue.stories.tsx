@@ -29,10 +29,11 @@ const IssueInfo: IssueInfoType = {
     },
   ],
   writer: {
+    id: 1,
     loginId: '도비',
     profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
   },
-  timeStamp: '2022-06-17 13:30:00',
+  createdAt: '2022-06-17 13:30:00',
   milestoneInfo: {
     id: 1,
     title: '이슈 트래커',
