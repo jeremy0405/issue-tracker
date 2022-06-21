@@ -19,6 +19,10 @@ export const DropdownList = styled.ul<DropdownListProps>`
     display: grid;
     height: 44px;
 
+    label {
+      background: ${({ theme }) => theme.colors.offWhite};
+    }
+
     input {
       display: none;
       &:checked ~ label::after {

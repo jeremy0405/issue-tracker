@@ -36,7 +36,7 @@ export const OpenCloseTab = styled.div`
   }
 
   svg {
-    margin-bottom: 2px;
+    margin-top: 2px;
   }
 
   .selected_issue {

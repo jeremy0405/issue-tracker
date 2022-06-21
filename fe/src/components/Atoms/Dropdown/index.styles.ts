@@ -9,9 +9,10 @@ const StyledDropdown = styled.details<StyledDropdownProps>`
 
   menu {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 45px;
     z-index: 99;
+    overflow: hidden;
   }
 
   ${({ indicatorStyle }) => {

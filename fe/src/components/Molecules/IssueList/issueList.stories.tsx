@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
-import IssueList, { IssueListTypes } from 'components/Molecules/IssueList/';
+import IssueList, { IssueListTypes, SomeTypes } from 'components/Molecules/IssueList/';
 
 export default {
   title: 'Molecules/IssueList/List',
@@ -8,6 +8,90 @@ export default {
 } as ComponentMeta<typeof IssueList>;
 
 const Template: ComponentStory<typeof IssueList> = (args) => <IssueList {...args} />;
+
+const filterTabs: SomeTypes[] = [
+  {
+    id: 1,
+    dropdownTitle: '담당자 필터',
+    dropdownList: [
+      {
+        id: 1,
+        title: '도톨',
+        profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
+      },
+      {
+        id: 2,
+        title: 'dobby',
+        profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
+      },
+    ],
+    indicatorLabel: '담당자',
+  },
+  {
+    id: 2,
+    dropdownTitle: '레이블 필터',
+    dropdownList: [
+      {
+        id: 1,
+        title: '선택된 필터',
+      },
+      {
+        id: 2,
+        backgroundColor: 'red',
+        title: 'bug',
+      },
+      {
+        id: 3,
+        title: 'dobby',
+        profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
+      },
+    ],
+    indicatorLabel: '레이블',
+  },
+  {
+    id: 3,
+    dropdownTitle: '마일스톤 필터',
+    dropdownList: [
+      {
+        id: 0,
+        backgroundColor: 'coral',
+        title: 'FE 🌈',
+      },
+      {
+        id: 1,
+        backgroundColor: 'red',
+        title: 'bug 🐛',
+      },
+      {
+        id: 2,
+        backgroundColor: 'skyblue',
+        title: 'UI 🎨',
+      },
+    ],
+    indicatorLabel: '마일스톤',
+  },
+  {
+    id: 4,
+    dropdownTitle: '작성자 필터',
+    dropdownList: [
+      {
+        id: 1,
+        title: '선택된 필터',
+      },
+      {
+        id: 2,
+        backgroundColor: 'red',
+        title: 'bug',
+      },
+      {
+        id: 3,
+        title: 'dobby',
+        profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
+      },
+    ],
+    indicatorLabel: '작성자',
+  },
+];
 
 const IssueListInfo: IssueListTypes = {
   openIssueCount: 0,
@@ -112,7 +196,14 @@ const IssueListInfo: IssueListTypes = {
       },
     ],
   },
+  filterTabs,
 };
 
 export const Default = Template.bind({});
 Default.args = IssueListInfo;
+
+export const FilterTab = Template.bind({});
+FilterTab.args = {
+  ...IssueListInfo,
+  filterTabs,
+};

@@ -12,7 +12,7 @@ const StyledNavLink = styled(NavLink).withConfig({
 })<tabStyleProps>`
   display: flex;
   align-items: center;
-  width: fit-content;
+  min-width: fit-content;
   ${({ theme }) => theme.fontStyles.linkSmall};
   color: ${({ theme }) => theme.colors.label};
 

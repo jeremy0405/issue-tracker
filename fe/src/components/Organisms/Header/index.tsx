@@ -6,6 +6,7 @@ const FlexDiv = styled.div`
   display: flex;
   justify-content: space-between;
   align-items: center;
+  padding: 27px 0 60px 0;
 `;
 
 type UserImageType = Omit<UserTypes, 'imgSize'>;

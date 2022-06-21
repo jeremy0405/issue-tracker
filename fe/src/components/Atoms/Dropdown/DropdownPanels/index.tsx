@@ -8,7 +8,7 @@ import checkOnCircle from 'assets/icons/checkOnCircle.svg';
 import UserImage from 'components/Atoms/UserImage';
 import SmallLabel from 'components/Atoms/SmallLabel';
 
-type DropdownListType = {
+export type DropdownListType = {
   id: number;
   title: string;
   backgroundColor?: string;
@@ -30,8 +30,8 @@ const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', 
       <DropdownList initIcon={checkOffCircle} activeIcon={checkOnCircle} {...props}>
         {dropdownList.map(({ id, title, backgroundColor, profileImageUrl }: DropdownListType) => (
           <li key={id}>
-            <input key={`input-${id}`} type={panelType} name="dropdownList" id={`${id}-${title}`} />
-            <label key={`label-${id}`} htmlFor={`${id}-${title}`}>
+            <input key={`input-${id}`} type={panelType} name={dropdownTitle} id={`${dropdownTitle}-${title}`} />
+            <label key={`label-${id}`} htmlFor={`${dropdownTitle}-${title}`}>
               {backgroundColor && <SmallLabel fill={backgroundColor} />}
               {profileImageUrl && <UserImage profileImageUrl={profileImageUrl} loginId={title} imgSize="SMALL" />}
               <span>{title}</span>

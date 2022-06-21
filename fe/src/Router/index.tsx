@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from 'pages/Home';
 import Login from 'pages/Login';
-import IssueList from 'pages/IssueList';
+import Issues from 'pages/Issues';
 import IssueDetail from 'pages/IssueDetail';
 import AddIssue from 'pages/AddIssue';
 import MilestoneList from 'pages/MilestoneList';
@@ -18,9 +18,9 @@ const Routers = (): JSX.Element => {
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
         <Route path="/" element={<Home />}>
-          <Route index element={isOAuth ? <IssueList /> : <Login />} />
+          <Route index element={isOAuth ? <Issues /> : <Login />} />
           <Route path="/login" element={<Login />} />
-          <Route path="/issues" element={<IssueList />} />
+          <Route path="/issues" element={<Issues />} />
           <Route path="/issues/new" element={<AddIssue />} />
           <Route path="/issues/:issueId" element={<IssueDetail />} />
           <Route path="/labels" element={<LabelList />} />

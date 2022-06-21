@@ -12,7 +12,6 @@ export const StyledSideBar = styled.div`
   menu {
     left: 0px;
     top: 37px;
-    background: ${colors.offWhite};
   }
 
   summary {
