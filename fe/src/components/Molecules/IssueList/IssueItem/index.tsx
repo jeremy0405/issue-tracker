@@ -1,31 +1,39 @@
 import CheckBox from 'components/Atoms/CheckBox';
 import Issue from 'components/Atoms/Issue';
-import UserImage, { UserImageProps } from 'components/Atoms/UserImage';
+import UserImage, { UserTypes } from 'components/Atoms/UserImage';
 import { LabelProps } from 'components/Atoms/Label';
-import FlexDiv from 'components/Molecules/IssueList/IssueItem/index.styles';
+import FlexDiv, { AssigneeDiv } from 'components/Molecules/IssueList/IssueItem/index.styles';
 
 export interface IssueItemTypes {
   id: number;
+  status: string;
   title: string;
-  labelInfo: LabelProps;
-  timeStamp: string;
+  labels: LabelProps[];
+  createdAt: string;
   milestoneInfo: {
     id: number;
     title: string;
   };
-  userInfo: UserImageProps;
+  assignees: UserTypes[];
+  writer: UserTypes;
+  checkedItemHandler: (id: string, isChecked: boolean) => void;
+  checkedIssue: string[];
 }
 
 const IssueItem = (props: IssueItemTypes) => {
-  const { id, userInfo } = props;
+  const { id, assignees, checkedItemHandler, checkedIssue } = props;
+
+  const assigneeList = assignees.map((user) => {
+    return <UserImage {...user} key={`assignees-${user.id}`} />;
+  });
 
   return (
     <FlexDiv>
       <div>
-        <CheckBox id={id} />
-        <Issue {...props} writer={userInfo.userName} />
+        <CheckBox id={id} checkedItemHandler={checkedItemHandler} checkedIssue={checkedIssue} />
+        <Issue {...props} />
       </div>
-      <UserImage {...userInfo} />
+      <AssigneeDiv>{assigneeList}</AssigneeDiv>
     </FlexDiv>
   );
 };

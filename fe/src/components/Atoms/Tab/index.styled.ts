@@ -7,7 +7,9 @@ interface tabStyleProps {
   border?: 'LEFT' | 'CENTER' | 'RIGHT';
 }
 
-const StyledNavLink = styled(NavLink)<tabStyleProps>`
+const StyledNavLink = styled(NavLink).withConfig({
+  shouldForwardProp: (prop) => !['tabStyle', 'border'].includes(prop),
+})<tabStyleProps>`
   display: flex;
   align-items: center;
   width: fit-content;

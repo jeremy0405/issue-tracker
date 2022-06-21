@@ -1,7 +1,7 @@
 import styled, { css } from 'styled-components';
-import { UserImageProps } from 'components/Atoms/UserImage/';
+import { UserTypes } from 'components/Atoms/UserImage/';
 
-type UserImageStyleProps = Pick<UserImageProps, 'imgSize'>;
+type UserImageStyleProps = Pick<UserTypes, 'imgSize'>;
 
 const StyledImg = styled.img<UserImageStyleProps>`
   border: 1px solid ${({ theme }) => theme.colors.line};

@@ -1,18 +1,18 @@
 import styled, { css } from 'styled-components';
 import { LabelProps } from 'components/Atoms/Label/';
 
-type LabelStyleProps = Pick<LabelProps, 'labelStyle' | 'textStyle' | 'color'>;
+type LabelStyleProps = Pick<LabelProps, 'labelStyle' | 'titleColor' | 'backgroundColor'>;
 
 const StyledLabel = styled.div<LabelStyleProps>`
   width: fit-content;
   padding: 4px 16px;
   border-radius: 30px;
-  background: ${({ color }) => color};
+  background: ${({ backgroundColor }) => backgroundColor};
   ${({ theme }) => theme.fontStyles.textXSmall};
   cursor: default;
 
-  ${({ textStyle }) =>
-    textStyle === 'LIGHT'
+  ${({ titleColor }) =>
+    titleColor === 'LIGHT'
       ? css`
           color: ${({ theme }) => theme.colors.offWhite};
         `

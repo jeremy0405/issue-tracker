@@ -1,15 +1,17 @@
 import StyledImg from 'components/Atoms/UserImage/UserImage.styles';
 
-export interface UserImageProps {
-  imgUrl: string;
-  userName: string;
-  imgSize: 'MEDIUM' | 'SMALL';
+export interface UserTypes {
+  id: number;
+  loginId: string;
+  profileImageUrl: string;
+  imgSize?: 'MEDIUM' | 'SMALL';
 }
 
-const UserImage = ({ imgUrl, userName, imgSize }: UserImageProps) => {
-  const imgAlt = `${userName}의 프로필 사진`;
+const UserImage = ({ imgSize = 'SMALL', ...props }: UserTypes) => {
+  const { profileImageUrl, loginId } = props;
+  const imgAlt = `${loginId}의 프로필 사진`;
 
-  return <StyledImg src={imgUrl} alt={imgAlt} imgSize={imgSize} />;
+  return <StyledImg src={profileImageUrl} alt={imgAlt} imgSize={imgSize} />;
 };
 
 export default UserImage;
