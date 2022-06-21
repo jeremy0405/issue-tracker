@@ -1,4 +1,3 @@
-import React from 'react';
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
 import IssueItem, { IssueItemTypes } from 'components/Molecules/IssueList/IssueItem/';
@@ -9,6 +8,8 @@ export default {
 } as ComponentMeta<typeof IssueItem>;
 
 const Template: ComponentStory<typeof IssueItem> = (args) => <IssueItem {...args} />;
+
+const checkedIssue: string[] = [];
 
 const IssueItemInfo: IssueItemTypes = {
   id: 1,
@@ -55,6 +56,11 @@ const IssueItemInfo: IssueItemTypes = {
       profileImageUrl: 'https://avatars.githubusercontent.com/u/81368630?v=4',
     },
   ],
+  checkedItemHandler: (id: string, isChecked: boolean) => {
+    // eslint-disable-next-line no-unused-expressions
+    isChecked ? checkedIssue.push(id) : checkedIssue.pop();
+  },
+  checkedIssue,
 };
 
 export const Default = Template.bind({});
