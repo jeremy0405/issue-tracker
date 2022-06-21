@@ -11,3 +11,4 @@ export { ReactComponent as Tag } from 'assets/icons/tag.svg';
 export { ReactComponent as Trash } from 'assets/icons/trash.svg';
 export { ReactComponent as XSquare } from 'assets/icons/xSquare.svg';
 export { ReactComponent as PaperClip } from 'assets/icons/paperclip.svg';
+export { ReactComponent as Caret } from 'assets/icons/caret.svg';
