@@ -5,7 +5,8 @@ import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import team29.hoorry.issuetracker.core.exception.NullTokenException;
+import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
+import team29.hoorry.issuetracker.core.exception.EmptyTokenException;
 import team29.hoorry.issuetracker.core.jwt.AccessToken;
 import team29.hoorry.issuetracker.core.jwt.JwtConst;
 import team29.hoorry.issuetracker.core.jwt.JwtGenerator;
@@ -44,11 +45,11 @@ public class MemberService {
 
 		//todo 에러 메시지 전역적으로 관리해야 함!!! interceptor 에도 동일 메시지 있음!!!!!
 		if (bearerAuthorization == null) {
-			throw new NullTokenException("토큰이 존재하지 않습니다.");
+			throw new EmptyTokenException(ExceptionMessage.NO_TOKEN_MESSAGE);
 		}
 
 		if (!jwtValidator.validate(bearerAuthorization)) {
-			throw new JwtException("토큰이 유효하지 않습니다.");
+			throw new JwtException(ExceptionMessage.INVALID_TOKEN_MESSAGE);
 		}
 
 		Long memberId = JwtParser.parseClaim(bearerAuthorization, "memberId", Long.class);
