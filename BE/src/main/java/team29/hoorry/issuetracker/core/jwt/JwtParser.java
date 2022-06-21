@@ -5,7 +5,6 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
-import org.springdoc.api.ErrorMessage;
 import team29.hoorry.issuetracker.core.exception.EmptyTokenException;
 import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
 

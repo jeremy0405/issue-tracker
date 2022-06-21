@@ -4,7 +4,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.jwt.AccessToken;
-import team29.hoorry.issuetracker.core.jwt.JwtGenerator;
 import team29.hoorry.issuetracker.core.jwt.RefreshToken;
 
 @Getter

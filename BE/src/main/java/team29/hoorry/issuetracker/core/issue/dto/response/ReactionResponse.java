@@ -4,6 +4,7 @@ import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
 @Getter
 @NoArgsConstructor
@@ -11,6 +12,6 @@ import lombok.NoArgsConstructor;
 public class ReactionResponse {
 
 	private String emoji;
-	private List<IssueMemberResponse> members;
+	private List<MemberResponse> members;
 
 }

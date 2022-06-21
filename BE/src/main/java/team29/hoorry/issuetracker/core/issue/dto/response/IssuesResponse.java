@@ -5,6 +5,7 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.springframework.data.domain.Page;
+import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
 @Getter
 @NoArgsConstructor
@@ -16,10 +17,10 @@ public class IssuesResponse {
 	private Integer labelCount;
 	private Integer milestoneCount;
 
-	private List<IssueMemberResponse> assignees;
+	private List<MemberResponse> assignees;
 	private List<IssueLabelResponse> labels;
 	private List<IssueMilestoneSimpleResponse> milestones;
-	private List<IssueMemberResponse> writers;
+	private List<MemberResponse> writers;
 
 	private Page<IssueResponse> issues;
 }
