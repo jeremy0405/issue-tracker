@@ -2,7 +2,7 @@ import { colors } from 'styles/theme';
 import StyledLabel from 'components/Atoms/Label/index.styles';
 
 export interface LabelProps {
-  labelId: number;
+  labelId?: number;
   labelTitle: string;
   labelStyle?: 'STANDARD' | 'LINE';
   titleColor: 'LIGHT' | 'DARK';

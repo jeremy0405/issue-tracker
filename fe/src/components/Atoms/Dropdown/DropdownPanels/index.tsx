@@ -33,7 +33,7 @@ const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', 
             <input key={`input-${id}`} type={panelType} name="dropdownList" id={`${id}-${title}`} />
             <label key={`label-${id}`} htmlFor={`${id}-${title}`}>
               {backgroundColor && <SmallLabel fill={backgroundColor} />}
-              {profileImageUrl && <UserImage imgUrl={profileImageUrl} userName={title} imgSize="SMALL" />}
+              {profileImageUrl && <UserImage profileImageUrl={profileImageUrl} loginId={title} imgSize="SMALL" />}
               <span>{title}</span>
             </label>
           </li>

@@ -63,7 +63,7 @@ const SideBar = ({ sideBarList }: SideBarProps): JSX.Element => {
                 if ('loginId' in props)
                   return (
                     <User key={props.id}>
-                      <UserImage imgUrl={props.profileImageUrl} userName={props.loginId} imgSize="MEDIUM" />
+                      <UserImage profileImageUrl={props.profileImageUrl} loginId={props.loginId} imgSize="MEDIUM" />
                       <p>{props.loginId}</p>
                     </User>
                   );
@@ -72,10 +72,10 @@ const SideBar = ({ sideBarList }: SideBarProps): JSX.Element => {
                   return (
                     <Label
                       key={props.id}
-                      color={props.backgroundColor}
-                      label={props.title}
+                      backgroundColor={props.backgroundColor}
+                      labelTitle={props.title}
                       labelStyle="STANDARD"
-                      textStyle="LIGHT"
+                      titleColor="LIGHT"
                     />
                   );
                 if ('progress' in props)

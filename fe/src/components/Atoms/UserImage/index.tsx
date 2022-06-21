@@ -1,7 +1,7 @@
 import StyledImg from 'components/Atoms/UserImage/UserImage.styles';
 
 export interface UserTypes {
-  id: number;
+  id?: number;
   loginId: string;
   profileImageUrl: string;
   imgSize?: 'MEDIUM' | 'SMALL';
