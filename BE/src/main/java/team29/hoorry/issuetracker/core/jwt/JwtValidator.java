@@ -3,7 +3,8 @@ package team29.hoorry.issuetracker.core.jwt;
 import io.jsonwebtoken.JwtException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
-import team29.hoorry.issuetracker.core.exception.MemberNotFoundException;
+import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
+import team29.hoorry.issuetracker.core.exception.InvalidTokenException;
 import team29.hoorry.issuetracker.core.member.MemberRepository;
 
 
@@ -17,7 +18,7 @@ public class JwtValidator {
 		try {
 			Long memberId = JwtParser.parseClaim(bearerAuthorization, "memberId", Long.class);
 			memberRepository.findById(memberId)
-				.orElseThrow(() -> new MemberNotFoundException("해당 memberId를 가진 멤버는 없습니다."));
+				.orElseThrow(() -> new InvalidTokenException(ExceptionMessage.NO_MEMBER_MESSAGE));
 		} catch (JwtException | IllegalArgumentException e) {
 			return false;
 		}
