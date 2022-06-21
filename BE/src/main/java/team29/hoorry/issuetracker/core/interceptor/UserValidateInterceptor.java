@@ -18,6 +18,12 @@ public class UserValidateInterceptor implements HandlerInterceptor {
 	@Override
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
 		throws Exception {
+		// Swagger 관련 요청 제외
+		String uri = request.getRequestURI();
+		if (uri.contains("swagger") || uri.contains("api-docs") || uri.contains("webjars")) {
+			return true;
+		}
+
 		String token = request.getHeader(JwtConst.AUTHORIZATION);
 
 		if (token == null) {
