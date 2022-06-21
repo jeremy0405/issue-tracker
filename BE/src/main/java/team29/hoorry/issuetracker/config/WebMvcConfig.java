@@ -2,6 +2,7 @@ package team29.hoorry.issuetracker.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.web.servlet.config.annotation.CorsRegistry;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import team29.hoorry.issuetracker.core.interceptor.UserValidateInterceptor;
@@ -18,5 +19,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 		registry.addInterceptor(new UserValidateInterceptor(jwtValidator))
 			.addPathPatterns("/**")
 			.excludePathPatterns("/api/auth", "/api/members", "/api/members/re-issue-token");
+	}
+
+	@Override
+	public void addCorsMappings(CorsRegistry registry) {
+		registry.addMapping("/**")
+			.allowedOrigins("http://localhost:80", "http://localhost:3000")
+			.allowCredentials(true);
 	}
 }
