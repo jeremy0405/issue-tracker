@@ -5,6 +5,9 @@ import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
 import lombok.AccessLevel;
 import lombok.NoArgsConstructor;
+import org.springdoc.api.ErrorMessage;
+import team29.hoorry.issuetracker.core.exception.EmptyTokenException;
+import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
 
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 public class JwtParser {
@@ -22,6 +25,9 @@ public class JwtParser {
 	}
 
 	private static String extractToken(String bearerAuthorization) {
-		return bearerAuthorization.split(" ")[1];
+		if (bearerAuthorization.split(" ").length > 1) {
+			return bearerAuthorization.split(" ")[1];
+		}
+		throw new EmptyTokenException(ExceptionMessage.NO_TOKEN_MESSAGE);
 	}
 }
