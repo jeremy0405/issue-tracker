@@ -1,36 +1,34 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
+import { InputProps } from 'components/Atoms/Input';
 
-type FormStyleProps = {
-  inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
-  isActive: boolean;
-};
+type FormStyleProps = Pick<InputProps, 'inputSize' | 'isActive' | 'inputStyle'>;
 
 export const Form = styled.form<FormStyleProps>`
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: center;
+  align-items: center;
   border: none;
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.inputBackground};
 
   svg {
-    margin-right: 12px;
+    margin: 0px 12px 0px 26px;
   }
 
   label {
     ${({ theme }) => theme.fontStyles.textXSmall}
   }
 
-  ${({ isActive }) =>
-    isActive &&
-    css`
-      color: ${({ theme }) => theme.colors.placeholder};
-      background: ${({ theme }) => theme.colors.offWhite};
-      border: 1px solid ${({ theme }) => theme.colors.titleActive};
-    `}
-
-  ${({ inputSize }) => {
+  ${({ inputStyle, inputSize }) => {
+    if (inputStyle === 'FILTERBAR')
+      return css`
+        width: 472px;
+        height: 40px;
+        border: 1px solid ${({ theme }) => theme.colors.line};
+        border-left: none;
+      `;
     // eslint-disable-next-line default-case
     switch (inputSize) {
       case 'LARGE':
@@ -55,7 +53,16 @@ export const Form = styled.form<FormStyleProps>`
           }
         `;
     }
-  }}  
+  }}
+
+  ${({ isActive, inputStyle }) =>
+    isActive &&
+    css`
+      color: ${({ theme }) => theme.colors.placeholder};
+      background: ${({ theme }) => theme.colors.offWhite};
+      border: 1px solid ${({ theme }) => theme.colors.titleActive};
+      ${inputStyle === 'FILTERBAR' && `border-left:none;`}
+    `}
   
   &:disabled {
     opacity: 0.5;

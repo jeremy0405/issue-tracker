@@ -1,3 +1,4 @@
+/* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
 import { DropdownProps } from 'components/Atoms/Dropdown';
 
@@ -13,14 +14,26 @@ const StyledDropdown = styled.details<StyledDropdownProps>`
     z-index: 99;
   }
 
-  ${({ indicatorStyle }) =>
-    indicatorStyle === 'FILTERBAR' &&
-    css`
-      &[open] > summary {
-        color: ${({ theme }) => theme.colors.body};
-        background: ${({ theme }) => theme.colors.line};
-      }
-    `}
+  ${({ indicatorStyle }) => {
+    // eslint-disable-next-line default-case
+    switch (indicatorStyle) {
+      case 'FILTERBAR':
+        return css`
+          &[open] > summary {
+            color: ${({ theme }) => theme.colors.body};
+            background: ${({ theme }) => theme.colors.line};
+          }
+        `;
+
+      case 'SIDEBAR':
+        return css`
+          menu {
+            left: 25px;
+            top: 61px;
+          }
+        `;
+    }
+  }}
 
   &[open] > summary::before {
     position: fixed;

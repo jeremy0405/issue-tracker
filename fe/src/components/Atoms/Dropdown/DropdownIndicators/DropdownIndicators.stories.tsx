@@ -19,9 +19,18 @@ FilterBar.args = {
   ...Standard.args,
   indicatorStyle: 'FILTERBAR',
 };
+FilterBar.storyName = 'FilterBar';
 
 export const Active = Template.bind({});
 Active.args = {
   ...FilterBar.args,
-  state: 'ACTIVE',
+  isActive: true,
 };
+Active.storyName = 'FilterBar(Active)';
+
+export const SideBar = Template.bind({});
+SideBar.args = {
+  indicatorStyle: 'SIDEBAR',
+  indicatorLabel: '담당자',
+};
+SideBar.storyName = 'SideBar';

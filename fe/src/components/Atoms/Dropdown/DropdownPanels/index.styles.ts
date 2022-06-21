@@ -32,6 +32,12 @@ export const DropdownList = styled.ul<DropdownListProps>`
 
     label {
       display: flex;
+
+      svg,
+      img {
+        margin-right: 8px;
+      }
+
       &::after {
         content: ${({ initIcon }) => `url(${initIcon});`};
         margin-left: auto;
