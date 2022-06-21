@@ -30,7 +30,7 @@ export const colors = {
   },
 };
 
-const fontStyles = {
+export const fontStyles = {
   displayRegular: {
     fontWeight: 400,
     fontSize: '32px',
