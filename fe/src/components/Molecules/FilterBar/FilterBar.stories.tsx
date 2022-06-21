@@ -25,5 +25,6 @@ Standard.args = {
   inputType: 'text',
   inputStyle: 'FILTERBAR',
   inputValue: 'is:issue is:open',
+  inputMaxLength: 53,
   inputPlaceholder: 'Search all issues',
 };
