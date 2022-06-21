@@ -37,10 +37,10 @@ const Issue = (props: IssueInfoType) => {
         <span>#{id}</span>
         <span>{`이 이슈가 ${convertPreviousDate(createdAt)}, ${writer.loginId}님에 의해 작성되었습니다.`}</span>
         {milestone && (
-          <span>
+          <Link to="/milestones">
             <Icon fill={colors.label} stroke={colors.label} icon="Milestone" />
             {milestone}
-          </span>
+          </Link>
         )}
       </InfoWrapper>
     </StyledLi>

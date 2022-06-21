@@ -22,6 +22,10 @@ export const IssueTitle = styled.div`
   padding: 18px 40px 18px 32px;
   border-radius: 16px 16px 0px 0px;
   border-bottom: 1px solid ${({ theme }) => theme.colors.line};
+
+  .checkbox label {
+    margin-top: 4px;
+  }
 `;
 
 export const OpenCloseTab = styled.div`
