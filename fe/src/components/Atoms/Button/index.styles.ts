@@ -61,8 +61,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
   }} 
 
-  ${({ size, buttonStyle }) => {
-    if (size !== 'LARGE') return;
+  ${({ buttonStyle }) => {
     if (buttonStyle === 'GITHUB_LOGIN') {
       return css`
         background: ${({ theme }) => theme.colors.titleActive};
@@ -70,8 +69,7 @@ const StyledButton = styled.button<StyledButtonProps>`
     }
   }}
 
-  ${({ size, buttonStyle }) => {
-    if (size !== 'SMALL') return;
+  ${({ buttonStyle }) => {
     if (buttonStyle === 'SECONDARY') {
       return css`
         border: 2px solid ${({ theme }) => theme.colors.primary.blue};
@@ -104,6 +102,25 @@ const StyledButton = styled.button<StyledButtonProps>`
         &:disabled {
           opacity: 0.5;
           cursor: default;
+        }
+      `;
+    }
+  }}
+
+  ${({ buttonStyle }) => {
+    if (buttonStyle === 'NO_BORDER') {
+      return css`
+        width: fit-content;
+        border: none;
+        padding: 0;
+        background: none;
+        color: ${({ theme }) => theme.colors.body};
+
+        &:hover {
+          color: ${({ theme }) => theme.colors.error.red};
+          svg {
+            stroke: ${({ theme }) => theme.colors.error.red};
+          }
         }
       `;
     }

@@ -56,3 +56,14 @@ SmallSecondary.args = {
     icon: 'Plus',
   },
 };
+
+export const NoBorder = Template.bind({});
+NoBorder.args = {
+  disabled: false,
+  label: 'BUTTON',
+  size: 'SMALL',
+  buttonStyle: 'NO_BORDER',
+  iconInfo: {
+    icon: 'Plus',
+  },
+};
