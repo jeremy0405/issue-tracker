@@ -6,9 +6,9 @@ type FormStyleProps = Pick<InputProps, 'inputSize' | 'isActive' | 'inputStyle'>;
 
 export const Form = styled.form<FormStyleProps>`
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
   border: none;
   border-radius: 16px;
   background: ${({ theme }) => theme.colors.inputBackground};
@@ -24,6 +24,8 @@ export const Form = styled.form<FormStyleProps>`
   ${({ inputStyle, inputSize }) => {
     if (inputStyle === 'FILTERBAR')
       return css`
+        flex-direction: row;
+        align-items: center;
         width: 472px;
         height: 40px;
         border: 1px solid ${({ theme }) => theme.colors.line};

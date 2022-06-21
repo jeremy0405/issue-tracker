@@ -1,5 +1,7 @@
 /* eslint-disable react/jsx-no-bind */
+import React from 'react';
 import { useQuery } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import styled from 'styled-components';
 import FilterBar from 'components/Molecules/FilterBar';
@@ -30,12 +32,17 @@ const StyledDiv = styled.div`
 `;
 
 const Issues = () => {
+  const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues'), { cacheTime: Infinity });
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
-  const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues'), { suspense: true });
+  const navigate = useNavigate();
 
   if (isLoading) return <div>loading</div>;
   if (error) return <div>error</div>;
   if (!data) return <div>data 없음</div>;
+
+  const HandleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
+    navigate('/issues/new');
+  };
 
   return (
     <>
@@ -56,7 +63,12 @@ const Issues = () => {
           onClick={onClickInput}
           panelType="radio"
         />
-        <SubNav labelCount={data.labelCount} milestoneCount={data.milestoneCount} buttonText="이슈 작성" />
+        <SubNav
+          labelCount={data.labelCount}
+          milestoneCount={data.milestoneCount}
+          buttonText="이슈 작성"
+          HandleOnClick={HandleOnClick}
+        />
       </StyledDiv>
       <IssueList
         openIssueCount={data.openIssueCount}

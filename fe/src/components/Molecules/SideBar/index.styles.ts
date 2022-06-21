@@ -8,6 +8,8 @@ export const StyledSideBar = styled.div`
   border-style: hidden;
   border-radius: 16px;
   box-shadow: 0 0 0 1px ${colors.line};
+  width: fit-content;
+  height: fit-content;
 
   menu {
     left: 0px;

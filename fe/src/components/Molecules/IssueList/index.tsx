@@ -39,7 +39,7 @@ const IssueList = (props: IssueListTypes) => {
         icon: 'AlertCircle',
       },
       label: '열린 이슈',
-      link: '/labels',
+      link: '/issues?q=is:open',
       tabStyle: 'STANDARD',
     },
     {
@@ -49,7 +49,7 @@ const IssueList = (props: IssueListTypes) => {
         stroke: '#14142B',
       },
       label: '닫힌 이슈',
-      link: '/milestons',
+      link: '/issues?q=is:closed',
       tabStyle: 'STANDARD',
     },
   ];

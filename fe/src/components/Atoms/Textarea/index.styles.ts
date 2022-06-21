@@ -20,7 +20,10 @@ export const Form = styled.form<StyledFormProps>`
         background: ${theme.colors.offWhite};
         border: 1px solid ${theme.colors.titleActive};
       `;
-    return `background: ${theme.colors.background}`;
+    return css`
+      background: ${theme.colors.inputBackground};
+      border: 1px solid ${theme.colors.inputBackground};
+    `;
   }};
 
   label.textarea {

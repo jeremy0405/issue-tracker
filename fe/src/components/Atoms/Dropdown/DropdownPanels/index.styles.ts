@@ -15,12 +15,15 @@ export const DropdonwTitle = styled.h3`
 `;
 
 export const DropdownList = styled.ul<DropdownListProps>`
+  background: ${({ theme }) => theme.colors.offWhite};
+
   li {
     display: grid;
     height: 44px;
 
     label {
-      background: ${({ theme }) => theme.colors.offWhite};
+      color: ${({ theme }) => theme.colors.body};
+      ${({ theme }) => theme.fontStyles.textSmall};
     }
 
     input {
@@ -62,7 +65,7 @@ export const StyledDropdownPanels = styled.menu`
   label {
     display: grid;
     align-items: center;
-    padding: 8px 16px;
+    padding: 7px 16px;
   }
 
   border: 1px solid ${({ theme }) => theme.colors.line};

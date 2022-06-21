@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import Button from 'components/Atoms/Button';
 import Tabs from 'components/Molecules/Tabs';
+import React from 'react';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -12,9 +13,10 @@ interface SubNavTypes {
   labelCount: number;
   milestoneCount: number;
   buttonText: string;
+  HandleOnClick: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const SubNav = ({ labelCount, milestoneCount, buttonText }: SubNavTypes) => {
+const SubNav = ({ labelCount, milestoneCount, buttonText, HandleOnClick }: SubNavTypes) => {
   return (
     <StyledDiv>
       <Tabs
@@ -51,6 +53,7 @@ const SubNav = ({ labelCount, milestoneCount, buttonText }: SubNavTypes) => {
         }}
         label={buttonText}
         size="SMALL"
+        HandleOnClick={HandleOnClick}
       />
     </StyledDiv>
   );

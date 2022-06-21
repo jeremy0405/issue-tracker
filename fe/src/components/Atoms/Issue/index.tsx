@@ -30,7 +30,7 @@ const Issue = (props: IssueInfoType) => {
     <StyledLi>
       <TitleWrapper>
         <Icon fill={colors.primary.lightBlue} icon="AlertCircle" stroke={colors.primary.blue} />
-        <Link to={`/issues/:${id}`}>{title}</Link>
+        <Link to={`/issues/${id}`}>{title}</Link>
         {labelList}
       </TitleWrapper>
       <InfoWrapper>
