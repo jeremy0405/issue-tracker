@@ -19,13 +19,13 @@ import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateReque
 import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueMemberResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneSimpleResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.ReactionResponse;
 import team29.hoorry.issuetracker.core.label.domain.Label;
+import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
 @Slf4j
 @Service
@@ -45,12 +45,12 @@ public class IssueMockService {
 				"This issue or pull request already exists")
 		);
 
-		List<IssueMemberResponse> assignees = List.of(
-			new IssueMemberResponse(1L, "jerry",
+		List<MemberResponse> assignees = List.of(
+			new MemberResponse(1L, "jerry",
 				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
 		);
 
-		IssueMemberResponse writer = new IssueMemberResponse(1L, "jerry",
+		MemberResponse writer = new MemberResponse(1L, "jerry",
 			"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200");
 
 		List<IssueResponse> issues = List.of(
@@ -81,10 +81,10 @@ public class IssueMockService {
 			new IssueMilestoneSimpleResponse(1L, "1주차 마일스톤 BE"),
 			new IssueMilestoneSimpleResponse(2L, "1주차 마일스톤 FE"));
 
-		List<IssueMemberResponse> writers = List.of(
-			new IssueMemberResponse(1L, "who-hoo",
+		List<MemberResponse> writers = List.of(
+			new MemberResponse(1L, "who-hoo",
 				"https://avatars.githubusercontent.com/u/68011320?v=4"),
-			new IssueMemberResponse(2L, "jeremy0405",
+			new MemberResponse(2L, "jeremy0405",
 				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
 		);
 
@@ -106,12 +106,12 @@ public class IssueMockService {
 				"This issue or pull request already exists")
 		);
 
-		List<IssueMemberResponse> assignees = List.of(
-			new IssueMemberResponse(1L, "jerry",
+		List<MemberResponse> assignees = List.of(
+			new MemberResponse(1L, "jerry",
 				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
 		);
 
-		IssueMemberResponse writer = new IssueMemberResponse(1L, "who-hoo",
+		MemberResponse writer = new MemberResponse(1L, "who-hoo",
 			"https://avatars.githubusercontent.com/u/68011320?v=4");
 
 		IssueMilestoneResponse milestone = new IssueMilestoneResponse(1L, "1주차 마일스톤 BE", 4, 3);

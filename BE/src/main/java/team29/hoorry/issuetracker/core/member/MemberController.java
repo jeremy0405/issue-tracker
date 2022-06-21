@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
+import team29.hoorry.issuetracker.core.member.dto.MembersResponse;
 
 @RestController
 @RequestMapping("/api/members")
@@ -18,6 +19,12 @@ import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 public class MemberController {
 
 	private final MemberService memberService;
+
+	@GetMapping
+	public ResponseEntity<MembersResponse> members() {
+		MembersResponse membersResponse = memberService.findAll();
+		return ResponseEntity.ok(membersResponse);
+	}
 
 	@PostMapping
 	public ResponseEntity<JwtResponse> join(@RequestBody MemberRequest memberRequest) {
