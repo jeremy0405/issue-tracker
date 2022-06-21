@@ -11,27 +11,27 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 
 export const Light = Template.bind({});
 Light.args = {
-  labelId: 0,
-  labelTitle: '레이블 이름',
+  id: 0,
+  title: '레이블 이름',
   labelStyle: 'STANDARD',
-  titleColor: 'LIGHT',
+  titleColor: colors.offWhite,
   backgroundColor: colors.primary.blue,
   description: 'string',
 };
 
 export const Dark = Template.bind({});
 Dark.args = {
-  labelId: 1,
-  labelTitle: '레이블 이름',
+  id: 1,
+  title: '레이블 이름',
   labelStyle: 'STANDARD',
-  titleColor: 'DARK',
+  titleColor: colors.body,
   backgroundColor: colors.line,
 };
 
 export const Line = Template.bind({});
 Line.args = {
-  labelId: 2,
+  id: 2,
   backgroundColor: colors.line,
-  labelTitle: '작성자',
+  title: '작성자',
   labelStyle: 'LINE',
 };

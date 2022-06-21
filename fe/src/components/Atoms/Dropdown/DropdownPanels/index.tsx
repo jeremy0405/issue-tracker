@@ -10,7 +10,8 @@ import SmallLabel from 'components/Atoms/SmallLabel';
 
 export type DropdownListType = {
   id: number;
-  title: string;
+  title?: string;
+  loginId?: string;
   backgroundColor?: string;
   profileImageUrl?: string;
 };
@@ -28,13 +29,20 @@ const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', 
     <StyledDropdownPanels>
       <DropdonwTitle>{dropdownTitle}</DropdonwTitle>
       <DropdownList initIcon={checkOffCircle} activeIcon={checkOnCircle} {...props}>
-        {dropdownList.map(({ id, title, backgroundColor, profileImageUrl }: DropdownListType) => (
-          <li key={id}>
-            <input key={`input-${id}`} type={panelType} name={dropdownTitle} id={`${dropdownTitle}-${title}`} />
-            <label key={`label-${id}`} htmlFor={`${dropdownTitle}-${title}`}>
-              {backgroundColor && <SmallLabel fill={backgroundColor} />}
-              {profileImageUrl && <UserImage profileImageUrl={profileImageUrl} loginId={title} imgSize="SMALL" />}
-              <span>{title}</span>
+        {dropdownList.map((prop: DropdownListType) => (
+          <li key={prop.id}>
+            <input
+              key={`input-${prop.id}`}
+              type={panelType}
+              name={dropdownTitle}
+              id={`${dropdownTitle}-${prop.loginId || prop.title}`}
+            />
+            <label key={`label-${prop.id}`} htmlFor={`${dropdownTitle}-${prop.loginId || prop.title}`}>
+              {prop.backgroundColor && <SmallLabel fill={prop.backgroundColor} />}
+              {prop.profileImageUrl && (
+                <UserImage profileImageUrl={prop.profileImageUrl} loginId={prop.loginId!} imgSize="SMALL" />
+              )}
+              <span>{prop.loginId || prop.title}</span>
             </label>
           </li>
         ))}

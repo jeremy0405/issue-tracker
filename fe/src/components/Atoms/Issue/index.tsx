@@ -6,7 +6,7 @@ import Label, { LabelProps } from 'components/Atoms/Label';
 import { InfoWrapper, StyledLi, TitleWrapper } from 'components/Atoms/Issue/Issue.styles';
 import { UserTypes } from 'components/Atoms/UserImage';
 
-import convertPreviousDate from 'helpers/convertPreviousDate';
+import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 
 export interface IssueInfoType {
   id: number;
@@ -14,21 +14,16 @@ export interface IssueInfoType {
   labels: LabelProps[];
   writer: UserTypes;
   createdAt: string;
-  milestoneInfo?: {
-    id: number;
-    title: string;
-  };
+  milestone: string;
 }
 
 const Issue = (props: IssueInfoType) => {
-  const { id, title, labels, writer, createdAt, milestoneInfo } = props;
+  const { id, title, labels, writer, createdAt, milestone } = props;
 
   const labelList = labels.map((label: LabelProps) => {
     const { titleColor, backgroundColor } = label;
 
-    return (
-      <Label {...label} key={`label-${label.labelId}`} backgroundColor={backgroundColor} titleColor={titleColor} />
-    );
+    return <Label {...label} key={`label-${label.id}`} backgroundColor={backgroundColor} titleColor={titleColor} />;
   });
 
   return (
@@ -41,11 +36,11 @@ const Issue = (props: IssueInfoType) => {
       <InfoWrapper>
         <span>#{id}</span>
         <span>{`이 이슈가 ${convertPreviousDate(createdAt)}, ${writer.loginId}님에 의해 작성되었습니다.`}</span>
-        {milestoneInfo && (
-          <Link to={`/milestones/:${milestoneInfo.id}`}>
+        {milestone && (
+          <span>
             <Icon fill={colors.label} stroke={colors.label} icon="Milestone" />
-            {milestoneInfo.title}
-          </Link>
+            {milestone}
+          </span>
         )}
       </InfoWrapper>
     </StyledLi>

@@ -104,32 +104,29 @@ const IssueListInfo: IssueListTypes = {
         title: '이슈 트래커 개발',
         labels: [
           {
-            labelId: 0,
-            labelTitle: 'documentation',
-            titleColor: 'LIGHT',
+            id: 0,
+            title: 'documentation',
+            titleColor: colors.offWhite,
             backgroundColor: colors.primary.blue,
             description: 'string',
           },
           {
-            labelId: 1,
-            labelTitle: 'FE',
-            titleColor: 'LIGHT',
+            id: 1,
+            title: 'FE',
+            titleColor: colors.offWhite,
             backgroundColor: colors.secondary.lightPurple,
             description: 'string',
           },
           {
-            labelId: 2,
-            labelTitle: 'BE',
-            titleColor: 'DARK',
+            id: 2,
+            title: 'BE',
+            titleColor: colors.body,
             backgroundColor: colors.success.green,
             description: 'string',
           },
         ],
         createdAt: '2022-06-20T01:05:45.880Z',
-        milestoneInfo: {
-          id: 0,
-          title: '이슈 트래커',
-        },
+        milestone: '이슈 트래커',
         assignees: [
           {
             id: 0,
@@ -164,18 +161,15 @@ const IssueListInfo: IssueListTypes = {
         title: 'FE 이슈 트래커 개발',
         labels: [
           {
-            labelId: 0,
-            labelTitle: 'FE',
-            titleColor: 'LIGHT',
+            id: 0,
+            title: 'FE',
+            titleColor: colors.offWhite,
             backgroundColor: colors.secondary.lightPurple,
             description: 'string',
           },
         ],
         createdAt: '2022-06-20T01:05:45.880Z',
-        milestoneInfo: {
-          id: 1,
-          title: 'FE 이슈 트래커',
-        },
+        milestone: 'FE 이슈 트래커',
         assignees: [
           {
             id: 0,

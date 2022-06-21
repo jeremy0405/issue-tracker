@@ -7,9 +7,10 @@ import Label from 'components/Atoms/Label';
 import { StyledSideBar, SideBarItem, Content, User } from 'components/Molecules/SideBar/index.styles';
 import Milestone from 'components/Atoms/Milestone';
 
-type DropdownListType = {
+export type DropdownListType = {
   id: number;
-  title: string;
+  title?: string;
+  loginId?: string;
   backgroundColor?: string;
   profileImageUrl?: string;
 };
@@ -73,9 +74,9 @@ const SideBar = ({ sideBarList }: SideBarProps): JSX.Element => {
                     <Label
                       key={props.id}
                       backgroundColor={props.backgroundColor}
-                      labelTitle={props.title}
+                      title={props.title}
                       labelStyle="STANDARD"
-                      titleColor="LIGHT"
+                      titleColor="#FFFFFF"
                     />
                   );
                 if ('progress' in props)

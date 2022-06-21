@@ -2,26 +2,27 @@ import { colors } from 'styles/theme';
 import StyledLabel from 'components/Atoms/Label/index.styles';
 
 export interface LabelProps {
-  labelId?: number;
-  labelTitle: string;
+  id?: number;
+  title: string;
   labelStyle?: 'STANDARD' | 'LINE';
-  titleColor: 'LIGHT' | 'DARK';
+  titleColor: string;
   backgroundColor: string;
   description?: string;
 }
 
 const DEFAULT_COLORS = colors.primary.blue;
+const DEFAULT_TITLE_COLORS = colors.offWhite;
 const Label = ({
   labelStyle = 'STANDARD',
-  titleColor = 'LIGHT',
+  titleColor = DEFAULT_TITLE_COLORS,
   backgroundColor = DEFAULT_COLORS,
   ...props
 }: LabelProps) => {
-  const { labelTitle } = props;
+  const { title } = props;
 
   return (
     <StyledLabel labelStyle={labelStyle} titleColor={titleColor} backgroundColor={backgroundColor}>
-      {labelTitle}
+      {title}
     </StyledLabel>
   );
 };

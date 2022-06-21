@@ -14,17 +14,17 @@ const IssueInfo: IssueInfoType = {
   title: '이슈 트래커 개발',
   labels: [
     {
-      labelId: 0,
-      labelTitle: 'documentation',
+      id: 0,
+      title: 'documentation',
       labelStyle: 'STANDARD',
-      titleColor: 'LIGHT',
+      titleColor: colors.offWhite,
       backgroundColor: colors.primary.blue,
     },
     {
-      labelId: 1,
-      labelTitle: 'FE',
+      id: 1,
+      title: 'FE',
       labelStyle: 'STANDARD',
-      titleColor: 'DARK',
+      titleColor: colors.body,
       backgroundColor: colors.secondary.lightPurple,
     },
   ],
@@ -34,10 +34,7 @@ const IssueInfo: IssueInfoType = {
     profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
   },
   createdAt: '2022-06-17 13:30:00',
-  milestoneInfo: {
-    id: 1,
-    title: '이슈 트래커',
-  },
+  milestone: '이슈 트래커',
 };
 
 export const Default = Template.bind({});

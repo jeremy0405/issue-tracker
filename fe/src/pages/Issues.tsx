@@ -1,11 +1,15 @@
 /* eslint-disable react/jsx-no-bind */
-import styled from 'styled-components';
+import { useQuery } from 'react-query';
 
+import styled from 'styled-components';
 import FilterBar from 'components/Molecules/FilterBar';
 import IssueList from 'components/Molecules/IssueList';
+import SubNav from 'components/Molecules/SubNav';
 
 import useInput from 'hooks/useInput';
-import SubNav from 'components/Molecules/SubNav';
+
+import { getServerData } from 'helpers/utils/fetchData';
+import ISSUE_FILTER from 'helpers/constants/IssueFilter';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -27,25 +31,18 @@ const StyledDiv = styled.div`
 
 const Issues = () => {
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
+  const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues'), { suspense: true });
+
+  if (isLoading) return <div>loading</div>;
+  if (error) return <div>error</div>;
+  if (!data) return <div>data 없음</div>;
 
   return (
     <>
       <StyledDiv>
         <FilterBar
-          dropdownList={[
-            {
-              id: 1,
-              title: '선택된 필터',
-            },
-            {
-              id: 2,
-              title: '선택되지 않은 필터1',
-            },
-            {
-              id: 3,
-              title: '선택되지 않은 필터2',
-            },
-          ]}
+          dropdownList={ISSUE_FILTER}
+          dropdownTitle="이슈 필터"
           indicatorLabel="Filter"
           indicatorStyle="FILTERBAR"
           inputMaxLength={53}
@@ -59,187 +56,35 @@ const Issues = () => {
           onClick={onClickInput}
           panelType="radio"
         />
-        <SubNav labelCount={3} milestoneCount={2} buttonText="이슈 작성" />
+        <SubNav labelCount={data.labelCount} milestoneCount={data.milestoneCount} buttonText="이슈 작성" />
       </StyledDiv>
       <IssueList
-        openIssueCount={0}
-        closedIssueCount={0}
-        issues={{
-          content: [
-            {
-              assignees: [
-                {
-                  id: 0,
-                  loginId: '도톨',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-                },
-                {
-                  id: 1,
-                  loginId: '도비',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-                },
-                {
-                  id: 2,
-                  loginId: '후',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/68011320?v=4',
-                },
-                {
-                  id: 3,
-                  loginId: '제리',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/81368630?v=4',
-                },
-              ],
-              createdAt: '2022-06-20T01:05:45.880Z',
-              id: 0,
-              labels: [
-                {
-                  backgroundColor: '#007AFF',
-                  description: 'string',
-                  labelId: 0,
-                  labelTitle: 'documentation',
-                  titleColor: 'LIGHT',
-                },
-                {
-                  backgroundColor: '#CCD4FF',
-                  description: 'string',
-                  labelId: 1,
-                  labelTitle: 'FE',
-                  titleColor: 'LIGHT',
-                },
-                {
-                  backgroundColor: '#34C759',
-                  description: 'string',
-                  labelId: 2,
-                  labelTitle: 'BE',
-                  titleColor: 'DARK',
-                },
-              ],
-              milestoneInfo: {
-                id: 0,
-                title: '이슈 트래커',
-              },
-              status: 'string',
-              title: '이슈 트래커 개발',
-              writer: {
-                id: 0,
-                loginId: '제리',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/81368630?v=4',
-              },
-            },
-            {
-              assignees: [
-                {
-                  id: 0,
-                  loginId: '도톨',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-                },
-                {
-                  id: 1,
-                  loginId: '도비',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-                },
-              ],
-              createdAt: '2022-06-20T01:05:45.880Z',
-              id: 1,
-              labels: [
-                {
-                  backgroundColor: '#CCD4FF',
-                  description: 'string',
-                  labelId: 0,
-                  labelTitle: 'FE',
-                  titleColor: 'LIGHT',
-                },
-              ],
-              milestoneInfo: {
-                id: 1,
-                title: 'FE 이슈 트래커',
-              },
-              status: 'string',
-              title: 'FE 이슈 트래커 개발',
-              writer: {
-                id: 0,
-                loginId: '도톨',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-              },
-            },
-          ],
-        }}
+        openIssueCount={data.openIssueCount}
+        closedIssueCount={data.closedIssueCount}
+        issues={data.issues}
         filterTabs={[
           {
             id: 1,
             dropdownTitle: '담당자 필터',
-            dropdownList: [
-              {
-                id: 1,
-                title: '도톨',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-              },
-              {
-                id: 2,
-                title: 'dobby',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-              },
-            ],
+            dropdownList: data.assignees,
             indicatorLabel: '담당자',
           },
           {
             id: 2,
             dropdownTitle: '레이블 필터',
-            dropdownList: [
-              {
-                id: 0,
-                backgroundColor: 'coral',
-                title: 'FE 🌈',
-              },
-              {
-                id: 1,
-                backgroundColor: 'red',
-                title: 'bug 🐛',
-              },
-              {
-                id: 2,
-                backgroundColor: 'skyblue',
-                title: 'UI 🎨',
-              },
-            ],
+            dropdownList: data.labels,
             indicatorLabel: '레이블',
           },
           {
             id: 3,
             dropdownTitle: '마일스톤 필터',
-            dropdownList: [
-              {
-                id: 1,
-                title: '선택된 필터',
-              },
-              {
-                id: 2,
-                backgroundColor: 'red',
-                title: 'bug',
-              },
-              {
-                id: 3,
-                title: 'dobby',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-              },
-            ],
+            dropdownList: data.milestones,
             indicatorLabel: '마일스톤',
           },
           {
             id: 4,
             dropdownTitle: '작성자 필터',
-            dropdownList: [
-              {
-                id: 1,
-                title: '도톨',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-              },
-              {
-                id: 2,
-                title: 'dobby',
-                profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-              },
-            ],
+            dropdownList: data.writers,
             indicatorLabel: '작성자',
           },
         ]}

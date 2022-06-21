@@ -8,17 +8,9 @@ const StyledLabel = styled.div<LabelStyleProps>`
   padding: 4px 16px;
   border-radius: 30px;
   background: ${({ backgroundColor }) => backgroundColor};
+  color: ${({ titleColor }) => titleColor};
   ${({ theme }) => theme.fontStyles.textXSmall};
   cursor: default;
-
-  ${({ titleColor }) =>
-    titleColor === 'LIGHT'
-      ? css`
-          color: ${({ theme }) => theme.colors.offWhite};
-        `
-      : css`
-          color: ${({ theme }) => theme.colors.titleActive};
-        `};
 
   ${({ labelStyle }) =>
     labelStyle === 'LINE' &&
@@ -26,7 +18,7 @@ const StyledLabel = styled.div<LabelStyleProps>`
       border: 1px solid ${({ theme }) => theme.colors.line};
       background: ${({ theme }) => theme.colors.offWhite};
       color: ${({ theme }) => theme.colors.label};
-    `}
+    `};
 `;
 
 export default StyledLabel;

@@ -10,10 +10,7 @@ export interface IssueItemTypes {
   title: string;
   labels: LabelProps[];
   createdAt: string;
-  milestoneInfo: {
-    id: number;
-    title: string;
-  };
+  milestone: string;
   assignees: UserTypes[];
   writer: UserTypes;
   checkedItemHandler: (id: string, isChecked: boolean) => void;

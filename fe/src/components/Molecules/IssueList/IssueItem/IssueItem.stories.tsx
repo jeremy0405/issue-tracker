@@ -17,18 +17,15 @@ const IssueItemInfo: IssueItemTypes = {
   status: 'string',
   labels: [
     {
-      labelId: 0,
-      labelTitle: 'documentation',
+      id: 0,
+      title: 'documentation',
       labelStyle: 'STANDARD',
-      titleColor: 'LIGHT',
+      titleColor: colors.offWhite,
       backgroundColor: colors.primary.blue,
     },
   ],
   createdAt: '2022-06-17 13:30:00',
-  milestoneInfo: {
-    id: 1,
-    title: '이슈 트래커',
-  },
+  milestone: '이슈 트래커',
   writer: {
     id: 0,
     loginId: '도톨',

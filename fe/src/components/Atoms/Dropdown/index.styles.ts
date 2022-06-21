@@ -24,11 +24,16 @@ const StyledDropdown = styled.details<StyledDropdownProps>`
             color: ${({ theme }) => theme.colors.body};
             background: ${({ theme }) => theme.colors.line};
           }
+
+          menu {
+            left: 0;
+          }
         `;
 
       case 'SIDEBAR':
         return css`
           menu {
+            right: 0;
             left: 25px;
             top: 61px;
           }

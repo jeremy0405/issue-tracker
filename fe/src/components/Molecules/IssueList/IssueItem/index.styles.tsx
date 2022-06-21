@@ -10,7 +10,7 @@ const FlexDiv = styled.li`
     display: flex;
 
     label {
-      padding-top: 6px;
+      padding-top: 8px;
     }
 
     .checkbox {

@@ -9,26 +9,26 @@ export default {
 const Template: ComponentStory<typeof SideBar> = (args) => <SideBar {...args} />;
 
 const totalAssigneeList = [
-  { id: 1, title: '담당자가 없는 이슈' },
+  { id: 1, loginId: '담당자가 없는 이슈' },
   {
     id: 2,
-    title: 'dobby',
+    loginId: 'dobby',
     profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
   },
   {
     id: 3,
-    title: 'dotori',
+    loginId: 'dotori',
     profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
   },
   {
     id: 4,
-    title: 'jerry',
+    loginId: 'jerry',
     profileImageUrl:
       'https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200',
   },
   {
     id: 5,
-    title: 'who-hoo',
+    loginId: 'who-hoo',
     profileImageUrl:
       'https://avatars.githubusercontent.com/u/68011320?s=88&u=c57bfb94cd0919fce142ce2fda6424d3daf54cb8&v=4',
   },

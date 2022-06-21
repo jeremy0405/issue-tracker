@@ -10,10 +10,6 @@ export const TitleWrapper = styled.div`
   align-items: center;
   margin-bottom: 10px;
 
-  svg {
-    margin-bottom: 4px;
-  }
-
   a {
     margin: 0 10px 0 8px;
     ${({ theme }) => theme.fontStyles.linkMedium};
