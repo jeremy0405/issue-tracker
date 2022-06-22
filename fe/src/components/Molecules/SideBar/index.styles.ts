@@ -47,7 +47,8 @@ type ContentProps = Pick<SideBarListType, 'type'>;
 export const Content = styled.div<ContentProps>`
   display: flex;
   flex-wrap: wrap;
-  align-items: center;
+  flex-direction: column;
+  align-items: flex-start;
 
   & > div {
     margin-top: 18px;
