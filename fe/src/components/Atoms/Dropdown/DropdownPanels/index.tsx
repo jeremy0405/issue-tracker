@@ -11,22 +11,16 @@ import {
 import UserImage from 'components/Atoms/UserImage';
 import SmallLabel from 'components/Atoms/SmallLabel';
 
-export type DropdownListType = {
-  id: number;
-  title?: string;
-  loginId?: string;
-  backgroundColor?: string;
-  profileImageUrl?: string;
-};
+import { DropdownListTypes } from 'components/types';
 
-export interface DropdownPanelsProps {
-  dropdownList: DropdownListType[];
+export interface DropdownPanelsTypes {
+  dropdownList: DropdownListTypes[];
   panelType: 'checkbox' | 'radio';
   dropdownTitle?: string;
   clickHandler?: (event: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', ...props }: DropdownPanelsProps) => {
+const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', ...props }: DropdownPanelsTypes) => {
   const { dropdownList, clickHandler } = props;
 
   // is:open, author:@me, assignee:@me , mentions:@me ,is:closed //is:issue제외
@@ -36,7 +30,7 @@ const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', 
     <StyledDropdownPanels>
       <DropdonwTitle>{dropdownTitle}</DropdonwTitle>
       <DropdownList initIcon={checkOffCircle} activeIcon={checkOnCircle} {...props}>
-        {dropdownList.map(({ id, loginId, title, backgroundColor, profileImageUrl }: DropdownListType) => (
+        {dropdownList.map(({ id, loginId, title, backgroundColor, profileImageUrl }: DropdownListTypes) => (
           <li key={id}>
             <input
               key={`input-${id}`}

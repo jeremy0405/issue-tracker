@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
-import { TabProps } from 'components/Atoms/Tab';
+import { TabTypes } from 'components/Atoms/Tab';
 import Tabs from 'components/Molecules/Tabs/';
 
 export default {
@@ -10,7 +10,7 @@ export default {
 
 const Template: ComponentStory<typeof Tabs> = (args) => <Tabs {...args} />;
 
-const LabelMilestoneInfo: TabProps[] = [
+const LabelMilestoneInfo: TabTypes[] = [
   {
     label: '레이블',
     link: '/labels',
@@ -29,7 +29,7 @@ const LabelMilestoneInfo: TabProps[] = [
   },
 ];
 
-const issuesInfo: TabProps[] = [
+const issuesInfo: TabTypes[] = [
   {
     label: '열린 이슈',
     link: '/labels',

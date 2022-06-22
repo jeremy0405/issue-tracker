@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
-import { DropdownIndicatorProps } from 'components/Atoms/Dropdown/DropdownIndicators';
 import styled, { css } from 'styled-components';
+import { DropdownIndicatorTypes } from 'components/Atoms/Dropdown/DropdownIndicators';
 
-type StyledDropdownIndicatorProps = Pick<DropdownIndicatorProps, 'icon' | 'indicatorStyle' | 'isActive'>;
+type StyledDropdownIndicatorTypes = Pick<DropdownIndicatorTypes, 'icon' | 'indicatorStyle' | 'isActive'>;
 
-const DropdownIndicators = styled.summary<StyledDropdownIndicatorProps>`
+const DropdownIndicators = styled.summary<StyledDropdownIndicatorTypes>`
   display:flex;
   align-items:center;  
   

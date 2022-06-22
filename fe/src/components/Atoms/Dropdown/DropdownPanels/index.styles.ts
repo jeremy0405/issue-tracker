@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface DropdownListProps {
+interface DropdownListTypes {
   initIcon: string;
   activeIcon: string;
 }
@@ -14,7 +14,7 @@ export const DropdonwTitle = styled.h3`
   background: ${({ theme }) => theme.colors.background};
 `;
 
-export const DropdownList = styled.ul<DropdownListProps>`
+export const DropdownList = styled.ul<DropdownListTypes>`
   background: ${({ theme }) => theme.colors.offWhite};
 
   li {

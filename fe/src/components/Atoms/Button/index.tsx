@@ -1,8 +1,8 @@
+import React from 'react';
 import StyledButton from 'components/Atoms/Button/index.styles';
 import Icon, { IconType } from 'components/Atoms/Icon';
-import React from 'react';
 
-export interface ButtonProps {
+export interface ButtonTypes {
   size: 'SMALL' | 'MEDIUM' | 'LARGE';
   buttonStyle: 'STANDARD' | 'SECONDARY' | 'GITHUB_LOGIN' | 'NO_BORDER';
   disabled?: boolean;
@@ -11,7 +11,7 @@ export interface ButtonProps {
   HandleOnClick?: (e: React.MouseEvent<HTMLButtonElement>) => void;
 }
 
-const Button = ({ buttonStyle = 'STANDARD', ...props }: ButtonProps) => {
+const Button = ({ buttonStyle = 'STANDARD', ...props }: ButtonTypes) => {
   const { label, iconInfo, HandleOnClick } = props;
 
   return (

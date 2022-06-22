@@ -1,9 +1,10 @@
 import { useState } from 'react';
 
+import { DropdownListTypes } from 'components/types';
+
 import CheckBox from 'components/Atoms/CheckBox';
-import { TabProps } from 'components/Atoms/Tab';
+import { TabTypes } from 'components/Atoms/Tab';
 import Dropdown from 'components/Atoms/Dropdown';
-import { DropdownListType } from 'components/Atoms/Dropdown/DropdownPanels';
 
 import Tabs from 'components/Molecules/Tabs/';
 import IssueItem, { IssueItemTypes as ItemTypes } from 'components/Molecules/IssueList/IssueItem';
@@ -11,10 +12,10 @@ import { IssueTitle, StyeldUl, OpenCloseTab } from 'components/Molecules/IssueLi
 
 type IssueItemTypes = Omit<ItemTypes, 'checkedItemHandler' | 'checkedIssue'>;
 
-export interface SomeTypes {
+export interface FilterTabTypes {
   id: number;
   dropdownTitle: string;
-  dropdownList: DropdownListType[];
+  dropdownList: DropdownListTypes[];
   indicatorLabel: string;
 }
 
@@ -24,7 +25,7 @@ export interface IssueListTypes {
   issues: {
     content: IssueItemTypes[];
   };
-  filterTabs: SomeTypes[];
+  filterTabs: FilterTabTypes[];
 }
 
 const IssueList = (props: IssueListTypes) => {
@@ -32,7 +33,7 @@ const IssueList = (props: IssueListTypes) => {
 
   const [checkedIssue, setCheckedIssue] = useState<string[]>([]);
 
-  const issueStateTab: TabProps[] = [
+  const issueStateTab: TabTypes[] = [
     {
       count: openIssueCount,
       iconInfo: {
@@ -109,7 +110,7 @@ const IssueList = (props: IssueListTypes) => {
         </OpenCloseTab>
         <div style={{ display: 'flex', gap: '20px' }}>
           {!checkedIssue.length ? (
-            filterTabs?.map((tabs: SomeTypes) => (
+            filterTabs?.map((tabs: FilterTabTypes) => (
               <Dropdown
                 key={tabs.id}
                 dropdownTitle={tabs.dropdownTitle}

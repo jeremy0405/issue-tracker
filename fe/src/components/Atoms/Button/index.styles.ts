@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
-import { ButtonProps } from 'components/Atoms/Button';
+import { ButtonTypes } from 'components/Atoms/Button';
 
-type StyledButtonProps = Pick<ButtonProps, 'size' | 'buttonStyle'>;
+type StyledButtonTypes = Pick<ButtonTypes, 'size' | 'buttonStyle'>;
 
-const StyledButton = styled.button<StyledButtonProps>`
+const StyledButton = styled.button<StyledButtonTypes>`
   display: flex;
   align-items: center;
   justify-content: center;

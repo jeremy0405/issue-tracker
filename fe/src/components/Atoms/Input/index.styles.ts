@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
-import { InputProps } from 'components/Atoms/Input';
+import { InputTypes } from 'components/Atoms/Input';
 
-type FormStyleProps = Pick<InputProps, 'inputSize' | 'isActive' | 'inputStyle'>;
+type FormStyleTypes = Pick<InputTypes, 'inputSize' | 'isActive' | 'inputStyle'>;
 
-export const Form = styled.form<FormStyleProps>`
+export const Form = styled.form<FormStyleTypes>`
   display: flex;
   flex-direction: column;
   justify-content: center;

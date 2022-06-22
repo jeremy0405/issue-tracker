@@ -1,7 +1,7 @@
-import { colors } from 'styles/theme';
 import StyledLabel from 'components/Atoms/Label/index.styles';
+import { colors } from 'styles/theme';
 
-export interface LabelProps {
+export interface LabelTypes {
   id?: number;
   title: string;
   labelStyle?: 'STANDARD' | 'LINE';
@@ -17,7 +17,7 @@ const Label = ({
   titleColor = DEFAULT_TITLE_COLORS,
   backgroundColor = DEFAULT_COLORS,
   ...props
-}: LabelProps) => {
+}: LabelTypes) => {
   const { title } = props;
 
   return (

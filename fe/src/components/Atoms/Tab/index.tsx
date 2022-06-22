@@ -2,7 +2,7 @@ import { useLocation } from 'react-router-dom';
 import Icon, { IconType } from 'components/Atoms/Icon/';
 import StyledNavLink from 'components/Atoms/Tab/index.styled';
 
-export interface TabProps {
+export interface TabTypes {
   link: string;
   iconInfo: {
     icon: IconType;
@@ -17,7 +17,7 @@ export interface TabProps {
 
 const defaultLink = '#!';
 
-const Tab = ({ link = defaultLink, label, count, tabStyle = 'STANDARD', iconInfo, border }: TabProps) => {
+const Tab = ({ link = defaultLink, label, count, tabStyle = 'STANDARD', iconInfo, border }: TabTypes) => {
   const location = useLocation();
 
   // 라우터가 /issues면 열린 이슈에 포커스

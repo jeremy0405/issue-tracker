@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import Logo from 'components/Atoms/Logo';
-import UserImage, { UserTypes } from 'components/Atoms/UserImage';
+import UserImage, { UserImageTypes } from 'components/Atoms/UserImage';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -9,7 +9,7 @@ const FlexDiv = styled.div`
   padding: 27px 0 60px 0;
 `;
 
-type UserImageType = Omit<UserTypes, 'imgSize'>;
+type UserImageType = Omit<UserImageTypes, 'imgSize'>;
 
 const Header = () => {
   const userInfo: UserImageType = {

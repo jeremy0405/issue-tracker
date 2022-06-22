@@ -1,56 +1,34 @@
 /* eslint-disable array-callback-return */
 /* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
+import React from 'react';
+
 import Dropdown from 'components/Atoms/Dropdown';
 import UserImage from 'components/Atoms/UserImage';
 import Label from 'components/Atoms/Label';
-import { StyledSideBar, SideBarItem, Content, User } from 'components/Molecules/SideBar/index.styles';
 import Milestone from 'components/Atoms/Milestone';
-import React from 'react';
 
-export type DropdownListType = {
-  id: number;
-  title?: string;
-  loginId?: string;
-  backgroundColor?: string;
-  profileImageUrl?: string;
-};
+import { StyledSideBar, SideBarItem, Content, User } from 'components/Molecules/SideBar/index.styles';
 
-type AssignType = {
-  id: number;
-  loginId: string;
-  profileImageUrl: string;
-};
+import { AssignTypes, DropdownListTypes, LabelTypes, MilestoneTypes } from 'components/types';
 
-type Milestonetype = {
-  id: number;
-  title: string;
-  progress: number;
-};
-
-type LabelType = {
-  id: number;
-  title: string;
-  backgroundColor: string;
-};
-
-type ContentListType = AssignType | Milestonetype | LabelType;
+type ContentListType = AssignTypes | MilestoneTypes | LabelTypes;
 
 export interface SideBarListType {
   id: number;
   type: string;
   indicatorLabel: string;
   dropdownTitle?: string;
-  dropdownList: DropdownListType[];
+  dropdownList: DropdownListTypes[];
   contentList: ContentListType[];
   clickHandler?: (e: React.MouseEvent<HTMLInputElement>) => void;
 }
 
-export interface SideBarProps {
+export interface SideBarTypes {
   sideBarList: SideBarListType[];
 }
 
-const SideBar = ({ sideBarList }: SideBarProps): JSX.Element => {
+const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
   return (
     <StyledSideBar>
       {sideBarList.map(({ id, type, indicatorLabel, dropdownTitle, dropdownList, contentList, clickHandler }) => (
@@ -87,7 +65,7 @@ const SideBar = ({ sideBarList }: SideBarProps): JSX.Element => {
                 if ('progress' in props)
                   return (
                     <div key={props.id}>
-                      <Milestone progress={props.progress} />
+                      <Milestone progress={props.progress!} />
                       <p>{props.title}</p>
                     </div>
                   );

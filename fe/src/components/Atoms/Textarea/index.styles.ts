@@ -1,14 +1,14 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
-import { TextareaProps } from 'components/Atoms/Textarea';
+import { TextareaTypes } from 'components/Atoms/Textarea';
 
-type StyledFormProps = {
+type StyledFormTypes = {
   isActive: boolean;
 };
 
-type StyledTextareProps = Pick<TextareaProps, 'textareaSize'>;
+type StyledTextareTypes = Pick<TextareaTypes, 'textareaSize'>;
 
-export const Form = styled.form<StyledFormProps>`
+export const Form = styled.form<StyledFormTypes>`
   width: min-content;
   padding: 16px 24px;
   border-radius: 16px;
@@ -34,7 +34,7 @@ export const Form = styled.form<StyledFormProps>`
   }
 `;
 
-export const StyledTextarea = styled.textarea<StyledTextareProps>`
+export const StyledTextarea = styled.textarea<StyledTextareTypes>`
   max-width: -webkit-fill-available;
   background: transparent;
   border: none;

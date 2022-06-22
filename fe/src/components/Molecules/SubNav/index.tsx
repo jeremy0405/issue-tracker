@@ -1,7 +1,7 @@
+import React from 'react';
 import styled from 'styled-components';
 import Button from 'components/Atoms/Button';
 import Tabs from 'components/Molecules/Tabs';
-import React from 'react';
 
 const StyledDiv = styled.div`
   display: flex;

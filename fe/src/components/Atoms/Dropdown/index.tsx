@@ -1,10 +1,10 @@
 import StyledDropdown from 'components/Atoms/Dropdown/index.styles';
-import DropdownIndicators, { DropdownIndicatorProps } from 'components/Atoms/Dropdown/DropdownIndicators';
-import DropdownPanels, { DropdownPanelsProps } from 'components/Atoms/Dropdown/DropdownPanels';
+import DropdownIndicators, { DropdownIndicatorTypes } from 'components/Atoms/Dropdown/DropdownIndicators';
+import DropdownPanels, { DropdownPanelsTypes } from 'components/Atoms/Dropdown/DropdownPanels';
 
-export type DropdownProps = DropdownIndicatorProps & DropdownPanelsProps & { open?: boolean };
+export type DropdownTypes = DropdownIndicatorTypes & DropdownPanelsTypes & { open?: boolean };
 
-const Dropdown = ({ open = false, ...props }: DropdownProps) => {
+const Dropdown = ({ open = false, ...props }: DropdownTypes) => {
   const { indicatorLabel, isActive, indicatorStyle, panelType, dropdownList, dropdownTitle, clickHandler } = props;
 
   return (

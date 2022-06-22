@@ -7,7 +7,8 @@ import SideBar from 'components/Molecules/SideBar';
 import Button from 'components/Atoms/Button';
 
 import useInput from 'hooks/useInput';
-import { ServerDataType, UserTypes, LabelTypes, MilestoneType } from 'helpers/utils/fetchData';
+import { ServerDataTypes } from 'helpers/utils/fetchData';
+import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
 
 const StyledDiv = styled.div`
   h1 {
@@ -42,7 +43,7 @@ const AddIssue = () => {
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<ServerDataType>('issueData');
+  const data = queryClient.getQueryData<ServerDataTypes>('issueData');
 
   if (!data) return <div>외않되</div>;
 
@@ -51,7 +52,7 @@ const AddIssue = () => {
   // 하나로 합치도록 해보기
   const [assigneesContentList, setAssigneesContentList] = useState<UserTypes[]>([]);
   const [labelsContentList, setLabelsContentList] = useState<LabelTypes[]>([]);
-  const [milestoneContentList, setMilestoneContentList] = useState<MilestoneType[]>([]);
+  const [milestoneContentList, setMilestoneContentList] = useState<MilestoneTypes[]>([]);
 
   const handleAssigneesContentList = (event: React.MouseEvent<HTMLInputElement>) => {
     const { target } = event;

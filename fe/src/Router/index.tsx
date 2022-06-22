@@ -12,12 +12,12 @@ import NotFound from 'pages/NotFound';
 
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
-  const [isOAuth, setIsOAuth] = useState<boolean>(false);
+  const [isOAuth, setIsOAuth] = useState<boolean>(true);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<Home />}>
+        <Route path="/" element={<Home isOAuth={isOAuth} />}>
           <Route index element={isOAuth ? <Issues /> : <Login />} />
           <Route path="/login" element={<Login />} />
           <Route path="/issues" element={<Issues />} />

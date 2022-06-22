@@ -1,12 +1,14 @@
 import styled, { css } from 'styled-components';
+
 import checkBoxInitial from 'assets/icons/checkBoxInitial.svg';
 import checkBoxActive from 'assets/icons/checkBoxActive.svg';
 import checkBoxDisable from 'assets/icons/checkBoxDisable.svg';
-import { CheckboxType } from 'components/Atoms/CheckBox/';
 
-type CheckboxStyleType = Pick<CheckboxType, 'checkedIssue'>;
+import { CheckboxTypes } from 'components/Atoms/CheckBox/';
 
-const StyledDiv = styled.div<CheckboxStyleType>`
+type CheckboxStyleTypes = Pick<CheckboxTypes, 'checkedIssue'>;
+
+const StyledDiv = styled.div<CheckboxStyleTypes>`
   width: 16px;
   height: 16px;
   cursor: pointer;

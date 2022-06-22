@@ -1,18 +1,18 @@
 import CheckBox from 'components/Atoms/CheckBox';
+import UserImage, { UserImageTypes } from 'components/Atoms/UserImage';
+import { LabelTypes } from 'components/Atoms/Label';
 import Issue from 'components/Molecules/IssueList/Issue';
-import UserImage, { UserTypes } from 'components/Atoms/UserImage';
-import { LabelProps } from 'components/Atoms/Label';
 import FlexDiv, { AssigneeDiv } from 'components/Molecules/IssueList/IssueItem/index.styles';
 
 export interface IssueItemTypes {
   id: number;
   status: string;
   title: string;
-  labels: LabelProps[];
+  labels: LabelTypes[];
   createdAt: string;
   milestone: string;
-  assignees: UserTypes[];
-  writer: UserTypes;
+  assignees: UserImageTypes[];
+  writer: UserImageTypes;
   checkedItemHandler: (id: string, isChecked: boolean) => void;
   checkedIssue: string[];
 }

@@ -1,10 +1,10 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
-import { DropdownProps } from 'components/Atoms/Dropdown';
+import { DropdownTypes } from 'components/Atoms/Dropdown';
 
-type StyledDropdownProps = Pick<DropdownProps, 'indicatorStyle'>;
+type StyledDropdownTypes = Pick<DropdownTypes, 'indicatorStyle'>;
 
-const StyledDropdown = styled.details<StyledDropdownProps>`
+const StyledDropdown = styled.details<StyledDropdownTypes>`
   position: relative;
 
   menu {

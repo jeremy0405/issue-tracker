@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
-import IssueList, { IssueListTypes, SomeTypes } from 'components/Molecules/IssueList/';
+import IssueList, { IssueListTypes, FilterTabTypes } from 'components/Molecules/IssueList/';
 
 export default {
   title: 'Molecules/IssueList/List',
@@ -9,7 +9,7 @@ export default {
 
 const Template: ComponentStory<typeof IssueList> = (args) => <IssueList {...args} />;
 
-const filterTabs: SomeTypes[] = [
+const filterTabs: FilterTabTypes[] = [
   {
     id: 1,
     dropdownTitle: '담당자 필터',

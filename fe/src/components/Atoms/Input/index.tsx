@@ -3,7 +3,7 @@ import React, { useRef } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
-export interface InputProps {
+export interface InputTypes {
   inputStyle?: 'STANDARD' | 'FILTERBAR';
   inputType: string;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
@@ -26,7 +26,7 @@ const Input = ({
   disabled = false,
   inputMaxLength = defaultMaxLength,
   ...props
-}: InputProps) => {
+}: InputTypes) => {
   const {
     isActive = false,
     isTyping = false,

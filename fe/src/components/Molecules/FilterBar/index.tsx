@@ -1,7 +1,7 @@
-import Dropdown, { DropdownProps } from 'components/Atoms/Dropdown';
-import Input, { InputProps } from 'components/Atoms/Input';
-import useInput from 'hooks/useInput';
 import styled from 'styled-components';
+import Dropdown, { DropdownTypes } from 'components/Atoms/Dropdown';
+import Input, { InputTypes } from 'components/Atoms/Input';
+import useInput from 'hooks/useInput';
 
 const StyledFilterBar = styled.div`
   display: flex;
@@ -10,9 +10,9 @@ const StyledFilterBar = styled.div`
   }
 `;
 
-export type FilterBarProps = DropdownProps & InputProps;
+export type FilterBarTypes = DropdownTypes & InputTypes;
 
-const FilterBar = (props: FilterBarProps): JSX.Element => {
+const FilterBar = (props: FilterBarTypes): JSX.Element => {
   const {
     indicatorStyle,
     indicatorLabel,

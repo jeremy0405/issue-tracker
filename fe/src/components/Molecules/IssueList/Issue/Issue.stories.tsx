@@ -1,6 +1,6 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
-import { colors } from 'styles/theme';
 import Issue, { IssueInfoType } from 'components/Molecules/IssueList/Issue';
+import { colors } from 'styles/theme';
 
 export default {
   title: 'Molecules/IssueList/Issue',

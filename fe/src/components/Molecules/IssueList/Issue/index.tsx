@@ -2,17 +2,16 @@ import { Link } from 'react-router-dom';
 import { colors } from 'styles/theme';
 
 import Icon from 'components/Atoms/Icon';
-import Label, { LabelProps } from 'components/Atoms/Label';
+import Label, { LabelTypes } from 'components/Atoms/Label';
+import { UserImageTypes } from 'components/Atoms/UserImage';
 import { InfoWrapper, StyledLi, TitleWrapper } from 'components/Molecules/IssueList/Issue/Issue.styles';
-import { UserTypes } from 'components/Atoms/UserImage';
-
 import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 
 export interface IssueInfoType {
   id: number;
   title: string;
-  labels: LabelProps[];
-  writer: UserTypes;
+  labels: LabelTypes[];
+  writer: UserImageTypes;
   createdAt: string;
   milestone: string;
 }
@@ -20,7 +19,7 @@ export interface IssueInfoType {
 const Issue = (props: IssueInfoType) => {
   const { id, title, labels, writer, createdAt, milestone } = props;
 
-  const labelList = labels.map((label: LabelProps) => {
+  const labelList = labels.map((label: LabelTypes) => {
     const { titleColor, backgroundColor } = label;
 
     return <Label {...label} key={`label-${label.id}`} backgroundColor={backgroundColor} titleColor={titleColor} />;

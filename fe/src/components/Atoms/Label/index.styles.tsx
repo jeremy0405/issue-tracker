@@ -1,9 +1,9 @@
 import styled, { css } from 'styled-components';
-import { LabelProps } from 'components/Atoms/Label/';
+import { LabelTypes } from 'components/Atoms/Label/';
 
-type LabelStyleProps = Pick<LabelProps, 'labelStyle' | 'titleColor' | 'backgroundColor'>;
+type LabelStyleTypes = Pick<LabelTypes, 'labelStyle' | 'titleColor' | 'backgroundColor'>;
 
-const StyledLabel = styled.div<LabelStyleProps>`
+const StyledLabel = styled.div<LabelStyleTypes>`
   width: fit-content;
   padding: 4px 16px;
   border-radius: 30px;

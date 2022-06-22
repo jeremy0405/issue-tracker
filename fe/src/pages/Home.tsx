@@ -12,11 +12,11 @@ const Layer = styled.div`
   }
 `;
 
-const Home = () => {
+const Home = ({ isOAuth }: { isOAuth: boolean }) => {
   return (
     <Layer>
       <div>
-        <Header />
+        {isOAuth && <Header />}
         <Outlet />
       </div>
     </Layer>

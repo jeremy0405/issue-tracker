@@ -42,9 +42,9 @@ export const SideBarItem = styled.div`
   }
 `;
 
-type ContentProps = Pick<SideBarListType, 'type'>;
+type ContentTypes = Pick<SideBarListType, 'type'>;
 
-export const Content = styled.div<ContentProps>`
+export const Content = styled.div<ContentTypes>`
   display: flex;
   flex-wrap: wrap;
   flex-direction: column;
