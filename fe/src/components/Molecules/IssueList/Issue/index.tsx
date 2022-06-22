@@ -25,6 +25,8 @@ const Issue = (props: IssueInfoType) => {
     return <Label {...label} key={`label-${label.id}`} backgroundColor={backgroundColor} titleColor={titleColor} />;
   });
 
+  const nowDate = new Date();
+
   return (
     <StyledLi>
       <TitleWrapper>
@@ -34,7 +36,9 @@ const Issue = (props: IssueInfoType) => {
       </TitleWrapper>
       <InfoWrapper>
         <span>#{id}</span>
-        <span>{`이 이슈가 ${convertPreviousDate(createdAt)}, ${writer.loginId}님에 의해 작성되었습니다.`}</span>
+        <span>{`이 이슈가 ${convertPreviousDate(nowDate, createdAt)}, ${
+          writer.loginId
+        }님에 의해 작성되었습니다.`}</span>
         {milestone && (
           <Link to="/milestones">
             <Icon fill={colors.label} stroke={colors.label} icon="Milestone" />

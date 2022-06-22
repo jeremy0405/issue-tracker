@@ -1,8 +1,7 @@
-const convertPreviousDate = (date: string) => {
-  const now = new Date();
-  const timeValue = new Date(date);
+const convertPreviousDate = (nowDate: Date, previousDate: string) => {
+  const timeValue = new Date(previousDate);
 
-  const minutes = Math.floor((now.getTime() - timeValue.getTime()) / 1000 / 60);
+  const minutes = Math.floor((nowDate.getTime() - timeValue.getTime()) / 1000 / 60);
   const hours = Math.floor(minutes / 60);
   const day = Math.floor(hours / 24);
   const month = Math.floor(day / 24);
