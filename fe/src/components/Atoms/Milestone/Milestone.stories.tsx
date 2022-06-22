@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Milestone from 'components/Atoms/Milestone';
 
 export default {
-  title: 'Components/Milestone',
+  title: 'Atoms/Milestone',
   component: Milestone,
 } as ComponentMeta<typeof Milestone>;
 

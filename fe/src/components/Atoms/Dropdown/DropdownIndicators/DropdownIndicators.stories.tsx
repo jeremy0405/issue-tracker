@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import DropdownIndicators from 'components/Atoms/Dropdown/DropdownIndicators';
 
 export default {
-  title: 'Components/Dropdown/DropdownIndicators',
+  title: 'Atoms/Dropdown/DropdownIndicators',
   component: DropdownIndicators,
 } as ComponentMeta<typeof DropdownIndicators>;
 

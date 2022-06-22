@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import SmallLabel from 'components/Atoms/SmallLabel';
 
 export default {
-  title: 'Components/SmallLabel',
+  title: 'Atoms/SmallLabel',
   component: SmallLabel,
 } as ComponentMeta<typeof SmallLabel>;
 

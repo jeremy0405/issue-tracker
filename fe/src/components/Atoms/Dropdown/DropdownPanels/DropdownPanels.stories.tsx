@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import DropdownPanels from 'components/Atoms/Dropdown/DropdownPanels';
 
 export default {
-  title: 'Components/Dropdown/DropdownPanels',
+  title: 'Atoms/Dropdown/DropdownPanels',
   component: DropdownPanels,
 } as ComponentMeta<typeof DropdownPanels>;
 

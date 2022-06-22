@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 import Label from 'components/Atoms/Label';
 
 export default {
-  title: 'Components/Label',
+  title: 'Atoms/Label',
   component: Label,
 } as ComponentMeta<typeof Label>;
 

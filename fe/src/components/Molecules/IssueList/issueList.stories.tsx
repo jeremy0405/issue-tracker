@@ -190,7 +190,7 @@ const IssueListInfo: IssueListTypes = {
       },
     ],
   },
-  filterTabs,
+  filterTabs: [],
 };
 
 export const Default = Template.bind({});

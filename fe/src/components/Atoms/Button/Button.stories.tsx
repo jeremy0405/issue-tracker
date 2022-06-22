@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 import Button from 'components/Atoms/Button';
 
 export default {
-  title: 'Components/Buttons',
+  title: 'Atoms/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 
