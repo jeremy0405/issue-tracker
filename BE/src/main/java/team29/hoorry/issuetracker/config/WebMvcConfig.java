@@ -14,12 +14,12 @@ public class WebMvcConfig implements WebMvcConfigurer {
 
 	private final JwtValidator jwtValidator;
 
-	@Override
-	public void addInterceptors(InterceptorRegistry registry) {
-		registry.addInterceptor(new UserValidateInterceptor(jwtValidator))
-			.addPathPatterns("/**")
-			.excludePathPatterns("/api/auth", "/api/members", "/api/members/re-issue-token");
-	}
+//	@Override
+//	public void addInterceptors(InterceptorRegistry registry) {
+//		registry.addInterceptor(new UserValidateInterceptor(jwtValidator))
+//			.addPathPatterns("/**")
+//			.excludePathPatterns("/api/auth", "/api/members", "/api/members/re-issue-token");
+//	}
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {

@@ -48,14 +48,13 @@ public class IssueController {
 				content = {
 					@Content(
 						mediaType = "application/json",
-						array = @ArraySchema(schema = @Schema(implementation = IssuesResponse.class))
+						schema = @Schema(implementation = IssuesResponse.class)
 					)
 				})
 		}
 	)
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
-		@ModelAttribute IssueFilter issueFilter,
 		@RequestParam(required = false) String q,
 		@RequestParam(required = false) Integer page
 	) {
