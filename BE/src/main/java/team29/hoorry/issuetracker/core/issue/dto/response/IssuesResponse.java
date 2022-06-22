@@ -19,7 +19,7 @@ public class IssuesResponse {
 
 	private List<MemberResponse> assignees;
 	private List<IssueLabelResponse> labels;
-	private List<IssueMilestoneSimpleResponse> milestones;
+	private List<IssueMilestoneResponse> milestones;
 	private List<MemberResponse> writers;
 
 	private Page<IssueResponse> issues;

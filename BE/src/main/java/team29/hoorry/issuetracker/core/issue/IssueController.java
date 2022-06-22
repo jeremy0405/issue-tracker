@@ -10,7 +10,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssueFilter;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
@@ -35,7 +33,8 @@ import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 @RequiredArgsConstructor
 public class IssueController {
 
-	private final IssueMockService issueService;
+	private final IssueMockService issueMockService;
+	private final IssueService issueService;
 
 	@Operation(
 		summary = "이슈 리스트 조회",
@@ -54,11 +53,11 @@ public class IssueController {
 	)
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
-		@ModelAttribute IssueFilter issueFilter,
-		@RequestParam(required = false) String searchParam,
+		@RequestParam(required = false) String q,
 		@RequestParam(required = false) Integer page
 	) {
-		IssuesResponse issuesResponse = issueService.findAll(searchParam, page);
+		IssuesResponse issuesResponse = issueMockService.findAll(q, page);
+		IssuesResponse realIssuesResponse = issueService.findAll(q, page);
 
 		return ResponseEntity.ok(issuesResponse);
 	}
@@ -80,7 +79,7 @@ public class IssueController {
 	)
 	@GetMapping("/{id}")
 	public ResponseEntity<IssueDetailResponse> issueDetail(@PathVariable Long id) {
-		IssueDetailResponse issueDetailResponse = issueService.findById(id);
+		IssueDetailResponse issueDetailResponse = issueMockService.findById(id);
 
 		return ResponseEntity.ok(issueDetailResponse);
 	}
@@ -102,7 +101,7 @@ public class IssueController {
 	)
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
-		issueService.save(issuesSaveRequest);
+		issueMockService.save(issuesSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -124,7 +123,7 @@ public class IssueController {
 	@PatchMapping("/status")
 	public ResponseEntity<Void> updateAllStatus(
 		@RequestBody IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
-		issueService.updateAllStatus(issuesStatusUpdateRequest);
+		issueMockService.updateAllStatus(issuesStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -147,7 +146,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateStatus(
 		@PathVariable Long id,
 		@RequestBody IssueStatusUpdateRequest issueStatusUpdateRequest) {
-		issueService.updateStatus(id, issueStatusUpdateRequest);
+		issueMockService.updateStatus(id, issueStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -170,7 +169,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateTitle(
 		@PathVariable Long id,
 		@RequestBody IssueTitleUpdateRequest issueTitleUPdateRequest) {
-		issueService.updateTitle(id, issueTitleUPdateRequest);
+		issueMockService.updateTitle(id, issueTitleUPdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -193,7 +192,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateLabels(
 		@PathVariable Long id,
 		@RequestBody IssueLabelsUpdateRequest issueLabelsUpdateRequest) {
-		issueService.updateLabels(id, issueLabelsUpdateRequest);
+		issueMockService.updateLabels(id, issueLabelsUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -216,7 +215,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateMilestone(
 		@PathVariable Long id,
 		@RequestBody IssueMilestoneUpdateRequest issueMilestoneUpdateRequest) {
-		issueService.updateMilestone(id, issueMilestoneUpdateRequest);
+		issueMockService.updateMilestone(id, issueMilestoneUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -239,7 +238,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateAssignees(
 		@PathVariable Long id,
 		@RequestBody IssueAssigneesUpdateRequest issueAssigneesUpdateRequest) {
-		issueService.updateAssignees(id, issueAssigneesUpdateRequest);
+		issueMockService.updateAssignees(id, issueAssigneesUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -260,7 +259,7 @@ public class IssueController {
 	)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		issueService.delete(id);
+		issueMockService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }
