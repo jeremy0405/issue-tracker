@@ -24,11 +24,11 @@ const Tab = ({ link = defaultLink, label, count, tabStyle = 'STANDARD', iconInfo
   const focusOpenCloseTab = () => {
     const replaceString = link.replace(/.*?\?/, '?');
     const className = 'openCloseFocus';
-    if (location.pathname !== '/issues') return '';
 
-    if (location.search === '' && replaceString === '?q=is:open') return className;
+    if ((location.search === '' && replaceString === '?q=is:open') || location.search === replaceString)
+      return className;
 
-    return location.search === replaceString ? className : '';
+    return '';
   };
 
   return (
