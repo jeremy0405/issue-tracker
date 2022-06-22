@@ -20,7 +20,6 @@ import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneSimpleResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.ReactionResponse;
@@ -77,9 +76,9 @@ public class IssueMockService {
 		List<IssueLabelResponse> issueLabelResponses = labels.stream().map(IssueLabelResponse::from)
 			.collect(Collectors.toList());
 
-		List<IssueMilestoneSimpleResponse> milestones = List.of(
-			new IssueMilestoneSimpleResponse(1L, "1주차 마일스톤 BE"),
-			new IssueMilestoneSimpleResponse(2L, "1주차 마일스톤 FE"));
+		List<IssueMilestoneResponse> milestones = List.of(
+			new IssueMilestoneResponse(1L, "1주차 마일스톤 BE", 3, 4),
+			new IssueMilestoneResponse(2L, "1주차 마일스톤 FE", 2, 5));
 
 		List<MemberResponse> writers = List.of(
 			new MemberResponse(1L, "who-hoo",
