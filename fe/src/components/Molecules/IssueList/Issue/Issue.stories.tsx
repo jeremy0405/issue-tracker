@@ -1,9 +1,9 @@
 import { ComponentStory, ComponentMeta } from '@storybook/react';
 import { colors } from 'styles/theme';
-import Issue, { IssueInfoType } from 'components/Atoms/Issue';
+import Issue, { IssueInfoType } from 'components/Molecules/IssueList/Issue';
 
 export default {
-  title: 'Components/Issue',
+  title: 'Molecules/IssueList/Issue',
   component: Issue,
 } as ComponentMeta<typeof Issue>;
 

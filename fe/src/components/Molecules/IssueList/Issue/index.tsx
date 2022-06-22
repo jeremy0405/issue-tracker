@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 
 import Icon from 'components/Atoms/Icon';
 import Label, { LabelProps } from 'components/Atoms/Label';
-import { InfoWrapper, StyledLi, TitleWrapper } from 'components/Atoms/Issue/Issue.styles';
+import { InfoWrapper, StyledLi, TitleWrapper } from 'components/Molecules/IssueList/Issue/Issue.styles';
 import { UserTypes } from 'components/Atoms/UserImage';
 
 import convertPreviousDate from 'helpers/utils/convertPreviousDate';

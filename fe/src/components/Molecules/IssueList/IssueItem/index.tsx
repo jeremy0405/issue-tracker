@@ -1,5 +1,5 @@
 import CheckBox from 'components/Atoms/CheckBox';
-import Issue from 'components/Atoms/Issue';
+import Issue from 'components/Molecules/IssueList/Issue';
 import UserImage, { UserTypes } from 'components/Atoms/UserImage';
 import { LabelProps } from 'components/Atoms/Label';
 import FlexDiv, { AssigneeDiv } from 'components/Molecules/IssueList/IssueItem/index.styles';
