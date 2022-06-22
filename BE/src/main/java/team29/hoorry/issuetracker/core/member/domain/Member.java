@@ -1,15 +1,21 @@
 package team29.hoorry.issuetracker.core.member.domain;
 
 import javax.persistence.Column;
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import team29.hoorry.issuetracker.core.common.embeddable.DateTimeTracker;
+import lombok.AccessLevel;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 
+@Getter
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
-public class Member {
+public class Member extends BaseTimeEntity {
 
 	@Id
 	@Column(name = "member_id")
@@ -31,6 +37,11 @@ public class Member {
 	@Column(length = 1000, nullable = false)
 	private String profileImageUrl;
 
-	@Embedded
-	private DateTimeTracker dateTimeTracker;
+	@Column(unique = true)
+	private Long oauthId;
+
+	public static Member of(String loginId, String loginPassword, String name, String email,
+		String profileImageUrl, Long oauthId) {
+		return new Member(null, loginId, loginPassword, name, email, profileImageUrl, oauthId);
+	}
 }

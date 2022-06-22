@@ -5,17 +5,18 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.label.domain.Label;
+import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueDetailResponse {
 
 	private Long id;
 	private String title;
 	private List<Label> labels;
-	private List<IssueMemberResponse> assignees;
-	private IssueMemberResponse writer;
+	private List<MemberResponse> assignees;
+	private MemberResponse writer;
 	private IssueMilestoneResponse milestone;
 	private List<CommentResponse> comments;
 

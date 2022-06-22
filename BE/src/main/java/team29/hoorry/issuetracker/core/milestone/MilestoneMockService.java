@@ -10,8 +10,8 @@ import team29.hoorry.issuetracker.core.milestone.dto.MilestoneDetailResponse;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestoneUpdateRequest;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestonesResponse;
 
-@Service
 @Slf4j
+@Service
 public class MilestoneMockService {
 
 	public MilestonesResponse findAll() {

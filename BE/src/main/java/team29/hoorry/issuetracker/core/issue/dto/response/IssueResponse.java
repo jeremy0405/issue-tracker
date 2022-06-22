@@ -6,19 +6,20 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.label.domain.Label;
+import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
-@AllArgsConstructor
-@NoArgsConstructor
 @Getter
+@NoArgsConstructor
+@AllArgsConstructor
 public class IssueResponse {
 
 	private Long id;
 	private String status;
 	private String title;
 	private List<Label> labels;
-	private List<IssueMemberResponse> assignees;
+	private List<MemberResponse> assignees;
 	private String milestone;
-	private IssueMemberResponse writer;
+	private MemberResponse writer;
 	private LocalDateTime createdAt;
 
 }
