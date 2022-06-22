@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 import { useQueryClient } from 'react-query';
 
 import styled from 'styled-components';
@@ -6,6 +7,7 @@ import SideBar from 'components/Molecules/SideBar';
 import Button from 'components/Atoms/Button';
 
 import useInput from 'hooks/useInput';
+import { ServerDataType, UserTypes, LabelTypes, MilestoneType } from 'helpers/utils/fetchData';
 
 const StyledDiv = styled.div`
   h1 {
@@ -40,9 +42,85 @@ const AddIssue = () => {
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const queryClient = useQueryClient();
-  const [data] = queryClient.getQueriesData('issueData');
-  const [key, issueList] = data;
-  console.log(issueList);
+  const data = queryClient.getQueryData<ServerDataType>('issueData');
+
+  if (!data) return <div>외않되</div>;
+
+  const { assignees, labels, milestones } = data;
+
+  // 하나로 합치도록 해보기
+  const [assigneesContentList, setAssigneesContentList] = useState<UserTypes[]>([]);
+  const [labelsContentList, setLabelsContentList] = useState<LabelTypes[]>([]);
+  const [milestoneContentList, setMilestoneContentList] = useState<MilestoneType[]>([]);
+
+  const handleAssigneesContentList = (event: React.MouseEvent<HTMLInputElement>) => {
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) return;
+
+    const { assigneesdata } = target.dataset;
+    if (!assigneesdata) return;
+
+    const [id, loginId, profileImageUrl] = assigneesdata.split(',');
+
+    if (target.checked) {
+      setAssigneesContentList([
+        ...assigneesContentList,
+        {
+          id: Number(id),
+          loginId,
+          profileImageUrl,
+        },
+      ]);
+    } else {
+      setAssigneesContentList(assigneesContentList.filter((el) => el.id !== Number(id)));
+    }
+  };
+
+  const handleLabelsContentList = (event: React.MouseEvent<HTMLInputElement>) => {
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) return;
+
+    const { labelsdata } = target.dataset;
+    if (!labelsdata) return;
+
+    const [id, title, backgroundColor] = labelsdata.split(',');
+
+    if (target.checked) {
+      setLabelsContentList([
+        ...labelsContentList,
+        {
+          id: Number(id),
+          title,
+          backgroundColor,
+        },
+      ]);
+    } else {
+      setLabelsContentList(labelsContentList.filter((el) => el.id !== Number(id)));
+    }
+  };
+
+  // 서버 데이터 수정 기다리기
+  const handleMilestoneContentList = (event: React.MouseEvent<HTMLInputElement>) => {
+    const { target } = event;
+    if (!(target instanceof HTMLInputElement)) return;
+
+    const { milestonesdata } = target.dataset;
+    if (!milestonesdata) return;
+
+    const [id, title] = milestonesdata.split(',');
+
+    if (target.checked) {
+      setMilestoneContentList([
+        ...milestoneContentList,
+        {
+          id: Number(id),
+          title,
+        },
+      ]);
+    } else {
+      setMilestoneContentList(milestoneContentList.filter((el) => el.id !== Number(id)));
+    }
+  };
 
   return (
     <StyledDiv>
@@ -64,83 +142,29 @@ const AddIssue = () => {
         <SideBar
           sideBarList={[
             {
-              contentList: [],
-              dropdownList: [
-                {
-                  id: 1,
-                  loginId: '담당자가 없는 이슈',
-                },
-                {
-                  id: 2,
-                  loginId: 'dobby',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
-                },
-                {
-                  id: 3,
-                  loginId: 'dotori',
-                  profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-                },
-                {
-                  id: 4,
-                  loginId: 'jerry',
-                  profileImageUrl:
-                    'https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200',
-                },
-                {
-                  id: 5,
-                  loginId: 'who-hoo',
-                  profileImageUrl:
-                    'https://avatars.githubusercontent.com/u/68011320?s=88&u=c57bfb94cd0919fce142ce2fda6424d3daf54cb8&v=4',
-                },
-              ],
               id: 1,
+              contentList: assigneesContentList,
+              clickHandler: handleAssigneesContentList,
+              dropdownList: assignees,
+              dropdownTitle: '담당자 추가',
               indicatorLabel: '담당자',
               type: 'ASSIGN',
             },
             {
-              contentList: [],
-              dropdownList: [
-                {
-                  id: 1,
-                  title: '레이블이 없는 이슈',
-                },
-                {
-                  backgroundColor: '#B9062F',
-                  id: 2,
-                  title: 'bug',
-                },
-                {
-                  backgroundColor: '#FFFFFF',
-                  id: 3,
-                  title: 'documentation',
-                },
-                {
-                  backgroundColor: '#000000',
-                  id: 4,
-                  title: 'duplicate',
-                },
-              ],
               id: 2,
+              contentList: labelsContentList,
+              clickHandler: handleLabelsContentList,
+              dropdownList: labels,
+              dropdownTitle: '레이블 추가',
               indicatorLabel: '레이블',
               type: 'LABEL',
             },
             {
-              contentList: [],
-              dropdownList: [
-                {
-                  id: 1,
-                  title: '마일스톤이 없는 필터',
-                },
-                {
-                  id: 2,
-                  title: '1주차 마일스톤 BE',
-                },
-                {
-                  id: 3,
-                  title: '1주차 마일스톤 FE',
-                },
-              ],
               id: 3,
+              contentList: [],
+              clickHandler: handleMilestoneContentList,
+              dropdownTitle: '마일스톤 추가',
+              dropdownList: milestones,
               indicatorLabel: '마일스톤',
               type: 'MILESTONE',
             },

@@ -57,7 +57,7 @@ const Issues = () => {
           inputSize="SMALL"
           inputStyle="FILTERBAR"
           inputType="text"
-          inputValue="is:issue is:open"
+          inputValue="is:open"
           onBlur={onBlurInput}
           onChange={onChangeInput}
           onClick={onClickInput}

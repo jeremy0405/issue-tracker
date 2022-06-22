@@ -2,24 +2,24 @@
 import axios from 'axios';
 import { IssueItemTypes } from 'components/Molecules/IssueList/IssueItem';
 
-interface UserTypes {
+export interface UserTypes {
   id: number;
   loginId: string;
   profileImageUrl: string;
 }
 
-interface LabelTypes {
+export interface LabelTypes {
   id: number;
   title: string;
   backgroundColor: string;
 }
 
-interface MilestoneType {
+export interface MilestoneType {
   id: number;
   title: string;
 }
 
-interface ServerDataType {
+export interface ServerDataType {
   openIssueCount: number;
   closedIssueCount: number;
   labelCount: number;

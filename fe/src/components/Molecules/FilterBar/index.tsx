@@ -16,6 +16,7 @@ const FilterBar = (props: FilterBarProps): JSX.Element => {
   const {
     indicatorStyle,
     indicatorLabel,
+    dropdownTitle,
     dropdownList,
     panelType,
     inputSize,
@@ -34,6 +35,7 @@ const FilterBar = (props: FilterBarProps): JSX.Element => {
         isActive={isActive}
         indicatorStyle={indicatorStyle}
         indicatorLabel={indicatorLabel}
+        dropdownTitle={dropdownTitle}
         dropdownList={dropdownList}
         panelType={panelType}
       />
