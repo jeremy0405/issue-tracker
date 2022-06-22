@@ -1,11 +1,23 @@
 import { useState } from 'react';
+
+import { DropdownListTypes } from 'components/types';
+
 import CheckBox from 'components/Atoms/CheckBox';
-import { TabProps } from 'components/Atoms/Tab';
+import { TabTypes } from 'components/Atoms/Tab';
+import Dropdown from 'components/Atoms/Dropdown';
+
 import Tabs from 'components/Molecules/Tabs/';
 import IssueItem, { IssueItemTypes as ItemTypes } from 'components/Molecules/IssueList/IssueItem';
 import { IssueTitle, StyeldUl, OpenCloseTab } from 'components/Molecules/IssueList/index.styles';
 
 type IssueItemTypes = Omit<ItemTypes, 'checkedItemHandler' | 'checkedIssue'>;
+
+export interface FilterTabTypes {
+  id: number;
+  dropdownTitle: string;
+  dropdownList: DropdownListTypes[];
+  indicatorLabel: string;
+}
 
 export interface IssueListTypes {
   openIssueCount: number;
@@ -13,20 +25,22 @@ export interface IssueListTypes {
   issues: {
     content: IssueItemTypes[];
   };
+  filterTabs: FilterTabTypes[];
 }
 
 const IssueList = (props: IssueListTypes) => {
-  const { openIssueCount, closedIssueCount, issues } = props;
+  const { openIssueCount, closedIssueCount, issues, filterTabs } = props;
+
   const [checkedIssue, setCheckedIssue] = useState<string[]>([]);
 
-  const issueStateTab: TabProps[] = [
+  const issueStateTab: TabTypes[] = [
     {
       count: openIssueCount,
       iconInfo: {
         icon: 'AlertCircle',
       },
       label: '열린 이슈',
-      link: '/labels',
+      link: '/issues?q=is:open',
       tabStyle: 'STANDARD',
     },
     {
@@ -36,7 +50,7 @@ const IssueList = (props: IssueListTypes) => {
         stroke: '#14142B',
       },
       label: '닫힌 이슈',
-      link: '/milestons',
+      link: '/issues?q=is:closed',
       tabStyle: 'STANDARD',
     },
   ];
@@ -65,6 +79,22 @@ const IssueList = (props: IssueListTypes) => {
     );
   });
 
+  const openCloseFilter = {
+    id: 1,
+    dropdownTitle: '상태 변경',
+    dropdownList: [
+      {
+        id: 1,
+        title: '선택한 이슈 열기',
+      },
+      {
+        id: 2,
+        title: '선택한 이슈 닫기',
+      },
+    ],
+    indicatorLabel: '상태 수정',
+  };
+
   return (
     <StyeldUl>
       <IssueTitle>
@@ -78,6 +108,29 @@ const IssueList = (props: IssueListTypes) => {
             </span>
           )}
         </OpenCloseTab>
+        <div style={{ display: 'flex', gap: '20px' }}>
+          {!checkedIssue.length ? (
+            filterTabs?.map((tabs: FilterTabTypes) => (
+              <Dropdown
+                key={tabs.id}
+                dropdownTitle={tabs.dropdownTitle}
+                dropdownList={tabs.dropdownList}
+                panelType="checkbox"
+                indicatorLabel={tabs.indicatorLabel}
+                indicatorStyle="STANDARD"
+              />
+            ))
+          ) : (
+            <Dropdown
+              key={openCloseFilter.id}
+              dropdownTitle={openCloseFilter.dropdownTitle}
+              dropdownList={openCloseFilter.dropdownList}
+              panelType="checkbox"
+              indicatorLabel={openCloseFilter.indicatorLabel}
+              indicatorStyle="STANDARD"
+            />
+          )}
+        </div>
       </IssueTitle>
       {IssueItems}
     </StyeldUl>

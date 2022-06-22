@@ -5,6 +5,7 @@ import styled, { css } from 'styled-components';
 interface tabStyleProps {
   tabStyle: 'STANDARD' | 'FILL';
   border?: 'LEFT' | 'CENTER' | 'RIGHT';
+  isActive?: boolean;
 }
 
 const StyledNavLink = styled(NavLink).withConfig({
@@ -12,7 +13,7 @@ const StyledNavLink = styled(NavLink).withConfig({
 })<tabStyleProps>`
   display: flex;
   align-items: center;
-  width: fit-content;
+  min-width: fit-content;
   ${({ theme }) => theme.fontStyles.linkSmall};
   color: ${({ theme }) => theme.colors.label};
 
@@ -20,13 +21,15 @@ const StyledNavLink = styled(NavLink).withConfig({
     stroke: ${({ theme }) => theme.colors.label};
   }
 
-  &.active {
+  &.openCloseFocus {
     color: ${({ theme }) => theme.colors.titleActive};
 
     svg {
       stroke: ${({ theme }) => theme.colors.titleActive};
     }
+  }
 
+  &.active {
     ${({ tabStyle }) => {
       return (
         tabStyle === 'FILL' &&

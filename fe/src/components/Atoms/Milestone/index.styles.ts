@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 import { colors } from 'styles/theme';
-import { MilestoneProps } from 'components/Atoms/Milestone';
+import { MilestoneTypes } from 'components/Atoms/Milestone';
 
 export const ProgressContainer = styled.div`
   width: 244px;
@@ -10,7 +10,7 @@ export const ProgressContainer = styled.div`
 `;
 
 const [minProgress, maxProgress] = [0, 100];
-export const ProgressBar = styled.div<MilestoneProps>`
+export const ProgressBar = styled.div<MilestoneTypes>`
   border-radius: 10px;
   height: inherit;
   width: ${({ progress }) => {

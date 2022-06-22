@@ -1,10 +1,9 @@
 import { ReactNode } from 'react';
 import StyledDropdownIndicators from 'components/Atoms/Dropdown/DropdownIndicators/index.styles';
-
 import Icon from 'components/Atoms/Icon';
 import { colors } from 'styles/theme';
 
-export interface DropdownIndicatorProps {
+export interface DropdownIndicatorTypes {
   indicatorStyle: 'STANDARD' | 'FILTERBAR' | 'SIDEBAR';
   indicatorLabel: string;
   icon?: string;
@@ -12,7 +11,7 @@ export interface DropdownIndicatorProps {
   children?: ReactNode;
 }
 
-const DropdownIndicators = ({ indicatorLabel, ...props }: DropdownIndicatorProps) => {
+const DropdownIndicators = ({ indicatorLabel, ...props }: DropdownIndicatorTypes) => {
   const { indicatorStyle, isActive } = props;
   const icon = indicatorStyle === 'SIDEBAR' ? 'Plus' : 'Caret';
 

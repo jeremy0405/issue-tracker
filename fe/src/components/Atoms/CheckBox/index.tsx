@@ -2,13 +2,13 @@
 import React, { useState } from 'react';
 import StyledDiv from 'components/Atoms/CheckBox/index.styles';
 
-export interface CheckboxType {
+export interface CheckboxTypes {
   id: number | 'ALL';
   checkedItemHandler: (id: string, isChecked: boolean) => void;
   checkedIssue: string[];
 }
 
-const CheckBox = ({ id, checkedItemHandler, checkedIssue }: CheckboxType) => {
+const CheckBox = ({ id, checkedItemHandler, checkedIssue }: CheckboxTypes) => {
   const [isChecked, setIsChecked] = useState<boolean>(false);
 
   const onChangeCheckbox = (e: React.ChangeEvent<HTMLInputElement>) => {

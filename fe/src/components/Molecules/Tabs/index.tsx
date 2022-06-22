@@ -1,17 +1,17 @@
 import styled from 'styled-components';
-import Tab, { TabProps } from 'components/Atoms/Tab';
+import Tab, { TabTypes } from 'components/Atoms/Tab';
 
 const StyledTabs = styled.div`
   display: flex;
 `;
 
 interface TabInfoTypes {
-  tabInfos: TabProps[];
+  tabInfos: TabTypes[];
 }
 
 const Tabs = ({ tabInfos }: TabInfoTypes) => {
   // eslint-disable-next-line react/destructuring-assignment
-  const Tabs1 = tabInfos.map((tab: TabProps) => {
+  const Tabs1 = tabInfos.map((tab: TabTypes) => {
     const { label, link, count, iconInfo, tabStyle, border } = tab;
 
     return (

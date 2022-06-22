@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import UserImage from 'components/Atoms/UserImage/';
 
 export default {
-  title: 'Components/UserImage',
+  title: 'Atoms/UserImage',
   component: UserImage,
 } as ComponentMeta<typeof UserImage>;
 

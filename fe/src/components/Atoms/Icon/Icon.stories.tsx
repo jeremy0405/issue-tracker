@@ -3,7 +3,7 @@ import Icon from 'components/Atoms/Icon';
 import { colors } from 'styles/theme';
 
 export default {
-  title: 'Components/Icons',
+  title: 'Atoms/Icons',
   component: Icon,
 } as ComponentMeta<typeof Icon>;
 

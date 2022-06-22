@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Textarea from 'components/Atoms/Textarea';
 
 export default {
-  title: 'Components/Textareas',
+  title: 'Atoms/Textareas',
   component: Textarea,
 } as ComponentMeta<typeof Textarea>;
 

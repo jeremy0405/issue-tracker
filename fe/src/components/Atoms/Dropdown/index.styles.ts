@@ -1,17 +1,18 @@
 /* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
-import { DropdownProps } from 'components/Atoms/Dropdown';
+import { DropdownTypes } from 'components/Atoms/Dropdown';
 
-type StyledDropdownProps = Pick<DropdownProps, 'indicatorStyle'>;
+type StyledDropdownTypes = Pick<DropdownTypes, 'indicatorStyle'>;
 
-const StyledDropdown = styled.details<StyledDropdownProps>`
+const StyledDropdown = styled.details<StyledDropdownTypes>`
   position: relative;
 
   menu {
     position: absolute;
-    left: 0;
+    right: 0;
     top: 45px;
     z-index: 99;
+    overflow: hidden;
   }
 
   ${({ indicatorStyle }) => {
@@ -23,11 +24,16 @@ const StyledDropdown = styled.details<StyledDropdownProps>`
             color: ${({ theme }) => theme.colors.body};
             background: ${({ theme }) => theme.colors.line};
           }
+
+          menu {
+            left: 0;
+          }
         `;
 
       case 'SIDEBAR':
         return css`
           menu {
+            right: 0;
             left: 25px;
             top: 61px;
           }

@@ -1,6 +1,6 @@
 import styled from 'styled-components';
 
-interface DropdownListProps {
+interface DropdownListTypes {
   initIcon: string;
   activeIcon: string;
 }
@@ -14,10 +14,17 @@ export const DropdonwTitle = styled.h3`
   background: ${({ theme }) => theme.colors.background};
 `;
 
-export const DropdownList = styled.ul<DropdownListProps>`
+export const DropdownList = styled.ul<DropdownListTypes>`
+  background: ${({ theme }) => theme.colors.offWhite};
+
   li {
     display: grid;
     height: 44px;
+
+    label {
+      color: ${({ theme }) => theme.colors.body};
+      ${({ theme }) => theme.fontStyles.textSmall};
+    }
 
     input {
       display: none;
@@ -58,7 +65,7 @@ export const StyledDropdownPanels = styled.menu`
   label {
     display: grid;
     align-items: center;
-    padding: 8px 16px;
+    padding: 7px 16px;
   }
 
   border: 1px solid ${({ theme }) => theme.colors.line};
