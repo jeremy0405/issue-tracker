@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import team29.hoorry.issuetracker.core.common.search.SearchParamParser;
 import team29.hoorry.issuetracker.core.issue.domain.Issue;
 import team29.hoorry.issuetracker.core.issue.dto.IssueFilter;
+import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 
 @Service
@@ -24,8 +25,9 @@ public class IssueService {
 
 		PageRequest pageable = PageRequest.of(page, PAGE_SIZE);
 		Page<Issue> issues = issueRepository.findAllByIssueFilter(issueFilter, pageable);
+		Page<IssueResponse> issueResponses = issues.map(IssueResponse::new);
 
-		return null;
+		return new IssuesResponse(null, null, null, null, null, null, null, null, issueResponses);
 	}
 
 }

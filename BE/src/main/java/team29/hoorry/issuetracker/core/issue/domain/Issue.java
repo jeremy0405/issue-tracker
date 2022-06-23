@@ -14,10 +14,14 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 import team29.hoorry.issuetracker.core.member.domain.Member;
 import team29.hoorry.issuetracker.core.milestone.domain.Milestone;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class Issue extends BaseTimeEntity {
 
