@@ -32,13 +32,17 @@ const StyledDiv = styled.div`
 `;
 
 const Issues = () => {
-  const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues'), { cacheTime: Infinity });
+  const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues?page=0'), {
+    cacheTime: Infinity,
+  });
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
   const navigate = useNavigate();
 
   if (isLoading) return <div>loading</div>;
   if (error) return <div>error</div>;
   if (!data) return <div>data 없음</div>;
+
+  console.log(data);
 
   const HandleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     navigate('/issues/new');

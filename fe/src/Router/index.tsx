@@ -9,24 +9,37 @@ import AddIssue from 'pages/AddIssue';
 import MilestoneList from 'pages/MilestoneList';
 import LabelList from 'pages/LableList';
 import NotFound from 'pages/NotFound';
+import Oauth from 'pages/Oauth';
 
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
-  const [isOAuth, setIsOAuth] = useState<boolean>(true);
+  const [isOAuth, setIsOAuth] = useState<boolean>(false);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
       <Routes>
-        <Route path="/" element={<Home isOAuth={isOAuth} />}>
-          <Route index element={isOAuth ? <Issues /> : <Login />} />
-          <Route path="/login" element={<Login />} />
-          <Route path="/issues" element={<Issues />} />
-          <Route path="/issues/new" element={<AddIssue />} />
-          <Route path="/issues/:issueId" element={<IssueDetail />} />
-          <Route path="/labels" element={<LabelList />} />
-          <Route path="/milestones" element={<MilestoneList />} />
-        </Route>
-        <Route path="*" element={<NotFound />} />
+        {isOAuth ? (
+          <>
+            <Route path="/" element={<Home isOAuth={isOAuth} />}>
+              <Route index element={<Issues />} />
+              <Route path="/login" element={<Login />} />
+              <Route path="/issues" element={<Issues />} />
+              <Route path="/issues/new" element={<AddIssue />} />
+              <Route path="/issues/:issueId" element={<IssueDetail />} />
+              <Route path="/labels" element={<LabelList />} />
+              <Route path="/milestones" element={<MilestoneList />} />
+            </Route>
+            <Route path="*" element={<NotFound />} />
+          </>
+        ) : (
+          <>
+            <Route path="/" element={<Home isOAuth={isOAuth} />}>
+              <Route index element={<Login />} />
+              <Route path="/api/auth" element={<Oauth />} />
+            </Route>
+            <Route path="*" element={<Login />} />
+          </>
+        )}
       </Routes>
     </BrowserRouter>
   );
