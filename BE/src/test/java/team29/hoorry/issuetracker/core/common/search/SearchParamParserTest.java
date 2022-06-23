@@ -45,7 +45,7 @@ class SearchParamParserTest {
 		MultiValueMap<SearchFilter, String> result = SearchParamParser.parse(q);
 		Map<SearchFilter, List<String>> expected = Map.of(
 			SearchFilter.WRITER_NAME, List.of("jerry", "hoo"),
-			SearchFilter.MILESTONE_NAME, List.of("1주차 마일스톤")
+			SearchFilter.MILESTONE_TITLE, List.of("1주차 마일스톤")
 		);
 
 		assertThat(result).containsExactlyInAnyOrderEntriesOf(expected);
@@ -58,7 +58,7 @@ class SearchParamParserTest {
 		MultiValueMap<SearchFilter, String> result = SearchParamParser.parse(q);
 		Map<SearchFilter, List<String>> expected = Map.of(
 			SearchFilter.WRITER_NAME, List.of("jerry", "hoo"),
-			SearchFilter.MILESTONE_NAME, List.of("1주차 마일스톤"),
+			SearchFilter.MILESTONE_TITLE, List.of("1주차 마일스톤"),
 			SearchFilter.SEARCH_PARAM, List.of("검색쿼리")
 		);
 

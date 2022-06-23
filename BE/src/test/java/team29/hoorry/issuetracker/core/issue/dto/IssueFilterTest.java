@@ -1,21 +1,20 @@
 package team29.hoorry.issuetracker.core.issue.dto;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import java.util.List;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.springframework.util.MultiValueMap;
 import team29.hoorry.issuetracker.core.common.search.SearchFilter;
 import team29.hoorry.issuetracker.core.common.search.SearchParamParser;
+import team29.hoorry.issuetracker.core.issue.domain.Status;
 
 class IssueFilterTest {
 
 	// issue filter property name
 	static final String assigneeNames = "assigneeNames";
-	static final String milestoneName = "milestoneName";
-	static final String isOpen = "isOpen";
+	static final String milestoneTitle = "milestoneTitle";
+	static final String status = "status";
 
 	@Test
 	void 만약_from_메서드에_빈_MultiValueMap을_입력받으면_모든_필드가_null인_객체를_반환한다() {
@@ -59,8 +58,8 @@ class IssueFilterTest {
 		IssueFilter result = IssueFilter.from(input);
 
 		assertThat(result)
-			.hasFieldOrPropertyWithValue(milestoneName, "jerry")
-			.hasAllNullFieldsOrPropertiesExcept(milestoneName);
+			.hasFieldOrPropertyWithValue(milestoneTitle, "jerry")
+			.hasAllNullFieldsOrPropertiesExcept(milestoneTitle);
 	}
 
 	@Test
@@ -71,8 +70,8 @@ class IssueFilterTest {
 		IssueFilter result = IssueFilter.from(input);
 
 		assertThat(result)
-			.hasFieldOrPropertyWithValue(milestoneName, "hoo")
-			.hasAllNullFieldsOrPropertiesExcept(milestoneName);
+			.hasFieldOrPropertyWithValue(milestoneTitle, "hoo")
+			.hasAllNullFieldsOrPropertiesExcept(milestoneTitle);
 	}
 
 	@Test
@@ -83,8 +82,8 @@ class IssueFilterTest {
 		IssueFilter result = IssueFilter.from(input);
 
 		assertThat(result)
-			.hasFieldOrPropertyWithValue(isOpen, true)
-			.hasAllNullFieldsOrPropertiesExcept(isOpen);
+			.hasFieldOrPropertyWithValue(status, Status.OPEN)
+			.hasAllNullFieldsOrPropertiesExcept(status);
 	}
 
 	@Test
@@ -95,7 +94,7 @@ class IssueFilterTest {
 		IssueFilter result = IssueFilter.from(input);
 
 		assertThat(result)
-			.hasFieldOrPropertyWithValue(isOpen, true)
-			.hasAllNullFieldsOrPropertiesExcept(isOpen);
+			.hasFieldOrPropertyWithValue(status, Status.OPEN)
+			.hasAllNullFieldsOrPropertiesExcept(status);
 	}
 }
