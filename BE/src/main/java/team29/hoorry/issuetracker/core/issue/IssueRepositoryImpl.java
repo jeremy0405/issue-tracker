@@ -52,21 +52,30 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 			.limit(pageable.getPageSize())
 			.fetch();
 
-		JPAQuery<Long> countQuery = queryFactory.select(issue.countDistinct())
+		JPAQuery<Long> countQuery = filteredIssueCountQuery(issueFilter, issueFilter.getStatus());
+
+		return PageableExecutionUtils.getPage(issues, pageable, countQuery::fetchOne);
+	}
+
+	@Override
+	public Long countFilteredIssues(IssueFilter issueFilter, Status status) {
+		return filteredIssueCountQuery(issueFilter, status).fetchOne();
+	}
+
+	private JPAQuery<Long> filteredIssueCountQuery(IssueFilter issueFilter, Status status) {
+		return queryFactory.select(issue.countDistinct())
 			.from(issue)
 			.leftJoin(issue.assignees, issueAssignee)
 			.leftJoin(issue.labels, issueLabel)
 			.leftJoin(issue.comments, comment)
 			.where(
-				isEquals(issue.status, issueFilter.getStatus()),
+				isEquals(issue.status, status),
 				isEquals(issue.writer.name, issueFilter.getWriterName()),
 				isEquals(issue.milestone.title, issueFilter.getMilestoneTitle()),
 				isAllEquals(issueLabel.label.title, issueFilter.getLabelTitles()),
 				isAllEquals(issueAssignee.assignee.name, issueFilter.getAssigneeNames()),
 				likeTitleOrComments(issueFilter.getSearchParam())
 			);
-
-		return PageableExecutionUtils.getPage(issues, pageable, countQuery::fetchOne);
 	}
 
 	private BooleanBuilder likeTitleOrComments(String searchParam) {
