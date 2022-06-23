@@ -9,7 +9,8 @@ import AddIssue from 'pages/AddIssue';
 import MilestoneList from 'pages/MilestoneList';
 import LabelList from 'pages/LableList';
 import NotFound from 'pages/NotFound';
-import Oauth from 'pages/Oauth';
+import Oauth from 'pages/Login/Oauth';
+import SignUp from 'pages/Login/SignUp';
 
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
@@ -35,7 +36,8 @@ const Routers = (): JSX.Element => {
           <>
             <Route path="/" element={<Home isOAuth={isOAuth} />}>
               <Route index element={<Login />} />
-              <Route path="/api/auth" element={<Oauth />} />
+              <Route path="/auth" element={<Oauth />} />
+              <Route path="/sign-up" element={<SignUp />} />
             </Route>
             <Route path="*" element={<Login />} />
           </>
