@@ -1,47 +1,56 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useRef, useState } from 'react';
+import React, { useRef } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
-export interface InputProps {
+export interface InputTypes {
   inputStyle?: 'STANDARD' | 'FILTERBAR';
   inputType: string;
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   inputValue?: string;
-  inputMaxLength?: number;
+  inputMaxLength: number;
   disabled?: boolean;
   inputPlaceholder: string;
+  isActive?: boolean;
+  isTyping?: boolean;
+  onClick: () => void;
+  // eslint-disable-next-line no-unused-vars
+  onChange: (event: React.FormEvent<HTMLInputElement>) => void;
+  onBlur?: () => void;
 }
 
-const defaultMaxLength = 12;
+const defaultMaxLength = 20;
 
 const Input = ({
   inputStyle = 'STANDARD',
   disabled = false,
   inputMaxLength = defaultMaxLength,
   ...props
-}: InputProps) => {
-  const { inputType, inputSize, inputValue, inputPlaceholder } = props;
+}: InputTypes) => {
+  const {
+    isActive = false,
+    isTyping = false,
+    inputType,
+    inputSize,
+    inputValue,
+    inputPlaceholder,
+    onChange,
+    onClick,
+    onBlur,
+  } = props;
   const inputRef = useRef<HTMLInputElement>(null);
-  const [isActive, setIsActive] = useState<boolean>(false);
-  const [isTyping, setIsTyping] = useState<boolean>(false);
-
-  const handleFormClick = () => {
-    if (disabled) return;
-    inputRef.current?.focus();
-    setIsActive(true);
-  };
-
-  const handleFormChange = (event: React.FormEvent<HTMLInputElement>) => {
-    const { value } = event.currentTarget;
-    if (!value) return setIsTyping(false);
-    // eslint-disable-next-line no-param-reassign
-    if (Number(value) >= inputMaxLength) event.currentTarget.value = value.slice(0, inputMaxLength);
-    return setIsTyping(true);
-  };
 
   return (
-    <Form inputSize={inputSize} onClick={handleFormClick} isActive={isActive}>
+    <Form
+      inputSize={inputSize}
+      onClick={() => {
+        if (disabled) return;
+        inputRef.current?.focus();
+        onClick();
+      }}
+      isActive={isActive}
+      inputStyle={inputStyle}
+    >
       {inputStyle === 'STANDARD' && isTyping && <label>{inputPlaceholder}</label>}
       {inputStyle === 'FILTERBAR' && <Icon icon="Search" />}
       <StyledInput
@@ -51,8 +60,13 @@ const Input = ({
         defaultValue={inputValue}
         placeholder={inputPlaceholder}
         ref={inputRef}
-        onBlur={() => setIsActive(false)}
-        onChange={handleFormChange}
+        onBlur={onBlur}
+        onChange={(event) => {
+          const { value } = event.currentTarget;
+          onChange(event);
+          // eslint-disable-next-line no-param-reassign
+          if (Number(value) >= inputMaxLength) event.currentTarget.value = value.slice(0, inputMaxLength);
+        }}
       />
     </Form>
   );

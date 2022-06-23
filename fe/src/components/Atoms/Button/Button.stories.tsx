@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 import Button from 'components/Atoms/Button';
 
 export default {
-  title: 'Components/Buttons',
+  title: 'Atoms/Button',
   component: Button,
 } as ComponentMeta<typeof Button>;
 
@@ -52,6 +52,17 @@ SmallSecondary.args = {
   label: 'BUTTON',
   size: 'SMALL',
   buttonStyle: 'SECONDARY',
+  iconInfo: {
+    icon: 'Plus',
+  },
+};
+
+export const NoBorder = Template.bind({});
+NoBorder.args = {
+  disabled: false,
+  label: 'BUTTON',
+  size: 'SMALL',
+  buttonStyle: 'NO_BORDER',
   iconInfo: {
     icon: 'Plus',
   },

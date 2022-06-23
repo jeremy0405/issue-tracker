@@ -3,11 +3,11 @@ import * as Logos from 'components/Atoms/Logo/svgs';
 
 export type LogoSizeType = keyof typeof Logos;
 
-interface LogoProps {
+interface LogoType {
   logoSize: LogoSizeType;
 }
 
-const Logo = ({ logoSize }: LogoProps) => {
+const Logo = ({ logoSize }: LogoType) => {
   const LogoImg = Logos[logoSize];
   return (
     <Link to="/">

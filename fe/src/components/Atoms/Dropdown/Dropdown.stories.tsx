@@ -2,7 +2,7 @@ import { ComponentStory, ComponentMeta } from '@storybook/react';
 import Dropdown from 'components/Atoms/Dropdown';
 
 export default {
-  title: 'Components/Dropdown',
+  title: 'Atoms/Dropdown',
   component: Dropdown,
 } as ComponentMeta<typeof Dropdown>;
 
@@ -10,8 +10,12 @@ const Template: ComponentStory<typeof Dropdown> = (args) => <Dropdown {...args} 
 
 const dropdownList = [
   { id: 1, title: '선택된 필터' },
-  { id: 2, title: '선택되지 않은 필터1' },
-  { id: 3, title: '선택되지 않은 필터2' },
+  { id: 2, title: 'bug', labelColor: 'red' },
+  {
+    id: 3,
+    title: 'dobby',
+    userImgUrl: 'https://avatars.githubusercontent.com/u/85747667?s=96&v=4',
+  },
 ];
 
 export const Standard = Template.bind({});
@@ -26,18 +30,29 @@ export const FilterBar = Template.bind({});
 FilterBar.args = {
   ...Standard.args,
   indicatorStyle: 'FILTERBAR',
-};
-
-export const Radio = Template.bind({});
-Radio.args = {
-  ...FilterBar.args,
-  open: true,
   panelType: 'radio',
 };
+FilterBar.storyName = 'FilterBar(radio)';
 
-export const CheckBox = Template.bind({});
-CheckBox.args = {
+export const FilterBarOpen = Template.bind({});
+FilterBarOpen.args = {
   ...FilterBar.args,
   open: true,
+};
+FilterBarOpen.storyName = 'FilterBar(open)';
+
+export const SideBar = Template.bind({});
+SideBar.args = {
+  ...Standard.args,
+  indicatorStyle: 'SIDEBAR',
+
   panelType: 'checkbox',
 };
+SideBar.storyName = 'SideBar(checkbox)';
+
+export const SideBarOpen = Template.bind({});
+SideBarOpen.args = {
+  ...SideBar.args,
+  open: true,
+};
+SideBarOpen.storyName = 'SideBar(open)';

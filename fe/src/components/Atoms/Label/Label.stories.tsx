@@ -3,7 +3,7 @@ import { colors } from 'styles/theme';
 import Label from 'components/Atoms/Label';
 
 export default {
-  title: 'Components/Label',
+  title: 'Atoms/Label',
   component: Label,
 } as ComponentMeta<typeof Label>;
 
@@ -11,23 +11,27 @@ const Template: ComponentStory<typeof Label> = (args) => <Label {...args} />;
 
 export const Light = Template.bind({});
 Light.args = {
-  label: '레이블 이름',
+  id: 0,
+  title: '레이블 이름',
   labelStyle: 'STANDARD',
-  textStyle: 'LIGHT',
-  color: colors.primary.blue,
+  titleColor: colors.offWhite,
+  backgroundColor: colors.primary.blue,
+  description: 'string',
 };
 
 export const Dark = Template.bind({});
 Dark.args = {
-  label: '레이블 이름',
+  id: 1,
+  title: '레이블 이름',
   labelStyle: 'STANDARD',
-  textStyle: 'DARK',
-  color: colors.line,
+  titleColor: colors.body,
+  backgroundColor: colors.line,
 };
 
 export const Line = Template.bind({});
 Line.args = {
-  label: '레이블 이름',
+  id: 2,
+  backgroundColor: colors.line,
+  title: '작성자',
   labelStyle: 'LINE',
-  color: colors.primary.blue,
 };

@@ -1,15 +1,24 @@
 import { Outlet } from 'react-router-dom';
-
 import styled from 'styled-components';
+import Header from 'components/Organisms/Header';
 
 const Layer = styled.div`
-  background: ${({ theme }) => theme.colors.background};
+  padding: 0px 80px;
+  height: 100vh;
+
+  & > div {
+    width: 1440px;
+    margin: 0 auto;
+  }
 `;
 
-const Home = () => {
+const Home = ({ isOAuth }: { isOAuth: boolean }) => {
   return (
     <Layer>
-      <Outlet />
+      <div>
+        {isOAuth && <Header />}
+        <Outlet />
+      </div>
     </Layer>
   );
 };

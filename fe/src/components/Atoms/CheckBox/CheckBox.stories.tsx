@@ -1,9 +1,23 @@
-import { ComponentMeta } from '@storybook/react';
+import { ComponentMeta, ComponentStory } from '@storybook/react';
 import CheckBox from 'components/Atoms/CheckBox/';
 
 export default {
-  title: 'Components/Checkbox',
+  title: 'Atoms/Checkbox',
   component: CheckBox,
 } as ComponentMeta<typeof CheckBox>;
 
-export const Checkbox = <CheckBox id={1} />;
+const Template: ComponentStory<typeof CheckBox> = (args) => <CheckBox {...args} />;
+
+const checkedIssue: string[] = [];
+
+const checkedItemHandler = (id: string, isChecked: boolean) => {
+  // eslint-disable-next-line no-unused-expressions
+  isChecked ? checkedIssue.push(id) : checkedIssue.pop();
+};
+
+export const Checkebox = Template.bind({});
+Checkebox.args = {
+  id: 0,
+  checkedItemHandler,
+  checkedIssue,
+};

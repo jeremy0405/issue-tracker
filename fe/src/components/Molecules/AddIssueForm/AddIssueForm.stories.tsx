@@ -10,7 +10,7 @@ const Template: ComponentStory<typeof AddIssueForm> = (args) => <AddIssueForm {.
 
 export const Standard = Template.bind({});
 Standard.args = {
-  inputSize: 'LARGE',
+  inputSize: 'MEDIUM',
   inputType: 'text',
   inputMaxLength: 15,
   inputPlaceholder: '제목',

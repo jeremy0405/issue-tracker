@@ -2,7 +2,7 @@ import React, { ReactNode, useState, useRef } from 'react';
 import { Form, StyledTextarea, AddFile, Count } from 'components/Atoms/Textarea/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
-export interface TextareaProps {
+export interface TextareaTypes {
   textareaSize: 'MEDIUM' | 'LARGE';
   textareaPlaceholder?: string;
   textareaMaxLength?: number;
@@ -14,7 +14,7 @@ const Textarea = ({
   textareaSize = 'LARGE',
   textareaMaxLength = defaultTextareaMaxLength,
   ...props
-}: TextareaProps) => {
+}: TextareaTypes) => {
   const { textareaPlaceholder } = props;
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const [isTyping, setIsTyping] = useState<string>('');
