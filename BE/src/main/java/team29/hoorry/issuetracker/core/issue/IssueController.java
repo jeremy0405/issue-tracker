@@ -52,9 +52,8 @@ public class IssueController {
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
 		@RequestParam(required = false) String q,
-		@RequestParam(required = false) Integer page
+		@RequestParam Integer page
 	) {
-		IssuesResponse issuesResponse = issueMockService.findAll(q, page);
 		IssuesResponse realIssuesResponse = issueService.findAll(q, page);
 
 		return ResponseEntity.ok(realIssuesResponse);
