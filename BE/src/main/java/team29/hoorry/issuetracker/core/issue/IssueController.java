@@ -59,7 +59,7 @@ public class IssueController {
 		IssuesResponse issuesResponse = issueMockService.findAll(q, page);
 		IssuesResponse realIssuesResponse = issueService.findAll(q, page);
 
-		return ResponseEntity.ok(issuesResponse);
+		return ResponseEntity.ok(realIssuesResponse);
 	}
 
 	@Operation(

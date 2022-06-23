@@ -24,6 +24,7 @@ import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.ReactionResponse;
 import team29.hoorry.issuetracker.core.label.domain.Label;
+import team29.hoorry.issuetracker.core.label.dto.LabelResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 
 @Slf4j
@@ -38,9 +39,9 @@ public class IssueMockService {
 
 	public IssuesResponse findAll(String searchParam, Integer page) {
 
-		List<Label> issueLabels = List.of(
-			Label.of(1L, "bug", "#0000FF", "#B9062F", "Something isn't working"),
-			Label.of(3L, "duplicate", "#b4b4b4", "#000000",
+		List<LabelResponse> issueLabels = List.of(
+			LabelResponse.of(1L, "bug", "#0000FF", "#B9062F", "Something isn't working"),
+			LabelResponse.of(3L, "duplicate", "#b4b4b4", "#000000",
 				"This issue or pull request already exists")
 		);
 
