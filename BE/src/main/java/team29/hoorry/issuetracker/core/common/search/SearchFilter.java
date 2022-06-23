@@ -4,8 +4,8 @@ public enum SearchFilter {
 
 	STATUS("is"),
 	ASSIGNEE_NAME("assignee"),
-	LABEL_NAME("label"),
-	MILESTONE_NAME("milestone"),
+	LABEL_TITLE("label"),
+	MILESTONE_TITLE("milestone"),
 	WRITER_NAME("author"),
 	COMMENTER_NAME("commenter"),
 	SEARCH_PARAM("searchParam"),
