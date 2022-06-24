@@ -11,7 +11,7 @@ public class IssueMilestoneResponse {
 
 	private Long id;
 	private String title;
-	private Integer openIssueCount;
-	private Integer closedIssueCount;
+	private Long openIssueCount;
+	private Long closedIssueCount;
 
 }

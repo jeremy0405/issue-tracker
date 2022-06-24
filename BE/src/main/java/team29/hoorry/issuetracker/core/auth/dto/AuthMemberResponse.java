@@ -10,6 +10,9 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 public class AuthMemberResponse {
 
+	@JsonProperty("login")
+	private String loginId;
+
 	@JsonProperty("id")
 	private Long authId;
 

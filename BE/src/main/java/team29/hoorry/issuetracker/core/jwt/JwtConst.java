@@ -14,5 +14,5 @@ public class JwtConst {
 	public static final long ACCESS_TOKEN_EXPIRED_TIME = Duration.ofHours(1).toMillis();
 	public static final long REFRESH_TOKEN_EXPIRED_TIME = Duration.ofDays(7).toMillis();
 	public static final String AUTHORIZATION = "Authorization";
-
+	public static final String BEARER = "Bearer";
 }

@@ -3,11 +3,7 @@ package team29.hoorry.issuetracker.core.issue;
 import java.time.LocalDateTime;
 import java.util.Collections;
 import java.util.List;
-import java.util.stream.Collectors;
 import lombok.extern.slf4j.Slf4j;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
@@ -18,11 +14,7 @@ import team29.hoorry.issuetracker.core.issue.dto.request.IssuesSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneSimpleResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
-import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.ReactionResponse;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
@@ -35,65 +27,6 @@ public class IssueMockService {
 		log.debug("{}", issuesSaveRequest);
 
 		return null;
-	}
-
-	public IssuesResponse findAll(String searchParam, Integer page) {
-
-		List<Label> issueLabels = List.of(
-			Label.of(1L, "bug", "#0000FF", "#B9062F", "Something isn't working"),
-			Label.of(3L, "duplicate", "#b4b4b4", "#000000",
-				"This issue or pull request already exists")
-		);
-
-		List<MemberResponse> assignees = List.of(
-			new MemberResponse(1L, "jerry",
-				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
-		);
-
-		MemberResponse writer = new MemberResponse(1L, "jerry",
-			"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200");
-
-		List<IssueResponse> issues = List.of(
-			new IssueResponse(1L, "OPEN", "골든다람쥐 가기", issueLabels, assignees, "1주차 마일스톤 BE", writer,
-				LocalDateTime.now()),
-			new IssueResponse(2L, "OPEN", "맛있겠다", issueLabels, assignees, "1주차 마일스톤 BE", writer,
-				LocalDateTime.now()),
-			new IssueResponse(3L, "CLOSED", "제리 바보 아님", issueLabels, assignees, "1주차 마일스톤 BE",
-				writer, LocalDateTime.now()),
-			new IssueResponse(4L, "OPEN", "천제리", issueLabels, assignees, "1주차 마일스톤 FE", writer,
-				LocalDateTime.now()),
-			new IssueResponse(5L, "OPEN", "후 천재", issueLabels, assignees, "1주차 마일스톤 FE", writer,
-				LocalDateTime.now())
-		);
-
-		List<Label> labels = List.of(
-			Label.of(1L, "bug", "#0000FF", "#B9062F", "Something isn't working"),
-			Label.of(2L, "documentation", "#0000FF", "#FFFFFF",
-				"Improvements or additions to documentation"),
-			Label.of(3L, "duplicate", "#b4b4b4", "#000000",
-				"This issue or pull request already exists")
-		);
-
-		List<IssueLabelResponse> issueLabelResponses = labels.stream().map(IssueLabelResponse::from)
-			.collect(Collectors.toList());
-
-		List<IssueMilestoneSimpleResponse> milestones = List.of(
-			new IssueMilestoneSimpleResponse(1L, "1주차 마일스톤 BE"),
-			new IssueMilestoneSimpleResponse(2L, "1주차 마일스톤 FE"));
-
-		List<MemberResponse> writers = List.of(
-			new MemberResponse(1L, "who-hoo",
-				"https://avatars.githubusercontent.com/u/68011320?v=4"),
-			new MemberResponse(2L, "jeremy0405",
-				"https://post-phinf.pstatic.net/MjAyMTA2MDRfOTAg/MDAxNjIyNzcyMjY1NzQ2.sRxvXF_CKk6NqfiAI6624veOffmu7GDJmXuoMcmgQv0g.ZA1bWEuLFT7--CvzUFZ6TXN2TWX6rhze_t7ilqwk-tcg.JPEG/IMG_3115.jpg?type=w1200")
-		);
-
-		PageRequest pageable = PageRequest.of(0, 10);
-
-		Page<IssueResponse> pagedIssues = new PageImpl<>(issues, pageable, issues.size());
-
-		return new IssuesResponse(4, 2, labels.size(), milestones.size(), assignees,
-			issueLabelResponses, milestones, writers, pagedIssues);
 	}
 
 	public IssueDetailResponse findById(Long id) {
@@ -114,7 +47,7 @@ public class IssueMockService {
 		MemberResponse writer = new MemberResponse(1L, "who-hoo",
 			"https://avatars.githubusercontent.com/u/68011320?v=4");
 
-		IssueMilestoneResponse milestone = new IssueMilestoneResponse(1L, "1주차 마일스톤 BE", 4, 3);
+		IssueMilestoneResponse milestone = new IssueMilestoneResponse(1L, "1주차 마일스톤 BE", 4L, 3L);
 
 		List<ReactionResponse> reactions = List.of(
 			new ReactionResponse("\uD83D\uDC4D", List.of(writer)),

@@ -12,14 +12,14 @@ import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 @AllArgsConstructor
 public class IssuesResponse {
 
-	private Integer openIssueCount;
-	private Integer closedIssueCount;
-	private Integer labelCount;
-	private Integer milestoneCount;
+	private Long openIssueCount;
+	private Long closedIssueCount;
+	private Long labelCount;
+	private Long milestoneCount;
 
 	private List<MemberResponse> assignees;
 	private List<IssueLabelResponse> labels;
-	private List<IssueMilestoneSimpleResponse> milestones;
+	private List<IssueMilestoneResponse> milestones;
 	private List<MemberResponse> writers;
 
 	private Page<IssueResponse> issues;

@@ -5,11 +5,11 @@ import io.swagger.v3.oas.annotations.media.ArraySchema;
 import io.swagger.v3.oas.annotations.media.Content;
 import io.swagger.v3.oas.annotations.media.Schema;
 import io.swagger.v3.oas.annotations.responses.ApiResponse;
+import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PatchMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -17,8 +17,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssueFilter;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
@@ -28,12 +28,14 @@ import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateReque
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 
+@Tag(name = "issues", description = "이슈 API")
 @RestController
 @RequestMapping("/api/issues")
 @RequiredArgsConstructor
 public class IssueController {
 
-	private final IssueMockService issueService;
+	private final IssueMockService issueMockService;
+	private final IssueService issueService;
 
 	@Operation(
 		summary = "이슈 리스트 조회",
@@ -52,13 +54,12 @@ public class IssueController {
 	)
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
-		@ModelAttribute IssueFilter issueFilter,
-		@RequestParam(required = false) String searchParam,
-		@RequestParam(required = false) Integer page
+		@RequestParam(required = false) String q,
+		@RequestParam Integer page
 	) {
-		IssuesResponse issuesResponse = issueService.findAll(searchParam, page);
+		IssuesResponse realIssuesResponse = issueService.findAll(q, page);
 
-		return ResponseEntity.ok(issuesResponse);
+		return ResponseEntity.ok(realIssuesResponse);
 	}
 
 	@Operation(
@@ -78,7 +79,7 @@ public class IssueController {
 	)
 	@GetMapping("/{id}")
 	public ResponseEntity<IssueDetailResponse> issueDetail(@PathVariable Long id) {
-		IssueDetailResponse issueDetailResponse = issueService.findById(id);
+		IssueDetailResponse issueDetailResponse = issueMockService.findById(id);
 
 		return ResponseEntity.ok(issueDetailResponse);
 	}
@@ -93,14 +94,19 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 등록 실패"
+				description = "이슈 등록 실패",
+				content = {
+				@Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class)
+				)
+			}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
-		issueService.save(issuesSaveRequest);
+		issueMockService.save(issuesSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -114,15 +120,20 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 상태 다건 수정 실패"
+				description = "이슈 상태 다건 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/status")
 	public ResponseEntity<Void> updateAllStatus(
 		@RequestBody IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
-		issueService.updateAllStatus(issuesStatusUpdateRequest);
+		issueMockService.updateAllStatus(issuesStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -136,16 +147,21 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 단태 단건 수정 실패"
+				description = "이슈 상태 단건 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/status")
 	public ResponseEntity<Void> updateStatus(
 		@PathVariable Long id,
 		@RequestBody IssueStatusUpdateRequest issueStatusUpdateRequest) {
-		issueService.updateStatus(id, issueStatusUpdateRequest);
+		issueMockService.updateStatus(id, issueStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -159,16 +175,21 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 제목 수정 실패"
+				description = "이슈 제목 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/title")
 	public ResponseEntity<Void> updateTitle(
 		@PathVariable Long id,
 		@RequestBody IssueTitleUpdateRequest issueTitleUPdateRequest) {
-		issueService.updateTitle(id, issueTitleUPdateRequest);
+		issueMockService.updateTitle(id, issueTitleUPdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -182,16 +203,21 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 라벨 수정 실패"
+				description = "이슈 라벨 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/labels")
 	public ResponseEntity<Void> updateLabels(
 		@PathVariable Long id,
 		@RequestBody IssueLabelsUpdateRequest issueLabelsUpdateRequest) {
-		issueService.updateLabels(id, issueLabelsUpdateRequest);
+		issueMockService.updateLabels(id, issueLabelsUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -205,16 +231,21 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 마일스톤 수정 실패"
+				description = "이슈 마일스톤 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/milestone")
 	public ResponseEntity<Void> updateMilestone(
 		@PathVariable Long id,
 		@RequestBody IssueMilestoneUpdateRequest issueMilestoneUpdateRequest) {
-		issueService.updateMilestone(id, issueMilestoneUpdateRequest);
+		issueMockService.updateMilestone(id, issueMilestoneUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -228,16 +259,21 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 담당자 수정 실패"
+				description = "이슈 담당자 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/assignees")
 	public ResponseEntity<Void> updateAssignees(
 		@PathVariable Long id,
 		@RequestBody IssueAssigneesUpdateRequest issueAssigneesUpdateRequest) {
-		issueService.updateAssignees(id, issueAssigneesUpdateRequest);
+		issueMockService.updateAssignees(id, issueAssigneesUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
@@ -251,14 +287,19 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 삭제 실패"
+				description = "이슈 삭제 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		issueService.delete(id);
+		issueMockService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }

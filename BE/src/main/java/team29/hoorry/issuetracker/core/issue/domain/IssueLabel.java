@@ -8,8 +8,12 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 
+@Getter
+@NoArgsConstructor
 @Entity
 public class IssueLabel {
 
