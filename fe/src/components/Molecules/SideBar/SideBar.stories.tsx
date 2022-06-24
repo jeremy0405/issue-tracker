@@ -59,12 +59,14 @@ const milestones = [
   {
     id: 1,
     title: '1주차 마일스톤 BE',
-    progress: 30,
+    openIssueCount: 3,
+    closedIssueCount: 5,
   },
   {
     id: 2,
     title: '1주차 마일스톤 FE',
-    progress: 70,
+    openIssueCount: 3,
+    closedIssueCount: 6,
   },
 ];
 

@@ -8,6 +8,8 @@ export type DropdownListTypes = {
   id: number;
   title?: string;
   loginId?: string;
+  openIssueCount?: number;
+  closedIssueCount?: number;
   backgroundColor?: string;
   profileImageUrl?: string;
 };
@@ -21,7 +23,8 @@ export type AssignTypes = {
 export type MilestoneTypes = {
   id: number;
   title: string;
-  progress?: number;
+  openIssueCount: number;
+  closedIssueCount: number;
 };
 
 export type LabelTypes = {
