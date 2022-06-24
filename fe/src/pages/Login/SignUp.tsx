@@ -18,13 +18,6 @@ const StyledSignUp = styled.div`
       padding: 0 24px;
       height: 100%;
       border-radius: 16px;
-
-      &:disabled {
-        opacity: 0.8;
-        border: 1px solid ${({ theme }) => theme.colors.success.green};
-        background: ${({ theme }) => theme.colors.success.lightGreen};
-        color: ${({ theme }) => theme.colors.success.darkGreen};
-      }
     }
   }
 
@@ -42,7 +35,7 @@ const SignUp = () => {
   return (
     <StyledSignUp>
       <Logo logoSize="Large" />
-      <SignUpForm data={data.authMemberResponse} />
+      <SignUpForm authData={data.authMemberResponse} />
     </StyledSignUp>
   );
 };

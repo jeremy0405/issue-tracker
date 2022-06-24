@@ -13,11 +13,12 @@ const StyledLoginAndRegister = styled.div`
     color: ${({ theme }) => theme.colors.placeHolder};
   }
 
-  a {
+  .sign_up {
     margin-top: 30px;
     text-decoration: none;
     color: ${({ theme }) => theme.colors.body};
     ${({ theme }) => theme.fontStyles.linkXsmall};
+
     &:visited {
       text-decoration: none;
     }
@@ -32,7 +33,9 @@ const LoginAndRegister = (): JSX.Element => {
       </a>
       <p>or</p>
       <LoginForm />
-      <Link to="#!">회원가입</Link>
+      <Link to="#!" className="sign_up">
+        회원가입
+      </Link>
     </StyledLoginAndRegister>
   );
 };

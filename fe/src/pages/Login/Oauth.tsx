@@ -1,9 +1,10 @@
 import axios from 'axios';
 import { useQuery } from 'react-query';
+import { Dispatch, SetStateAction } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import { AuthTypes } from 'helpers/utils/fetchData';
 
-const Oauth = () => {
+const Oauth = ({ setIsOAuth }: { setIsOAuth: Dispatch<SetStateAction<boolean>> }) => {
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -11,6 +12,10 @@ const Oauth = () => {
     const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/${URL}`);
 
     if (data.isMember) {
+      // localStorage를 사용하지 않는 방법 고민하기
+      window.localStorage.setItem('refresh_token', data.jwtResponse.refreshToken);
+      window.localStorage.setItem('userInfo', JSON.stringify(data.authMemberResponse));
+      setIsOAuth(true);
       navigate('/issues');
     } else {
       navigate('/sign-up');
