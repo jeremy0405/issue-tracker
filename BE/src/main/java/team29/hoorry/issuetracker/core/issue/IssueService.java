@@ -35,8 +35,8 @@ public class IssueService {
 	private final LabelRepository labelRepository;
 	private final MilestoneRepository milestoneRepository;
 
-	public IssuesResponse findAll(String q, Integer page) {
-		IssueFilter issueFilter = IssueFilter.from(SearchParamParser.parse(q));
+	public IssuesResponse findAll(String query, Integer page) {
+		IssueFilter issueFilter = IssueFilter.from(SearchParamParser.parse(query));
 
 		PageRequest pageable = PageRequest.of(page, PAGE_SIZE);
 		Page<Issue> issues = issueRepository.findAllByIssueFilter(issueFilter, pageable);
