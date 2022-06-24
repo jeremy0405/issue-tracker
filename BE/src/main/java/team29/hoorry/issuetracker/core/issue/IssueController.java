@@ -54,10 +54,10 @@ public class IssueController {
 	)
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
-		@RequestParam(required = false) String q,
+		@RequestParam(name = "query", required = false) String query,
 		@RequestParam Integer page
 	) {
-		IssuesResponse realIssuesResponse = issueService.findAll(q, page);
+		IssuesResponse realIssuesResponse = issueService.findAll(query, page);
 
 		return ResponseEntity.ok(realIssuesResponse);
 	}
