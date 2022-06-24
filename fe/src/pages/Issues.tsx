@@ -35,18 +35,43 @@ const Issues = () => {
   const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues?page=0'), {
     cacheTime: Infinity,
   });
-  const { onChangeInput, onClickInput, onBlurInput } = useInput();
+  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
   const navigate = useNavigate();
 
   if (isLoading) return <div>loading</div>;
   if (error) return <div>error</div>;
-  if (!data) return <div>data 없음</div>;
-
-  console.log(data);
+  if (!data) return <div>데이터가 없습니다</div>;
 
   const HandleOnClick = (e: React.MouseEvent<HTMLButtonElement>) => {
     navigate('/issues/new');
   };
+
+  const filterTabs = [
+    {
+      id: 1,
+      dropdownTitle: '담당자 필터',
+      dropdownList: data.assignees,
+      indicatorLabel: '담당자',
+    },
+    {
+      id: 2,
+      dropdownTitle: '레이블 필터',
+      dropdownList: data.labels,
+      indicatorLabel: '레이블',
+    },
+    {
+      id: 3,
+      dropdownTitle: '마일스톤 필터',
+      dropdownList: data.milestones,
+      indicatorLabel: '마일스톤',
+    },
+    {
+      id: 4,
+      dropdownTitle: '작성자 필터',
+      dropdownList: data.writers,
+      indicatorLabel: '작성자',
+    },
+  ];
 
   return (
     <>
@@ -78,32 +103,7 @@ const Issues = () => {
         openIssueCount={data.openIssueCount}
         closedIssueCount={data.closedIssueCount}
         issues={data.issues}
-        filterTabs={[
-          {
-            id: 1,
-            dropdownTitle: '담당자 필터',
-            dropdownList: data.assignees,
-            indicatorLabel: '담당자',
-          },
-          {
-            id: 2,
-            dropdownTitle: '레이블 필터',
-            dropdownList: data.labels,
-            indicatorLabel: '레이블',
-          },
-          {
-            id: 3,
-            dropdownTitle: '마일스톤 필터',
-            dropdownList: data.milestones,
-            indicatorLabel: '마일스톤',
-          },
-          {
-            id: 4,
-            dropdownTitle: '작성자 필터',
-            dropdownList: data.writers,
-            indicatorLabel: '작성자',
-          },
-        ]}
+        filterTabs={filterTabs}
       />
     </>
   );
