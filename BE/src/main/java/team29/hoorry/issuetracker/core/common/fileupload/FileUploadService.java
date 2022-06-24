@@ -16,14 +16,20 @@ import org.springframework.web.multipart.MultipartFile;
 @RequiredArgsConstructor
 public class FileUploadService {
 
+	private static final String DIRECTORY = "issue-tracker/";
+
 	@Value("${cloud.aws.s3.bucket}")
 	private String bucketName;
 
 	private final AmazonS3 amazonS3;
 
 	public FileUploadResponse uploadFile(MultipartFile file) {
+		String fileName = createUniqueFileName(file);
+		upload(file, fileName);
+		return new FileUploadResponse(getS3Url(fileName));
+	}
 
-		// 파일 이름 읽어와서 기존 확장자명을 유지한 채, 유니크한 파일 이름 생성
+	private String createUniqueFileName(MultipartFile file) {
 		String originalFileName = file.getOriginalFilename();
 		String fileExtension;
 		try {
@@ -31,9 +37,10 @@ public class FileUploadService {
 		} catch (StringIndexOutOfBoundsException e) {
 			throw new IllegalArgumentException("잘못된 형식의 파일입니다.");
 		}
-		String fileName = "issue-tracker/" + UUID.randomUUID().toString().concat(fileExtension);
+		return DIRECTORY + UUID.randomUUID().toString() + fileExtension;
+	}
 
-		// 파일 업로드 요청
+	private void upload(MultipartFile file, String fileName) {
 		ObjectMetadata objectMetadata = new ObjectMetadata();
 		objectMetadata.setContentLength(file.getSize());
 		objectMetadata.setContentType(file.getContentType());
@@ -44,9 +51,9 @@ public class FileUploadService {
 		} catch (IOException e) {
 			throw new IllegalArgumentException("파일 변환 중 에러가 발생하였습니다.");
 		}
+	}
 
-		// 업로드된 파일 url 응답
-		String fileUrl = amazonS3.getUrl(bucketName, fileName).toString();
-		return new FileUploadResponse(fileUrl);
+	private String getS3Url(String fileName) {
+		return amazonS3.getUrl(bucketName, fileName).toString();
 	}
 }
