@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.label.dto.LabelAddRequest;
 import team29.hoorry.issuetracker.core.label.dto.LabelUpdateRequest;
 import team29.hoorry.issuetracker.core.label.dto.LabelsResponse;
@@ -53,8 +54,14 @@ public class LabelController {
 			@ApiResponse(responseCode = "200",
 				description = "라벨 등록 성공"),
 			@ApiResponse(responseCode = "400",
-				description = "라벨 등록 실패 ")
-			// TODO: 실패시 예외 응답 content 추가
+				description = "라벨 등록 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
 		}
 	)
 	@PostMapping
@@ -69,8 +76,14 @@ public class LabelController {
 			@ApiResponse(responseCode = "200",
 				description = "라벨 수정 성공"),
 			@ApiResponse(responseCode = "400",
-				description = "라벨 수정 실패 ")
-			// TODO: 실패시 예외 응답 content 추가
+				description = "라벨 수정 실패 ",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
 		}
 	)
 	@PatchMapping
@@ -85,12 +98,18 @@ public class LabelController {
 			@ApiResponse(responseCode = "200",
 				description = "라벨 삭제 성공"),
 			@ApiResponse(responseCode = "400",
-				description = "라벨 삭제 실패 ")
-			// TODO: 실패시 예외 응답 content 추가
+				description = "라벨 삭제 실패 ",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
 		}
 	)
 	@DeleteMapping("/{id}")
-	public ResponseEntity<Void> delete(@PathVariable Long id){
+	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		labelMockService.delete(id);
 		return ResponseEntity.ok().build();
 	}

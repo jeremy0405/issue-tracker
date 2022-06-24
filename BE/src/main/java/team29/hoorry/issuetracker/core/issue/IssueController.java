@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
@@ -93,9 +94,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 등록 실패"
+				description = "이슈 등록 실패",
+				content = {
+				@Content(
+					mediaType = "application/json",
+					schema = @Schema(implementation = ErrorResponse.class)
+				)
+			}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PostMapping
@@ -114,9 +120,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 상태 다건 수정 실패"
+				description = "이슈 상태 다건 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/status")
@@ -136,9 +147,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 단태 단건 수정 실패"
+				description = "이슈 상태 단건 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/status")
@@ -159,9 +175,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 제목 수정 실패"
+				description = "이슈 제목 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/title")
@@ -182,9 +203,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 라벨 수정 실패"
+				description = "이슈 라벨 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/labels")
@@ -205,9 +231,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 마일스톤 수정 실패"
+				description = "이슈 마일스톤 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/milestone")
@@ -228,9 +259,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 담당자 수정 실패"
+				description = "이슈 담당자 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@PatchMapping("/{id}/assignees")
@@ -251,9 +287,14 @@ public class IssueController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "이슈 삭제 실패"
+				description = "이슈 삭제 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
 			)
-			//todo 실패 시 content 추가할 것
 		}
 	)
 	@DeleteMapping("/{id}")

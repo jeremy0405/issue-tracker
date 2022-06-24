@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestoneAddRequest;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestoneUpdateRequest;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestonesResponse;
@@ -60,9 +61,13 @@ public class MilestoneController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "마일스톤 등록 실패"
-			)
-			//todo 실패 시 content 추가할 것
+				description = "마일스톤 등록 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				})
 		}
 	)
 	@PostMapping
@@ -82,9 +87,13 @@ public class MilestoneController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "마일스톤 수정 실패"
-			)
-			//todo 실패 시 content 추가할 것
+				description = "마일스톤 수정 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				})
 		}
 	)
 	@PatchMapping
@@ -104,9 +113,13 @@ public class MilestoneController {
 			),
 			@ApiResponse(
 				responseCode = "400",
-				description = "마일스톤 삭제 실패"
-			)
-			//todo 실패 시 content 추가할 것
+				description = "마일스톤 삭제 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				})
 		}
 	)
 	@DeleteMapping("/{id}")
