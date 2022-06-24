@@ -2,15 +2,18 @@ import { useState } from 'react';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 
 import Home from 'pages/Home';
-import Login from 'pages/Login';
+
+import Login from 'pages/Login/index';
+import Oauth from 'pages/Login/Oauth';
+import SignUp from 'pages/Login/SignUp';
+
 import Issues from 'pages/Issues';
 import IssueDetail from 'pages/IssueDetail';
 import AddIssue from 'pages/AddIssue';
 import MilestoneList from 'pages/MilestoneList';
 import LabelList from 'pages/LableList';
+
 import NotFound from 'pages/NotFound';
-import Oauth from 'pages/Login/Oauth';
-import SignUp from 'pages/Login/SignUp';
 
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
