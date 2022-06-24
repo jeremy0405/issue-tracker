@@ -12,6 +12,8 @@ import team29.hoorry.issuetracker.core.auth.dto.AuthMemberResponse;
 import team29.hoorry.issuetracker.core.auth.dto.AuthResponse;
 import team29.hoorry.issuetracker.core.auth.dto.AuthToken;
 import team29.hoorry.issuetracker.core.auth.dto.AuthTokenRequest;
+import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
+import team29.hoorry.issuetracker.core.exception.InvalidCodeException;
 import team29.hoorry.issuetracker.core.jwt.AccessToken;
 import team29.hoorry.issuetracker.core.jwt.JwtGenerator;
 import team29.hoorry.issuetracker.core.jwt.JwtRepository;
@@ -66,6 +68,9 @@ public class AuthService {
 			.headers(header -> header.setBearerAuth(authToken.getAccessToken()))
 			.retrieve()
 			.bodyToMono(AuthMemberResponse.class)
+			.doOnError(e -> {
+				throw new InvalidCodeException(ExceptionMessage.INVALID_CODE_MESSAGE, e);
+			})
 			.block();
 	}
 }
