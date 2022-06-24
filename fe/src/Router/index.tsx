@@ -17,7 +17,8 @@ import NotFound from 'pages/NotFound';
 
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
-  const [isOAuth, setIsOAuth] = useState<boolean>(false);
+  const hasToken = () => !!window.localStorage.getItem('refresh_token');
+  const [isOAuth, setIsOAuth] = useState<boolean>(hasToken());
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>
@@ -26,7 +27,6 @@ const Routers = (): JSX.Element => {
           <>
             <Route path="/" element={<Home isOAuth={isOAuth} />}>
               <Route index element={<Issues />} />
-              <Route path="/login" element={<Login />} />
               <Route path="/issues" element={<Issues />} />
               <Route path="/issues/new" element={<AddIssue />} />
               <Route path="/issues/:issueId" element={<IssueDetail />} />
@@ -39,8 +39,8 @@ const Routers = (): JSX.Element => {
           <>
             <Route path="/" element={<Home isOAuth={isOAuth} />}>
               <Route index element={<Login />} />
-              <Route path="/auth" element={<Oauth />} />
-              <Route path="/sign-up" element={<SignUp />} />
+              <Route path="/auth" element={<Oauth setIsOAuth={setIsOAuth} />} />
+              <Route path="/sign-up/" element={<SignUp />} />
             </Route>
             <Route path="*" element={<Login />} />
           </>
