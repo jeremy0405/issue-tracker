@@ -62,10 +62,10 @@ const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
                       titleColor="#FFFFFF"
                     />
                   );
-                if ('progress' in props)
+                if ('openIssueCount' in props)
                   return (
                     <div key={props.id}>
-                      <Milestone progress={props.progress!} />
+                      <Milestone openIssueCount={props.openIssueCount} closedIssueCount={props.closedIssueCount} />
                       <p>{props.title}</p>
                     </div>
                   );

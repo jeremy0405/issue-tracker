@@ -40,12 +40,12 @@ const Divider = styled.div`
 `;
 
 const AddIssue = () => {
-  const { onChangeInput, onClickInput, onBlurInput } = useInput();
+  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
 
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<ServerDataTypes>('issueData');
 
-  if (!data) return <div>외않되</div>;
+  if (!data) return <div>데이터가 없습니다</div>;
 
   const { assignees, labels, milestones } = data;
 
@@ -100,7 +100,6 @@ const AddIssue = () => {
     }
   };
 
-  // 서버 데이터 수정 기다리기
   const handleMilestoneContentList = (event: React.MouseEvent<HTMLInputElement>) => {
     const { target } = event;
     if (!(target instanceof HTMLInputElement)) return;
@@ -108,7 +107,7 @@ const AddIssue = () => {
     const { milestonesdata } = target.dataset;
     if (!milestonesdata) return;
 
-    const [id, title] = milestonesdata.split(',');
+    const [id, title, openIssueCount, closedIssueCount] = milestonesdata.split(',');
 
     if (target.checked) {
       setMilestoneContentList([
@@ -116,12 +115,44 @@ const AddIssue = () => {
         {
           id: Number(id),
           title,
+          openIssueCount: Number(openIssueCount),
+          closedIssueCount: Number(closedIssueCount),
         },
       ]);
     } else {
       setMilestoneContentList(milestoneContentList.filter((el) => el.id !== Number(id)));
     }
   };
+
+  const sideBarList = [
+    {
+      id: 1,
+      contentList: assigneesContentList,
+      clickHandler: handleAssigneesContentList,
+      dropdownList: assignees,
+      dropdownTitle: '담당자 추가',
+      indicatorLabel: '담당자',
+      type: 'ASSIGN',
+    },
+    {
+      id: 2,
+      contentList: labelsContentList,
+      clickHandler: handleLabelsContentList,
+      dropdownList: labels,
+      dropdownTitle: '레이블 추가',
+      indicatorLabel: '레이블',
+      type: 'LABEL',
+    },
+    {
+      id: 3,
+      contentList: milestoneContentList,
+      clickHandler: handleMilestoneContentList,
+      dropdownTitle: '마일스톤 추가',
+      dropdownList: milestones,
+      indicatorLabel: '마일스톤',
+      type: 'MILESTONE',
+    },
+  ];
 
   return (
     <StyledDiv>
@@ -140,37 +171,7 @@ const AddIssue = () => {
           textareaPlaceholder="코멘트를 입력하세요"
           textareaSize="LARGE"
         />
-        <SideBar
-          sideBarList={[
-            {
-              id: 1,
-              contentList: assigneesContentList,
-              clickHandler: handleAssigneesContentList,
-              dropdownList: assignees,
-              dropdownTitle: '담당자 추가',
-              indicatorLabel: '담당자',
-              type: 'ASSIGN',
-            },
-            {
-              id: 2,
-              contentList: labelsContentList,
-              clickHandler: handleLabelsContentList,
-              dropdownList: labels,
-              dropdownTitle: '레이블 추가',
-              indicatorLabel: '레이블',
-              type: 'LABEL',
-            },
-            {
-              id: 3,
-              contentList: [],
-              clickHandler: handleMilestoneContentList,
-              dropdownTitle: '마일스톤 추가',
-              dropdownList: milestones,
-              indicatorLabel: '마일스톤',
-              type: 'MILESTONE',
-            },
-          ]}
-        />
+        <SideBar sideBarList={sideBarList} />
       </div>
       <Divider />
       <div className="issue_Buttons">

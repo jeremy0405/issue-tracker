@@ -27,7 +27,7 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
     inputMaxLength,
   } = props;
 
-  const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
+  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
 
   return (
     <StyledFilterBar>

@@ -10,7 +10,7 @@ const StyledLogin = styled.div`
   align-items: center;
 
   a {
-    margin-bottom: 61px;
+    margin-top: 61px;
   }
 `;
 
