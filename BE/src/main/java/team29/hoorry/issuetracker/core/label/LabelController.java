@@ -28,6 +28,7 @@ import team29.hoorry.issuetracker.core.label.dto.LabelsResponse;
 public class LabelController {
 
 	private final LabelMockService labelMockService;
+	private final LabelService labelService;
 
 	@Operation(summary = "라벨 리스트 조회",
 		description = "모든 라벨을 조회합니다.",
@@ -44,7 +45,7 @@ public class LabelController {
 	)
 	@GetMapping
 	public ResponseEntity<LabelsResponse> labels() {
-		LabelsResponse labelsResponse = labelMockService.findAll();
+		LabelsResponse labelsResponse = labelService.findAll();
 		return ResponseEntity.ok(labelsResponse);
 	}
 
