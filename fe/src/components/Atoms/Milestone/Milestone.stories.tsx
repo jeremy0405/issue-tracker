@@ -10,5 +10,6 @@ const Template: ComponentStory<typeof Milestone> = (args) => <Milestone {...args
 
 export const Standard = Template.bind({});
 Standard.args = {
-  progress: 60,
+  openIssueCount: 3,
+  closedIssueCount: 4,
 };

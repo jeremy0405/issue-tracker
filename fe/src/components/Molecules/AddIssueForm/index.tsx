@@ -17,7 +17,7 @@ const AddIssueForm = (props: AddIssueFormTypes) => {
     textareaPlaceholder,
   } = props;
 
-  const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
+  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
 
   return (
     <StyledAddIssueForm>

@@ -1,5 +1,4 @@
 import React from 'react';
-import { NavLink } from 'react-router-dom';
 
 import checkOffCircle from 'assets/icons/checkOffCircle.svg';
 import checkOnCircle from 'assets/icons/checkOnCircle.svg';
@@ -30,25 +29,35 @@ const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', 
     <StyledDropdownPanels>
       <DropdonwTitle>{dropdownTitle}</DropdonwTitle>
       <DropdownList initIcon={checkOffCircle} activeIcon={checkOnCircle} {...props}>
-        {dropdownList.map(({ id, loginId, title, backgroundColor, profileImageUrl }: DropdownListTypes) => (
-          <li key={id}>
-            <input
-              key={`input-${id}`}
-              type={panelType}
-              name={dropdownTitle}
-              id={`${dropdownTitle}-${loginId || title}`}
-              data-assigneesdata={[id, loginId, profileImageUrl]}
-              data-labelsdata={[id, title, backgroundColor]}
-              data-milestonesdata={[id, title]}
-              onClick={clickHandler}
-            />
-            <label key={`label-${id}`} htmlFor={`${dropdownTitle}-${loginId || title}`}>
-              {backgroundColor && <SmallLabel fill={backgroundColor} />}
-              {profileImageUrl && <UserImage profileImageUrl={profileImageUrl} loginId={loginId!} imgSize="SMALL" />}
-              <span>{loginId || title}</span>
-            </label>
-          </li>
-        ))}
+        {dropdownList.map(
+          ({
+            id,
+            loginId,
+            title,
+            openIssueCount,
+            closedIssueCount,
+            backgroundColor,
+            profileImageUrl,
+          }: DropdownListTypes) => (
+            <li key={id}>
+              <input
+                key={`input-${id}`}
+                type={panelType}
+                name={dropdownTitle}
+                id={`${dropdownTitle}-${loginId || title}`}
+                data-assigneesdata={[id, loginId, profileImageUrl]}
+                data-labelsdata={[id, title, backgroundColor]}
+                data-milestonesdata={[id, title, openIssueCount, closedIssueCount]}
+                onClick={clickHandler}
+              />
+              <label key={`label-${id}`} htmlFor={`${dropdownTitle}-${loginId || title}`}>
+                {backgroundColor && <SmallLabel fill={backgroundColor} />}
+                {profileImageUrl && <UserImage profileImageUrl={profileImageUrl} loginId={loginId!} imgSize="SMALL" />}
+                <span>{loginId || title}</span>
+              </label>
+            </li>
+          ),
+        )}
       </DropdownList>
     </StyledDropdownPanels>
   );

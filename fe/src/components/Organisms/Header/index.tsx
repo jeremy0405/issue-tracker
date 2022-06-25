@@ -1,6 +1,7 @@
+/* eslint-disable camelcase */
 import styled from 'styled-components';
 import Logo from 'components/Atoms/Logo';
-import UserImage, { UserImageTypes } from 'components/Atoms/UserImage';
+import UserImage from 'components/Atoms/UserImage';
 
 const FlexDiv = styled.div`
   display: flex;
@@ -9,21 +10,16 @@ const FlexDiv = styled.div`
   padding: 27px 0 60px 0;
 `;
 
-type UserImageType = Omit<UserImageTypes, 'imgSize'>;
-
 const Header = () => {
-  const userInfo: UserImageType = {
-    id: 0,
-    loginId: '도톨',
-    profileImageUrl: 'https://avatars.githubusercontent.com/u/92701121?v=4',
-  };
+  const data = window.localStorage.getItem('userInfo');
+  if (!data) return <div />;
 
-  const { id, loginId, profileImageUrl } = userInfo;
+  const { id, login, avatar_url } = JSON.parse(data);
 
   return (
     <FlexDiv>
       <Logo logoSize="Medium" />
-      <UserImage id={id} profileImageUrl={profileImageUrl} loginId={loginId} imgSize="MEDIUM" />
+      <UserImage id={id} profileImageUrl={avatar_url} loginId={login} imgSize="MEDIUM" />
     </FlexDiv>
   );
 };

@@ -10,28 +10,30 @@ const Form = styled.div`
 `;
 
 const LoginForm = (): JSX.Element => {
-  const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
+  const [isIdActive, isIdTyping, onChangeInputId, onClickInputId, onBlurInputId] = useInput();
+  const [isPasswordActive, isPasswordTyping, onChangeInputPassword, onClickInputPassword, onBlurInputPassword] =
+    useInput();
   const [idMaxLength, passwordMaxLength] = [10, 10];
 
   return (
     <Form>
       <Input
-        isActive={isActive}
-        isTyping={isTyping}
-        onChange={onChangeInput}
-        onClick={onClickInput}
-        onBlur={onBlurInput}
+        isActive={isIdActive}
+        isTyping={isIdTyping}
+        onChange={onChangeInputId}
+        onClick={onClickInputId}
+        onBlur={onBlurInputId}
         inputSize="LARGE"
         inputType="text"
         inputMaxLength={idMaxLength}
         inputPlaceholder="아이디"
       />
       <Input
-        isActive={isActive}
-        isTyping={isTyping}
-        onChange={onChangeInput}
-        onClick={onClickInput}
-        onBlur={onBlurInput}
+        isActive={isPasswordActive}
+        isTyping={isPasswordTyping}
+        onChange={onChangeInputPassword}
+        onClick={onClickInputPassword}
+        onBlur={onBlurInputPassword}
         inputSize="LARGE"
         inputType="password"
         inputMaxLength={passwordMaxLength}

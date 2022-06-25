@@ -1,6 +1,7 @@
 import { useState } from 'react';
 
 import { DropdownListTypes } from 'components/types';
+import OPENCLOSE_FILTER from 'helpers/constants/openCloseFilter';
 
 import CheckBox from 'components/Atoms/CheckBox';
 import { TabTypes } from 'components/Atoms/Tab';
@@ -79,22 +80,6 @@ const IssueList = (props: IssueListTypes) => {
     );
   });
 
-  const openCloseFilter = {
-    id: 1,
-    dropdownTitle: '상태 변경',
-    dropdownList: [
-      {
-        id: 1,
-        title: '선택한 이슈 열기',
-      },
-      {
-        id: 2,
-        title: '선택한 이슈 닫기',
-      },
-    ],
-    indicatorLabel: '상태 수정',
-  };
-
   return (
     <StyeldUl>
       <IssueTitle>
@@ -122,11 +107,11 @@ const IssueList = (props: IssueListTypes) => {
             ))
           ) : (
             <Dropdown
-              key={openCloseFilter.id}
-              dropdownTitle={openCloseFilter.dropdownTitle}
-              dropdownList={openCloseFilter.dropdownList}
+              key={OPENCLOSE_FILTER.id}
+              dropdownTitle={OPENCLOSE_FILTER.dropdownTitle}
+              dropdownList={OPENCLOSE_FILTER.dropdownList}
               panelType="checkbox"
-              indicatorLabel={openCloseFilter.indicatorLabel}
+              indicatorLabel={OPENCLOSE_FILTER.indicatorLabel}
               indicatorStyle="STANDARD"
             />
           )}
