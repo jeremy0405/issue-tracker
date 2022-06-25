@@ -67,7 +67,7 @@ public class LabelController {
 	)
 	@PostMapping
 	public ResponseEntity<Void> add(@RequestBody LabelAddRequest labelAddRequest) {
-		labelMockService.save(labelAddRequest);
+		labelService.save(labelAddRequest);
 		return ResponseEntity.ok().build();
 	}
 

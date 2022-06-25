@@ -11,7 +11,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor(access = AccessLevel.PRIVATE)
 @Entity
 public class Label {
@@ -31,6 +31,11 @@ public class Label {
 	private String backgroundColor;
 
 	private String description;
+
+	public static Label of(String title, String titleColor, String backgroundColor,
+		String description) {
+		return new Label(null, title, titleColor, backgroundColor, description);
+	}
 
 	public static Label of(Long id, String title, String titleColor, String backgroundColor,
 		String description) {

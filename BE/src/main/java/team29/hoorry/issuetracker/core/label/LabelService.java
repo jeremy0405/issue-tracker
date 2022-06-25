@@ -24,4 +24,9 @@ public class LabelService {
 
 		return new LabelsResponse(labelResponses);
 	}
+
+	public void save(LabelAddRequest labelAddRequest) {
+		Label newLabel = labelAddRequest.toEntity();
+		labelRepository.save(newLabel);
+	}
 }
