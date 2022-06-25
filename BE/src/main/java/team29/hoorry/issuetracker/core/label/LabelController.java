@@ -8,6 +8,7 @@ import io.swagger.v3.oas.annotations.responses.ApiResponse;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PatchMapping;
@@ -66,7 +67,7 @@ public class LabelController {
 		}
 	)
 	@PostMapping
-	public ResponseEntity<Void> add(@RequestBody LabelAddRequest labelAddRequest) {
+	public ResponseEntity<Void> add(@Validated @RequestBody LabelAddRequest labelAddRequest) {
 		labelService.save(labelAddRequest);
 		return ResponseEntity.ok().build();
 	}
