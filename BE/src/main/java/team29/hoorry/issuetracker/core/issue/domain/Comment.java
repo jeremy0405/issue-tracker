@@ -13,9 +13,11 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
+import lombok.Getter;
 import team29.hoorry.issuetracker.core.common.BaseTimeEntity;
 import team29.hoorry.issuetracker.core.member.domain.Member;
 
+@Getter
 @Entity
 public class Comment extends BaseTimeEntity {
 

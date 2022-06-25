@@ -1,7 +1,7 @@
 package team29.hoorry.issuetracker.core.exception;
 
-import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.List;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
