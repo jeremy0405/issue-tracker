@@ -1,16 +1,24 @@
 package team29.hoorry.issuetracker.core.issue;
 
 import java.util.List;
+import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.util.LinkedMultiValueMap;
+import org.springframework.util.MultiValueMap;
+import team29.hoorry.issuetracker.core.common.search.SearchFilter;
 import team29.hoorry.issuetracker.core.common.search.SearchParamParser;
 import team29.hoorry.issuetracker.core.issue.domain.Issue;
+import team29.hoorry.issuetracker.core.issue.domain.IssueAssignee;
+import team29.hoorry.issuetracker.core.issue.domain.IssueLabel;
 import team29.hoorry.issuetracker.core.issue.domain.Status;
 import team29.hoorry.issuetracker.core.issue.dto.IssueFilter;
+import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
@@ -57,13 +65,12 @@ public class IssueService {
 
 		List<IssueMilestoneResponse> issueMilestoneResponses = milestoneRepository.findAllWithRelatedIssueStatusCount();
 
-
 		List<MemberResponse> memberResponses = members.stream()
 			.map(MemberResponse::from)
 			.collect(Collectors.toList());
 
-		return new IssuesResponse(openIssueCount, closedIssueCount, labelCount, milestoneCount, memberResponses, issueLabelResponses,
-			issueMilestoneResponses, memberResponses, issueResponses);
+		return new IssuesResponse(openIssueCount, closedIssueCount, labelCount, milestoneCount, memberResponses,
+			issueLabelResponses, issueMilestoneResponses, memberResponses, issueResponses);
 	}
 
 }
