@@ -79,7 +79,7 @@ public class IssueController {
 	)
 	@GetMapping("/{id}")
 	public ResponseEntity<IssueDetailResponse> issueDetail(@PathVariable Long id) {
-		IssueDetailResponse issueDetailResponse = issueMockService.findById(id);
+		IssueDetailResponse issueDetailResponse = issueService.findById(id);
 
 		return ResponseEntity.ok(issueDetailResponse);
 	}
