@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberJoinResponse;
+import team29.hoorry.issuetracker.core.member.dto.MemberLoginRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 import team29.hoorry.issuetracker.core.member.dto.MembersResponse;
 
@@ -79,6 +80,12 @@ public class MemberController {
 	@PostMapping
 	public ResponseEntity<MemberJoinResponse> join(@RequestBody MemberRequest memberRequest) {
 		MemberJoinResponse memberJoinResponse = memberService.join(memberRequest);
+		return ResponseEntity.ok(memberJoinResponse);
+	}
+
+	@PostMapping("/login")
+	public ResponseEntity<MemberJoinResponse> login(@RequestBody MemberLoginRequest memberLoginRequest) {
+		MemberJoinResponse memberJoinResponse = memberService.login(memberLoginRequest);
 		return ResponseEntity.ok(memberJoinResponse);
 	}
 
