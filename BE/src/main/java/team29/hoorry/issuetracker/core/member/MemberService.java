@@ -18,6 +18,7 @@ import team29.hoorry.issuetracker.core.jwt.JwtValidator;
 import team29.hoorry.issuetracker.core.jwt.RefreshToken;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.domain.Member;
+import team29.hoorry.issuetracker.core.member.dto.MemberJoinResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 import team29.hoorry.issuetracker.core.member.dto.MembersResponse;
@@ -39,17 +40,19 @@ public class MemberService {
 		return new MembersResponse(memberResponses);
 	}
 
-	public JwtResponse join(MemberRequest memberRequest) {
+	public MemberJoinResponse join(MemberRequest memberRequest) {
 		Member member = MemberRequest.toEntity(memberRequest);
-		memberRepository.save(member);
+		Member savedMember = memberRepository.save(member);
+		MemberResponse memberResponse = MemberResponse.from(savedMember);
 
 		AccessToken accessToken = JwtGenerator.generateAccessToken(member.getId());
 		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(member.getId());
 
 		//todo 나중에 레디스에 저장하면서 expired 시간 정해주어야 함
 		jwtRepository.save(refreshToken);
+		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
-		return new JwtResponse(accessToken, refreshToken);
+		return new MemberJoinResponse(memberResponse, jwtResponse);
 	}
 
 	public JwtResponse reIssue(HttpServletRequest request) {
