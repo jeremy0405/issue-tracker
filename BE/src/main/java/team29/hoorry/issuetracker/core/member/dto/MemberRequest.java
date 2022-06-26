@@ -23,7 +23,7 @@ public class MemberRequest {
 	private String email;
 
 	private String profileImageUrl;
-	@Schema(required = true)
+
 	private Long oauthId;
 
 	public static Member toEntity(MemberRequest memberRequest) {
