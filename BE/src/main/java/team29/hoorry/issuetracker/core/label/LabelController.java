@@ -88,9 +88,9 @@ public class LabelController {
 			)
 		}
 	)
-	@PatchMapping
-	public ResponseEntity<Void> update(@RequestBody LabelUpdateRequest labelUpdateRequest) {
-		labelMockService.update(labelUpdateRequest);
+	@PatchMapping("/{id}")
+	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody LabelUpdateRequest labelUpdateRequest) {
+		labelService.update(id, labelUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 

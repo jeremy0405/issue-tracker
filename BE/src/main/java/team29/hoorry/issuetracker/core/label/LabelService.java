@@ -1,6 +1,7 @@
 package team29.hoorry.issuetracker.core.label;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -8,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import team29.hoorry.issuetracker.core.label.domain.Label;
 import team29.hoorry.issuetracker.core.label.dto.LabelAddRequest;
 import team29.hoorry.issuetracker.core.label.dto.LabelResponse;
+import team29.hoorry.issuetracker.core.label.dto.LabelUpdateRequest;
 import team29.hoorry.issuetracker.core.label.dto.LabelsResponse;
 
 @Service
@@ -28,5 +30,16 @@ public class LabelService {
 	public void save(LabelAddRequest labelAddRequest) {
 		Label newLabel = labelAddRequest.toEntity();
 		labelRepository.save(newLabel);
+	}
+
+	public void update(Long id, LabelUpdateRequest labelUpdateRequest) {
+		Label label = labelRepository.findById(id)
+			.orElseThrow(() -> new NoSuchElementException("존재하지 않는 labelId입니다."));
+		label.update(
+			labelUpdateRequest.getTitle(),
+			labelUpdateRequest.getTitleColor(),
+			labelUpdateRequest.getBackgroundColor(),
+			labelUpdateRequest.getDescription()
+		);
 	}
 }

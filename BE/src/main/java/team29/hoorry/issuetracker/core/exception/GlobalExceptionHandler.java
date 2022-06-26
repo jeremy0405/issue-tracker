@@ -1,6 +1,7 @@
 package team29.hoorry.issuetracker.core.exception;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -18,6 +19,11 @@ public class GlobalExceptionHandler {
 		return ResponseEntity.status(HttpStatus.UNAUTHORIZED).body(new ErrorResponse(error.getMessage()));
 	}
 
+	@ExceptionHandler(NoSuchElementException.class)
+	public ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException error) {
+		return ResponseEntity.badRequest().body(new ErrorResponse(error.getMessage()));
+	}
+
 	@ExceptionHandler(MethodArgumentNotValidException.class)
 	public ResponseEntity<ErrorResponse> handleMethodArgumentNotValidException(MethodArgumentNotValidException error) {
 		BindingResult bindingResult = error.getBindingResult();
@@ -30,6 +36,6 @@ public class GlobalExceptionHandler {
 			}
 		}
 
-		return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(new ErrorResponse(message.toString()));
+		return ResponseEntity.badRequest().body(new ErrorResponse(message.toString()));
 	}
 }
