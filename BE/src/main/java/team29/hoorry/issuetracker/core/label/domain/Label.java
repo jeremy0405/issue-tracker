@@ -1,14 +1,19 @@
 package team29.hoorry.issuetracker.core.label.domain;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import team29.hoorry.issuetracker.core.issue.domain.IssueLabel;
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -32,6 +37,9 @@ public class Label {
 
 	private String description;
 
+	@OneToMany(mappedBy = "label", cascade = CascadeType.REMOVE, orphanRemoval = true)
+	private List<IssueLabel> issues = new ArrayList<>();
+
 	public void update(String title, String titleColor, String backgroundColor, String description) {
 		if (title != null && !title.isBlank()) {
 			this.title = title;
@@ -47,11 +55,11 @@ public class Label {
 
 	public static Label of(String title, String titleColor, String backgroundColor,
 		String description) {
-		return new Label(null, title, titleColor, backgroundColor, description);
+		return new Label(null, title, titleColor, backgroundColor, description, new ArrayList<>());
 	}
 
 	public static Label of(Long id, String title, String titleColor, String backgroundColor,
 		String description) {
-		return new Label(id, title, titleColor, backgroundColor, description);
+		return new Label(id, title, titleColor, backgroundColor, description, new ArrayList<>());
 	}
 }

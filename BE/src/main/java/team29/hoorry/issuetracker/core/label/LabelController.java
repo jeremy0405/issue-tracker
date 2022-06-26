@@ -112,7 +112,7 @@ public class LabelController {
 	)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		labelMockService.delete(id);
+		labelService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }
