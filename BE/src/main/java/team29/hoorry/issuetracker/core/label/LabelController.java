@@ -28,7 +28,6 @@ import team29.hoorry.issuetracker.core.label.dto.LabelsResponse;
 @RequiredArgsConstructor
 public class LabelController {
 
-	private final LabelMockService labelMockService;
 	private final LabelService labelService;
 
 	@Operation(summary = "라벨 리스트 조회",
