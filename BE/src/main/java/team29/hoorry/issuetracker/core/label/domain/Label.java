@@ -32,6 +32,19 @@ public class Label {
 
 	private String description;
 
+	public void update(String title, String titleColor, String backgroundColor, String description) {
+		if (title != null && !title.isBlank()) {
+			this.title = title;
+		}
+		if (titleColor != null && !titleColor.isBlank()) {
+			this.titleColor = titleColor;
+		}
+		if (backgroundColor != null && !backgroundColor.isBlank()) {
+			this.backgroundColor = backgroundColor;
+		}
+			this.description = description;
+	}
+
 	public static Label of(String title, String titleColor, String backgroundColor,
 		String description) {
 		return new Label(null, title, titleColor, backgroundColor, description);
