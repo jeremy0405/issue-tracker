@@ -61,7 +61,7 @@ public class MemberController {
 				content = {
 					@Content(
 						mediaType = "application/json",
-						schema = @Schema(implementation = JwtResponse.class)
+						schema = @Schema(implementation = MemberJoinResponse.class)
 					)
 				}
 			),
@@ -83,6 +83,32 @@ public class MemberController {
 		return ResponseEntity.ok(memberJoinResponse);
 	}
 
+	@Operation(
+		summary = "회원 로그인",
+		description = "회원 로그인을 합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "회원 로그인 성공",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = MemberJoinResponse.class)
+					)
+				}
+			),
+			@ApiResponse(
+				responseCode = "400",
+				description = "회원 로그인 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
+		}
+	)
 	@PostMapping("/login")
 	public ResponseEntity<MemberJoinResponse> login(@RequestBody MemberLoginRequest memberLoginRequest) {
 		MemberJoinResponse memberJoinResponse = memberService.login(memberLoginRequest);
