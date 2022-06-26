@@ -42,4 +42,10 @@ public class LabelService {
 			labelUpdateRequest.getDescription()
 		);
 	}
+
+	public void delete(Long id) {
+		Label label = labelRepository.findById(id)
+			.orElseThrow(() -> new NoSuchElementException("존재하지 않는 labelId입니다."));
+		labelRepository.delete(label);
+	}
 }
