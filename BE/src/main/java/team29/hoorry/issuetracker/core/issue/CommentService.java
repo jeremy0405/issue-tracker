@@ -38,7 +38,7 @@ public class CommentService {
 			.orElseThrow(() -> new NoSuchElementException("해당 commentId를 가진 코멘트는 없습니다."));
 		Member member = memberRepository.findById(reactionSaveRequest.getMemberId())
 			.orElseThrow(() -> new NoSuchElementException("해당 memberId를 가진 멤버는 없습니다."));
-		Reaction reaction = Reaction.findByEmoji(reactionSaveRequest.getReaction());
+		Reaction reaction = Reaction.findByEmoji(reactionSaveRequest.getEmoji());
 
 		CommentReaction savedCommentReaction = commentReactionRepository.save(
 			CommentReaction.of(comment, member, reaction));
@@ -51,7 +51,7 @@ public class CommentService {
 			.orElseThrow(() -> new NoSuchElementException("해당 commentId를 가진 코멘트는 없습니다."));
 		Member member = memberRepository.findById(reactionSaveRequest.getMemberId())
 			.orElseThrow(() -> new NoSuchElementException("해당 memberId를 가진 멤버는 없습니다."));
-		Reaction reaction = Reaction.findByEmoji(reactionSaveRequest.getReaction());
+		Reaction reaction = Reaction.findByEmoji(reactionSaveRequest.getEmoji());
 
 		commentReactionRepository.deleteByCommentAndMemberAndReaction(comment, member, reaction);
 	}

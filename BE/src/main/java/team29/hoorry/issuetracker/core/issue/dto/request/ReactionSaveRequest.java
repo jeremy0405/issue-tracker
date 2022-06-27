@@ -10,7 +10,7 @@ public class ReactionSaveRequest {
 
 	@Schema(required = true)
 	private Long memberId;
-	private String reaction;
 	@Schema(required = true)
+	private String emoji;
 
 }
