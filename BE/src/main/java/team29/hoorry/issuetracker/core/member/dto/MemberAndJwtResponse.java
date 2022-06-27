@@ -6,7 +6,7 @@ import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 
 @Getter
 @AllArgsConstructor
-public class MemberJoinResponse {
+public class MemberAndJwtResponse {
 
 	private MemberResponse memberResponse;
 	private JwtResponse jwtResponse;
