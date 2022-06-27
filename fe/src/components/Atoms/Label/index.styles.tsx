@@ -8,7 +8,14 @@ const StyledLabel = styled.div<LabelStyleTypes>`
   padding: 4px 16px;
   border-radius: 30px;
   background: ${({ backgroundColor }) => backgroundColor};
-  color: ${({ titleColor }) => titleColor};
+  color: ${({ titleColor }) =>
+    titleColor === 'white'
+      ? css`
+          ${({ theme }) => theme.colors.offWhite};
+        `
+      : css`
+          ${({ theme }) => theme.colors.titleActive};
+        `};
   ${({ theme }) => theme.fontStyles.textXSmall};
   cursor: default;
 

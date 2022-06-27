@@ -59,7 +59,7 @@ const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
                       backgroundColor={props.backgroundColor}
                       title={props.title}
                       labelStyle="STANDARD"
-                      titleColor="#FFFFFF"
+                      titleColor="black"
                     />
                   );
                 if ('openIssueCount' in props)

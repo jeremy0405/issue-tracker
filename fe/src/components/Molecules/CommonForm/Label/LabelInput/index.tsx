@@ -90,8 +90,8 @@ const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelIn
 
   // textColor 관련
   const textOptions: TextOptionsTypes[] = [
-    { id: 1, label: '어두운 색', handleOnClick: () => setLabelData({ ...labelData, titleColor: colors.titleActive }) },
-    { id: 2, label: '밝은 색', handleOnClick: () => setLabelData({ ...labelData, titleColor: colors.offWhite }) },
+    { id: 1, label: '어두운 색', handleOnClick: () => setLabelData({ ...labelData, titleColor: 'black' }) },
+    { id: 2, label: '밝은 색', handleOnClick: () => setLabelData({ ...labelData, titleColor: 'white' }) },
   ];
 
   return (

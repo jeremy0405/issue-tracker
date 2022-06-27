@@ -5,13 +5,13 @@ export interface LabelTypes {
   id?: number;
   title: string;
   labelStyle?: 'STANDARD' | 'LINE';
-  titleColor: string;
+  titleColor: 'white' | 'black';
   backgroundColor: string;
   description?: string;
 }
 
 const DEFAULT_COLORS = colors.primary.blue;
-const DEFAULT_TITLE_COLORS = colors.offWhite;
+const DEFAULT_TITLE_COLORS = 'white';
 const Label = ({
   labelStyle = 'STANDARD',
   titleColor = DEFAULT_TITLE_COLORS,

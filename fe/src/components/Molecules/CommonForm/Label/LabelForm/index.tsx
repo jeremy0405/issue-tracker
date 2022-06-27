@@ -20,7 +20,7 @@ interface LabelFormTypes {
 const DEFAULT_LABEL_INFO: LabelTypes = {
   id: 0,
   title: '',
-  titleColor: '#FEFEFE',
+  titleColor: 'white',
   backgroundColor: '#007AFF',
   description: '',
 };
