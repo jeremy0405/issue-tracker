@@ -26,6 +26,7 @@ import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateReques
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueTitleUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
+import team29.hoorry.issuetracker.core.issue.dto.request.ReactionSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 
@@ -115,6 +116,12 @@ public class IssueController {
 	@PostMapping("/api/issues/{id}/comments")
 	public ResponseEntity<Void> write(@PathVariable("id") Long issueId, @RequestBody CommentSaveRequest commentSaveRequest) {
 		commentService.write(issueId, commentSaveRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/api/issues/{id}/reaction")
+	public ResponseEntity<Void> addReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
+		commentService.addReaction(commentId, reactionSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
