@@ -3,6 +3,7 @@ import Input, { InputTypes } from 'components/Atoms/Input';
 import Textarea, { TextareaTypes } from 'components/Atoms/Textarea';
 import { StyledAddIssueForm, IssueForm } from 'components/Molecules/AddIssueForm/index.styles';
 import useInput from 'hooks/useInput';
+import { useRef } from 'react';
 
 export type AddIssueFormTypes = InputTypes & TextareaTypes;
 
@@ -19,6 +20,9 @@ const AddIssueForm = (props: AddIssueFormTypes) => {
 
   const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   return (
     <StyledAddIssueForm>
       <UserImage />
@@ -33,11 +37,14 @@ const AddIssueForm = (props: AddIssueFormTypes) => {
           inputType={inputType}
           inputMaxLength={inputMaxLength}
           inputPlaceholder={inputPlaceholder}
+          inputRef={inputRef}
         />
+
         <Textarea
           textareaPlaceholder={textareaPlaceholder}
           textareaMaxLength={textareaMaxLength}
           textareaSize={textareaSize}
+          textareaRef={textareaRef}
         />
       </IssueForm>
     </StyledAddIssueForm>

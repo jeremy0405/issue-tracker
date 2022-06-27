@@ -1,5 +1,5 @@
 /* eslint-disable react/jsx-no-bind */
-import React from 'react';
+import React, { useRef } from 'react';
 import { useQuery } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
@@ -32,6 +32,8 @@ const StyledDiv = styled.div`
 `;
 
 const Issues = () => {
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const { isLoading, data, error } = useQuery('issueData', () => getServerData('api/issues?page=0'), {
     cacheTime: Infinity,
   });
@@ -87,6 +89,7 @@ const Issues = () => {
           inputStyle="FILTERBAR"
           inputType="text"
           inputValue="is:open"
+          inputRef={inputRef}
           onBlur={onBlurInput}
           onChange={onChangeInput}
           onClick={onClickInput}
