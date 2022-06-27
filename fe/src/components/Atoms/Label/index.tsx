@@ -1,8 +1,10 @@
 import StyledLabel from 'components/Atoms/Label/index.styles';
+import React from 'react';
 import { colors } from 'styles/theme';
 
 export interface LabelTypes {
   id?: number;
+  icon?: React.ReactNode;
   title: string;
   labelStyle?: 'STANDARD' | 'LINE';
   titleColor: string;
@@ -18,11 +20,12 @@ const Label = ({
   backgroundColor = DEFAULT_COLORS,
   ...props
 }: LabelTypes) => {
-  const { title } = props;
+  const { title, icon } = props;
 
   return (
     <StyledLabel labelStyle={labelStyle} titleColor={titleColor} backgroundColor={backgroundColor}>
-      {title}
+      {icon}
+      <span>{title}</span>
     </StyledLabel>
   );
 };
