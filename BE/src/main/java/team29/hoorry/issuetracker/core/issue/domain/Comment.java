@@ -1,7 +1,7 @@
 package team29.hoorry.issuetracker.core.issue.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,6 +38,6 @@ public class Comment extends BaseTimeEntity {
 	private String content;
 
 	@OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<CommentReaction> reactions = new ArrayList<>();
+	private Set<CommentReaction> reactions = new HashSet<>();
 
 }

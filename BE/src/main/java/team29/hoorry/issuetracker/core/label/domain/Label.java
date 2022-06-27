@@ -1,7 +1,7 @@
 package team29.hoorry.issuetracker.core.label.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -38,7 +38,7 @@ public class Label {
 	private String description;
 
 	@OneToMany(mappedBy = "label", cascade = CascadeType.REMOVE, orphanRemoval = true)
-	private List<IssueLabel> issues = new ArrayList<>();
+	private Set<IssueLabel> issues = new HashSet<>();
 
 	public void update(String title, String titleColor, String backgroundColor, String description) {
 		if (title != null && !title.isBlank()) {
@@ -55,11 +55,11 @@ public class Label {
 
 	public static Label of(String title, String titleColor, String backgroundColor,
 		String description) {
-		return new Label(null, title, titleColor, backgroundColor, description, new ArrayList<>());
+		return new Label(null, title, titleColor, backgroundColor, description, new HashSet<>());
 	}
 
 	public static Label of(Long id, String title, String titleColor, String backgroundColor,
 		String description) {
-		return new Label(id, title, titleColor, backgroundColor, description, new ArrayList<>());
+		return new Label(id, title, titleColor, backgroundColor, description, new HashSet<>());
 	}
 }

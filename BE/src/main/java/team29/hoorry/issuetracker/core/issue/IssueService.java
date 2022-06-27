@@ -1,7 +1,6 @@
 package team29.hoorry.issuetracker.core.issue;
 
 import java.util.List;
-import java.util.Map;
 import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
@@ -9,9 +8,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.util.LinkedMultiValueMap;
-import org.springframework.util.MultiValueMap;
-import team29.hoorry.issuetracker.core.common.search.SearchFilter;
 import team29.hoorry.issuetracker.core.common.search.SearchParamParser;
 import team29.hoorry.issuetracker.core.issue.domain.Issue;
 import team29.hoorry.issuetracker.core.issue.domain.IssueAssignee;
@@ -76,8 +72,7 @@ public class IssueService {
 	}
 
 	public IssueDetailResponse findById(Long id) {
-		// todo fetchJoin
-		Issue issue = issueRepository.findById(id)
+		Issue issue = issueRepository.findByIdUsingFetchJoin(id)
 			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
 
 		Long issueId = issue.getId();
@@ -114,7 +109,7 @@ public class IssueService {
 			openIssueCount, closedIssueCount);
 
 		List<CommentResponse> comments = issue.getComments().stream()
-			.map(comment -> CommentResponse.from(comment, comment.getReactions()))
+			.map(comment -> CommentResponse.from(comment, List.copyOf(comment.getReactions())))
 			.collect(Collectors.toList());
 
 		return new IssueDetailResponse(issueId, title, status, labels, assignees, writer, milestone, comments);
