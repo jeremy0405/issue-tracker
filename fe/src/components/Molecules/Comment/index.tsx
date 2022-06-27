@@ -120,12 +120,7 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
                 <div className="commentBadge">
                   {isWriter && isOpen && (
                     <>
-                      <Label
-                        backgroundColor={colors.background}
-                        titleColor={colors.label}
-                        labelStyle="LINE"
-                        title="작성자"
-                      />
+                      <Label backgroundColor={colors.background} titleColor="black" labelStyle="LINE" title="작성자" />
                       <EditButton role="button" onClick={handleEditButtonClick}>
                         <Icon icon="Edit" stroke={colors.label} />
                         <span className="editLabel">편집</span>

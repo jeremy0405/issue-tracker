@@ -18,7 +18,7 @@ import NotFound from 'pages/NotFound';
 const Routers = (): JSX.Element => {
   // 임시로 설정한 state (수정 예정입니다.)
   const hasToken = () => !!window.localStorage.getItem('refresh_token');
-  const [isOAuth, setIsOAuth] = useState<boolean>(hasToken());
+  const [isOAuth, setIsOAuth] = useState<boolean>(true);
 
   return (
     <BrowserRouter basename={process.env.PUBLIC_URL}>

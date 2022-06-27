@@ -124,7 +124,7 @@ const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentC
           id={0}
           labelStyle="STANDARD"
           title={labelTitle}
-          titleColor={labelTextColor}
+          titleColor="black"
           icon={<Icon fill={labelBackgroundColor} icon="AlertCircle" stroke={labelTextColor} />}
         />
         <span>{`이 이슈가 ${timeStamp}에 ${writer.loginId}님에 의해 열렸습니다`}</span>

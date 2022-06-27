@@ -12,7 +12,7 @@ const StyledTitle = styled.span`
   ${({ theme }) => theme.fontStyles.linkSmall};
 `;
 
-const LabelList = ({ labelData }: { labelData: LabelTypes[] | any[] }) => {
+const LabelList = ({ labelData }: { labelData: LabelTypes[] }) => {
   const labels = labelData.map((label) => {
     return <LabelItem key={label.id} label={label} />;
   });
