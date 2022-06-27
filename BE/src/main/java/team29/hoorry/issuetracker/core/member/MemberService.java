@@ -2,6 +2,7 @@ package team29.hoorry.issuetracker.core.member;
 
 import io.jsonwebtoken.JwtException;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -18,6 +19,8 @@ import team29.hoorry.issuetracker.core.jwt.JwtValidator;
 import team29.hoorry.issuetracker.core.jwt.RefreshToken;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.domain.Member;
+import team29.hoorry.issuetracker.core.member.dto.MemberAndJwtResponse;
+import team29.hoorry.issuetracker.core.member.dto.MemberLoginRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
 import team29.hoorry.issuetracker.core.member.dto.MembersResponse;
@@ -39,17 +42,19 @@ public class MemberService {
 		return new MembersResponse(memberResponses);
 	}
 
-	public JwtResponse join(MemberRequest memberRequest) {
+	public MemberAndJwtResponse join(MemberRequest memberRequest) {
 		Member member = MemberRequest.toEntity(memberRequest);
-		memberRepository.save(member);
+		Member savedMember = memberRepository.save(member);
+		MemberResponse memberResponse = MemberResponse.from(savedMember);
 
 		AccessToken accessToken = JwtGenerator.generateAccessToken(member.getId());
 		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(member.getId());
 
 		//todo 나중에 레디스에 저장하면서 expired 시간 정해주어야 함
 		jwtRepository.save(refreshToken);
+		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
-		return new JwtResponse(accessToken, refreshToken);
+		return new MemberAndJwtResponse(memberResponse, jwtResponse);
 	}
 
 	public JwtResponse reIssue(HttpServletRequest request) {
@@ -72,5 +77,23 @@ public class MemberService {
 		jwtRepository.save(refreshToken);
 
 		return new JwtResponse(accessToken, refreshToken);
+	}
+
+	public MemberAndJwtResponse login(MemberLoginRequest memberLoginRequest) {
+		Member member = memberRepository.findByLoginId(memberLoginRequest.getLoginId())
+			.orElseThrow(() -> new NoSuchElementException("해당 loginId를 가진 멤버는 없습니다."));
+
+		if (!member.getLoginPassword().equals(memberLoginRequest.getLoginPassword())) {
+			throw new NoSuchElementException("유효하지 않은 비밀번호입니다.");
+		}
+		MemberResponse memberResponse = MemberResponse.from(member);
+
+		Long memberId = member.getId();
+		AccessToken accessToken = JwtGenerator.generateAccessToken(memberId);
+		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(memberId);
+		jwtRepository.save(refreshToken);
+		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
+
+		return new MemberAndJwtResponse(memberResponse, jwtResponse);
 	}
 }
