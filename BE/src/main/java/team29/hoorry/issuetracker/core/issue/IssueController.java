@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
+import team29.hoorry.issuetracker.core.issue.dto.request.CommentSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
@@ -36,6 +37,7 @@ public class IssueController {
 
 	private final IssueMockService issueMockService;
 	private final IssueService issueService;
+	private final CommentService commentService;
 
 	@Operation(
 		summary = "이슈 리스트 조회",
@@ -107,6 +109,12 @@ public class IssueController {
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
 		issueMockService.save(issuesSaveRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@PostMapping("/api/issues/{id}/comments")
+	public ResponseEntity<Void> write(@PathVariable("id") Long issueId, @RequestBody CommentSaveRequest commentSaveRequest) {
+		commentService.write(issueId, commentSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
