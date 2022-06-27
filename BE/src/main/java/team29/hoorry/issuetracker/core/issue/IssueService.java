@@ -1,6 +1,7 @@
 package team29.hoorry.issuetracker.core.issue;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -9,14 +10,19 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import team29.hoorry.issuetracker.core.common.search.SearchParamParser;
 import team29.hoorry.issuetracker.core.issue.domain.Issue;
+import team29.hoorry.issuetracker.core.issue.domain.IssueAssignee;
+import team29.hoorry.issuetracker.core.issue.domain.IssueLabel;
 import team29.hoorry.issuetracker.core.issue.domain.Status;
 import team29.hoorry.issuetracker.core.issue.dto.IssueFilter;
+import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
+import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueMilestoneResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssuesResponse;
 import team29.hoorry.issuetracker.core.label.LabelRepository;
 import team29.hoorry.issuetracker.core.label.domain.Label;
+import team29.hoorry.issuetracker.core.label.dto.LabelResponse;
 import team29.hoorry.issuetracker.core.member.MemberRepository;
 import team29.hoorry.issuetracker.core.member.domain.Member;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
@@ -57,13 +63,55 @@ public class IssueService {
 
 		List<IssueMilestoneResponse> issueMilestoneResponses = milestoneRepository.findAllWithRelatedIssueStatusCount();
 
-
 		List<MemberResponse> memberResponses = members.stream()
 			.map(MemberResponse::from)
 			.collect(Collectors.toList());
 
-		return new IssuesResponse(openIssueCount, closedIssueCount, labelCount, milestoneCount, memberResponses, issueLabelResponses,
-			issueMilestoneResponses, memberResponses, issueResponses);
+		return new IssuesResponse(openIssueCount, closedIssueCount, labelCount, milestoneCount, memberResponses,
+			issueLabelResponses, issueMilestoneResponses, memberResponses, issueResponses);
 	}
 
+	public IssueDetailResponse findById(Long id) {
+		Issue issue = issueRepository.findByIdUsingFetchJoin(id)
+			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
+
+		Long issueId = issue.getId();
+		String title = issue.getTitle();
+		Status status = issue.getStatus();
+
+		List<LabelResponse> labels = issue.getLabels().stream()
+			.map(IssueLabel::getLabel)
+			.map(LabelResponse::from)
+			.collect(Collectors.toList());
+
+		List<MemberResponse> assignees = issue.getAssignees().stream()
+			.map(IssueAssignee::getAssignee)
+			.map(MemberResponse::from)
+			.collect(Collectors.toList());
+
+		MemberResponse writer = MemberResponse.from(issue.getWriter());
+
+		Milestone issueMilestone = issue.getMilestone();
+
+		List<Issue> issueOfSameMilestone = issueRepository.findByMilestone(issueMilestone);
+		Long openIssueCount = 0L;
+		Long closedIssueCount = 0L;
+		for (Issue aIssue : issueOfSameMilestone) {
+			if (aIssue.getStatus() == Status.OPEN) {
+				openIssueCount++;
+			}
+			if (aIssue.getStatus() == Status.CLOSED) {
+				closedIssueCount++;
+			}
+		}
+
+		IssueMilestoneResponse milestone = new IssueMilestoneResponse(issueMilestone.getId(), issueMilestone.getTitle(),
+			openIssueCount, closedIssueCount);
+
+		List<CommentResponse> comments = issue.getComments().stream()
+			.map(comment -> CommentResponse.from(comment, List.copyOf(comment.getReactions())))
+			.collect(Collectors.toList());
+
+		return new IssueDetailResponse(issueId, title, status, labels, assignees, writer, milestone, comments);
+	}
 }

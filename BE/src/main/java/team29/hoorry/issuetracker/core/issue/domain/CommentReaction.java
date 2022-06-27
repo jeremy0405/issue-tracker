@@ -10,8 +10,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import lombok.Getter;
 import team29.hoorry.issuetracker.core.member.domain.Member;
 
+@Getter
 @Entity
 public class CommentReaction {
 

@@ -1,7 +1,7 @@
 package team29.hoorry.issuetracker.core.issue.domain;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -42,13 +42,13 @@ public class Issue extends BaseTimeEntity {
 	private Member writer;
 
 	@OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<Comment> comments = new ArrayList<>();
+	private Set<Comment> comments = new HashSet<>();
 
 	@OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<IssueAssignee> assignees = new ArrayList<>();
+	private Set<IssueAssignee> assignees = new HashSet<>();
 
 	@OneToMany(mappedBy = "issue", cascade = CascadeType.ALL, orphanRemoval = true)
-	private List<IssueLabel> labels = new ArrayList<>();
+	private Set<IssueLabel> labels = new HashSet<>();
 
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name = "milestone_id")
