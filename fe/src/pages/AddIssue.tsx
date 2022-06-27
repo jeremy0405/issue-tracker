@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 
 import styled from 'styled-components';
@@ -40,6 +40,9 @@ const Divider = styled.div`
 `;
 
 const AddIssue = () => {
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
+
   const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
 
   const queryClient = useQueryClient();
@@ -164,12 +167,14 @@ const AddIssue = () => {
           inputPlaceholder="제목"
           inputSize="LARGE"
           inputType="text"
+          inputRef={inputRef}
           onBlur={onBlurInput}
           onChange={onChangeInput}
           onClick={onClickInput}
           textareaMaxLength={600}
           textareaPlaceholder="코멘트를 입력하세요"
           textareaSize="LARGE"
+          textareaRef={textareaRef}
         />
         <SideBar sideBarList={sideBarList} />
       </div>

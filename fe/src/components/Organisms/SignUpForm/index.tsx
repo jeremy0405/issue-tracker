@@ -34,11 +34,13 @@ interface SignUpFormTypes {
   avatar_url: string;
 }
 
+type UserInfoKeys = 'login_id' | 'login_password' | 'name' | 'email' | 'profile_image_url' | 'oauth_id';
+
 const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
   // eslint-disable-next-line camelcase
   const { id, login, name, email, avatar_url } = authData;
 
-  const initUserInfo = {
+  const initUserInfo: { [key in UserInfoKeys]: string | number | null } = {
     login_id: login,
     login_password: null,
     name,
@@ -49,6 +51,15 @@ const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
 
   // 값이 하나라도 비어있으면 회원가입 버튼 비활성화하는 기능 추가하기
   const [userInfo, setUserInfo] = useState(initUserInfo);
+
+  const isFilled = () => {
+    let fill = true;
+    Object.keys(userInfo).forEach((key) => {
+      const k = key as UserInfoKeys;
+      if (!userInfo[k]) fill = false;
+    });
+    return fill;
+  };
 
   const formData = [
     { key: 0, inputType: 'text', maxLength: 12, placeholder: '아이디', userData: login, infoKey: 'login_id' },
@@ -97,7 +108,13 @@ const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
           />
         </div>
       ))}
-      <Button buttonStyle="STANDARD" label="회원가입" size="LARGE" HandleOnClick={handleClickSignUpButton} disabled />
+      <Button
+        buttonStyle="STANDARD"
+        label="회원가입"
+        size="LARGE"
+        HandleOnClick={handleClickSignUpButton}
+        disabled={!isFilled()}
+      />
     </StyledSignUpForm>
   );
 };

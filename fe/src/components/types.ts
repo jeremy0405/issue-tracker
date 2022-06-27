@@ -30,5 +30,7 @@ export type MilestoneTypes = {
 export type LabelTypes = {
   id: number;
   title: string;
+  titleColor?: string;
   backgroundColor: string;
+  description?: string;
 };

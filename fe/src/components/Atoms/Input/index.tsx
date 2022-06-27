@@ -9,6 +9,7 @@ export interface InputTypes {
   inputSize: 'SMALL' | 'MEDIUM' | 'LARGE';
   inputValue?: string;
   inputMaxLength: number;
+  inputRef?: React.RefObject<HTMLInputElement>;
   disabled?: boolean;
   inputPlaceholder: string;
   isActive?: boolean;
@@ -34,18 +35,18 @@ const Input = ({
     inputSize,
     inputValue,
     inputPlaceholder,
+    inputRef,
     onChange,
     onClick,
     onBlur,
   } = props;
-  const inputRef = useRef<HTMLInputElement>(null);
 
   return (
     <Form
       inputSize={inputSize}
       onClick={() => {
         if (disabled) return;
-        inputRef.current?.focus();
+        inputRef?.current?.focus();
         onClick();
       }}
       isActive={isActive}

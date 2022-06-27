@@ -1,4 +1,4 @@
-import React, { ReactNode, useState, useRef } from 'react';
+import React, { ReactNode, useState } from 'react';
 import { Form, StyledTextarea, AddFile, Count } from 'components/Atoms/Textarea/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
@@ -6,6 +6,8 @@ export interface TextareaTypes {
   textareaSize: 'MEDIUM' | 'LARGE';
   textareaPlaceholder?: string;
   textareaMaxLength?: number;
+  textareaValue?: string;
+  textareaRef: React.RefObject<HTMLTextAreaElement>;
   children?: ReactNode;
 }
 
@@ -15,9 +17,9 @@ const Textarea = ({
   textareaMaxLength = defaultTextareaMaxLength,
   ...props
 }: TextareaTypes) => {
-  const { textareaPlaceholder } = props;
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const [isTyping, setIsTyping] = useState<string>('');
+  const { textareaPlaceholder, textareaValue, textareaRef } = props;
+
+  const [typingValue, setTypingValue] = useState<string>(textareaValue || '');
   const [isActive, setIsActive] = useState<boolean>(false);
 
   const maxLength = 120;
@@ -29,23 +31,24 @@ const Textarea = ({
 
   const handleTextareaChange = (event: React.FormEvent<HTMLTextAreaElement>) => {
     const { value } = event.currentTarget;
-    if (!value) return setIsTyping('');
+    if (!value) return setTypingValue('');
     // eslint-disable-next-line no-param-reassign
     if (Number(value) >= maxLength) event.currentTarget.value = value.slice(0, maxLength);
-    return setIsTyping(value);
+    return setTypingValue(value);
   };
 
-  const count = isTyping.length || 0;
+  const count = typingValue.length || 0;
 
   return (
     <Form isActive={isActive} onClick={handleFormClick}>
-      {isTyping && (
+      {typingValue && (
         <label className="textarea" htmlFor="textarea">
           <span>{textareaPlaceholder}</span>
         </label>
       )}
       <StyledTextarea
         id="textarea"
+        defaultValue={textareaValue}
         maxLength={textareaMaxLength}
         placeholder={textareaPlaceholder}
         textareaSize={textareaSize}
