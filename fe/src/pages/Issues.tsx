@@ -95,12 +95,7 @@ const Issues = () => {
           onClick={onClickInput}
           panelType="radio"
         />
-        <SubNav
-          labelCount={data.labelCount}
-          milestoneCount={data.milestoneCount}
-          buttonText="이슈 작성"
-          HandleOnClick={HandleOnClick}
-        />
+        <SubNav labelCount={data.labelCount} milestoneCount={data.milestoneCount} HandleOnClick={HandleOnClick} />
       </StyledDiv>
       <IssueList
         openIssueCount={data.openIssueCount}

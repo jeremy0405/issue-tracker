@@ -7,7 +7,7 @@ const Layer = styled.div`
   height: 100vh;
 
   & > div {
-    width: 1440px;
+    max-width: 1440px;
     margin: 0 auto;
   }
 `;
