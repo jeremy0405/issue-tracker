@@ -113,18 +113,78 @@ public class IssueController {
 		return ResponseEntity.ok().build();
 	}
 
+	@Operation(
+		summary = "코멘트 등록",
+		description = "코멘트를 등록합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "코멘트 등록 성공"
+			),
+			@ApiResponse(
+				responseCode = "400",
+				description = "코멘트 등록 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
+		}
+	)
 	@PostMapping("/{id}/comments")
 	public ResponseEntity<Void> write(@PathVariable("id") Long issueId, @RequestBody CommentSaveRequest commentSaveRequest) {
 		commentService.write(issueId, commentSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
+	@Operation(
+		summary = "리액션 등록",
+		description = "리액션을 등록합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "리액션 등록 성공"
+			),
+			@ApiResponse(
+				responseCode = "400",
+				description = "리액션 등록 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
+		}
+	)
 	@PostMapping("/{id}/reaction")
 	public ResponseEntity<Void> addReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.addReaction(commentId, reactionSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
+	@Operation(
+		summary = "리액션 삭제",
+		description = "리액션을 삭제합니다.",
+		responses = {
+			@ApiResponse(
+				responseCode = "200",
+				description = "리액션 삭제 성공"
+			),
+			@ApiResponse(
+				responseCode = "400",
+				description = "리액션 삭제 실패",
+				content = {
+					@Content(
+						mediaType = "application/json",
+						schema = @Schema(implementation = ErrorResponse.class)
+					)
+				}
+			)
+		}
+	)
 	@DeleteMapping("/{id}/reaction")
 	public ResponseEntity<Void> deleteReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.deleteReaction(commentId, reactionSaveRequest);
