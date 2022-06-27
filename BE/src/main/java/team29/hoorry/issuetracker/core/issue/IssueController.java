@@ -299,7 +299,7 @@ public class IssueController {
 	)
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
-		issueMockService.delete(id);
+		issueService.delete(id);
 		return ResponseEntity.ok().build();
 	}
 }

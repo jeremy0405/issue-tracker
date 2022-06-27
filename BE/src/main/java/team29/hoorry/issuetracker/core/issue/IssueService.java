@@ -114,4 +114,11 @@ public class IssueService {
 
 		return new IssueDetailResponse(issueId, title, status, labels, assignees, writer, milestone, comments);
 	}
+
+	@Transactional
+	public void delete(Long id) {
+		Issue issue = issueRepository.findById(id)
+			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
+		issue.changeStatus(Status.DELETED);
+	}
 }

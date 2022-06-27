@@ -54,4 +54,7 @@ public class Issue extends BaseTimeEntity {
 	@JoinColumn(name = "milestone_id")
 	private Milestone milestone;
 
+	public void changeStatus(Status status) {
+		this.status = status;
+	}
 }
