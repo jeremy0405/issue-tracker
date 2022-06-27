@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
-import team29.hoorry.issuetracker.core.member.dto.MemberJoinResponse;
+import team29.hoorry.issuetracker.core.member.dto.MemberAndJwtResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberLoginRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 import team29.hoorry.issuetracker.core.member.dto.MembersResponse;
@@ -61,7 +61,7 @@ public class MemberController {
 				content = {
 					@Content(
 						mediaType = "application/json",
-						schema = @Schema(implementation = MemberJoinResponse.class)
+						schema = @Schema(implementation = MemberAndJwtResponse.class)
 					)
 				}
 			),
@@ -78,9 +78,9 @@ public class MemberController {
 		}
 	)
 	@PostMapping
-	public ResponseEntity<MemberJoinResponse> join(@RequestBody MemberRequest memberRequest) {
-		MemberJoinResponse memberJoinResponse = memberService.join(memberRequest);
-		return ResponseEntity.ok(memberJoinResponse);
+	public ResponseEntity<MemberAndJwtResponse> join(@RequestBody MemberRequest memberRequest) {
+		MemberAndJwtResponse memberAndJwtResponse = memberService.join(memberRequest);
+		return ResponseEntity.ok(memberAndJwtResponse);
 	}
 
 	@Operation(
@@ -93,7 +93,7 @@ public class MemberController {
 				content = {
 					@Content(
 						mediaType = "application/json",
-						schema = @Schema(implementation = MemberJoinResponse.class)
+						schema = @Schema(implementation = MemberAndJwtResponse.class)
 					)
 				}
 			),
@@ -110,9 +110,9 @@ public class MemberController {
 		}
 	)
 	@PostMapping("/login")
-	public ResponseEntity<MemberJoinResponse> login(@RequestBody MemberLoginRequest memberLoginRequest) {
-		MemberJoinResponse memberJoinResponse = memberService.login(memberLoginRequest);
-		return ResponseEntity.ok(memberJoinResponse);
+	public ResponseEntity<MemberAndJwtResponse> login(@RequestBody MemberLoginRequest memberLoginRequest) {
+		MemberAndJwtResponse memberAndJwtResponse = memberService.login(memberLoginRequest);
+		return ResponseEntity.ok(memberAndJwtResponse);
 	}
 
 	@Operation(

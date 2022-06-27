@@ -19,7 +19,7 @@ import team29.hoorry.issuetracker.core.jwt.JwtValidator;
 import team29.hoorry.issuetracker.core.jwt.RefreshToken;
 import team29.hoorry.issuetracker.core.jwt.dto.JwtResponse;
 import team29.hoorry.issuetracker.core.member.domain.Member;
-import team29.hoorry.issuetracker.core.member.dto.MemberJoinResponse;
+import team29.hoorry.issuetracker.core.member.dto.MemberAndJwtResponse;
 import team29.hoorry.issuetracker.core.member.dto.MemberLoginRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberRequest;
 import team29.hoorry.issuetracker.core.member.dto.MemberResponse;
@@ -42,7 +42,7 @@ public class MemberService {
 		return new MembersResponse(memberResponses);
 	}
 
-	public MemberJoinResponse join(MemberRequest memberRequest) {
+	public MemberAndJwtResponse join(MemberRequest memberRequest) {
 		Member member = MemberRequest.toEntity(memberRequest);
 		Member savedMember = memberRepository.save(member);
 		MemberResponse memberResponse = MemberResponse.from(savedMember);
@@ -54,7 +54,7 @@ public class MemberService {
 		jwtRepository.save(refreshToken);
 		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
-		return new MemberJoinResponse(memberResponse, jwtResponse);
+		return new MemberAndJwtResponse(memberResponse, jwtResponse);
 	}
 
 	public JwtResponse reIssue(HttpServletRequest request) {
@@ -79,7 +79,7 @@ public class MemberService {
 		return new JwtResponse(accessToken, refreshToken);
 	}
 
-	public MemberJoinResponse login(MemberLoginRequest memberLoginRequest) {
+	public MemberAndJwtResponse login(MemberLoginRequest memberLoginRequest) {
 		Member member = memberRepository.findByLoginId(memberLoginRequest.getLoginId())
 			.orElseThrow(() -> new NoSuchElementException("해당 loginId를 가진 멤버는 없습니다."));
 
@@ -94,6 +94,6 @@ public class MemberService {
 		jwtRepository.save(refreshToken);
 		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
-		return new MemberJoinResponse(memberResponse, jwtResponse);
+		return new MemberAndJwtResponse(memberResponse, jwtResponse);
 	}
 }
