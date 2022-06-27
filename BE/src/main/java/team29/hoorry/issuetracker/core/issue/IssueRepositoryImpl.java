@@ -30,9 +30,6 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 
 	private final JPAQueryFactory queryFactory;
 
-	// searchParam filter는 엘라스틱서치로?
-	// 엘라스틱 서치 안하면
-	// innerJoin으로 comment, -> like로 비교
 	@Override
 	public Page<Issue> findAllByIssueFilter(IssueFilter issueFilter, Pageable pageable) {
 
@@ -44,6 +41,7 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 			.leftJoin(issueLabel.label, label)
 			.leftJoin(issue.comments, comment)
 			.where(
+				issue.status.ne(Status.DELETED),
 				isEquals(issue.status, issueFilter.getStatus()),
 				isEquals(issue.writer.name, issueFilter.getWriterName()),
 				isEquals(issue.milestone.title, issueFilter.getMilestoneTitle()),
@@ -88,6 +86,7 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 			.leftJoin(issue.labels, issueLabel)
 			.leftJoin(issue.comments, comment)
 			.where(
+				issue.status.ne(Status.DELETED),
 				isEquals(issue.status, status),
 				isEquals(issue.writer.name, issueFilter.getWriterName()),
 				isEquals(issue.milestone.title, issueFilter.getMilestoneTitle()),
