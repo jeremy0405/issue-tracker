@@ -102,6 +102,6 @@ export const StyledInput = styled.input`
   }
 
   &::placeholder {
-    color: ${({ theme }) => theme.colors.placeholder};
+    color: ${({ theme }) => theme.colors.placeHolder};
   }
 `;
