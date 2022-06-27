@@ -161,7 +161,7 @@ public class IssueController {
 	public ResponseEntity<Void> updateStatus(
 		@PathVariable Long id,
 		@RequestBody IssueStatusUpdateRequest issueStatusUpdateRequest) {
-		issueMockService.updateStatus(id, issueStatusUpdateRequest);
+		issueService.updateStatus(id, issueStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 

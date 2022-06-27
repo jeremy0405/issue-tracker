@@ -9,9 +9,6 @@ import lombok.NoArgsConstructor;
 public class IssueStatusUpdateRequest {
 
 	@Schema(required = true)
-	private Long id;
-
-	@Schema(required = true)
 	private String status;
 
 }

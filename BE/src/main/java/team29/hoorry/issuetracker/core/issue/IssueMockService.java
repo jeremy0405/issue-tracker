@@ -31,12 +31,6 @@ public class IssueMockService {
 		return Collections.emptyList();
 	}
 
-	public Long updateStatus(Long id, IssueStatusUpdateRequest issueStatusUpdateRequest) {
-		log.debug("status id = {}", id);
-		log.debug("status = {}", issueStatusUpdateRequest.getStatus());
-		return id;
-	}
-
 	public Long updateTitle(Long id, IssueTitleUpdateRequest issueTitleUpdateRequest) {
 		log.debug("status id = {}", id);
 		log.debug("title = {}", issueTitleUpdateRequest.getTitle());
@@ -57,11 +51,6 @@ public class IssueMockService {
 	public Long updateAssignees(Long id, IssueAssigneesUpdateRequest issueAssigneesUpdateRequest) {
 		issueAssigneesUpdateRequest.getAssigneesId()
 			.forEach(assigneeId -> log.debug("assignee id = {}", assigneeId));
-		return id;
-	}
-
-	public Long delete(Long id) {
-		log.debug("id = {}", id);
 		return id;
 	}
 }
