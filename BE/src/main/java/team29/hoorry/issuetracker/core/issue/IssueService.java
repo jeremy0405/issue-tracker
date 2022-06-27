@@ -14,6 +14,8 @@ import team29.hoorry.issuetracker.core.issue.domain.IssueAssignee;
 import team29.hoorry.issuetracker.core.issue.domain.IssueLabel;
 import team29.hoorry.issuetracker.core.issue.domain.Status;
 import team29.hoorry.issuetracker.core.issue.dto.IssueFilter;
+import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
+import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueLabelResponse;
@@ -120,5 +122,28 @@ public class IssueService {
 		Issue issue = issueRepository.findById(id)
 			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
 		issue.changeStatus(Status.DELETED);
+	}
+
+	@Transactional
+	public void updateStatus(Long id, IssueStatusUpdateRequest issueStatusUpdateRequest) {
+		Issue issue = issueRepository.findById(id)
+			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
+		try {
+			Status status = Status.valueOf(issueStatusUpdateRequest.getStatus().toUpperCase());
+			issue.changeStatus(status);
+		} catch (IllegalArgumentException e) {
+			throw new NoSuchElementException("해당 status가 존재하지 않습니다.(status : OPEN, CLOSED)");
+		}
+	}
+
+	@Transactional
+	public void updateAllStatus(IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
+		try {
+			Status status = Status.valueOf(issuesStatusUpdateRequest.getStatus().toUpperCase());
+			List<Long> issueIds = issuesStatusUpdateRequest.getIssueIds();
+			issueRepository.updateAllStatus(status, issueIds);
+		} catch (IllegalArgumentException e) {
+			throw new NoSuchElementException("해당 status가 존재하지 않습니다.(status : OPEN, CLOSED)");
+		}
 	}
 }
