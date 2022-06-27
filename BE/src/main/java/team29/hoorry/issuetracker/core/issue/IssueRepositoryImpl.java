@@ -79,6 +79,14 @@ public class IssueRepositoryImpl implements IssueCustomRepository {
 			.fetchOne());
 	}
 
+	@Override
+	public Long updateAllStatus(Status status, List<Long> issueIds) {
+		return queryFactory.update(issue)
+			.set(issue.status, status)
+			.where(issue.id.in(issueIds))
+			.execute();
+	}
+
 	private JPAQuery<Long> filteredIssueCountQuery(IssueFilter issueFilter, Status status) {
 		return queryFactory.select(issue.countDistinct())
 			.from(issue)

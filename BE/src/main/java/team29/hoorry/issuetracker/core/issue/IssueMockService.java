@@ -22,15 +22,6 @@ public class IssueMockService {
 		return null;
 	}
 
-	public List<Long> updateAllStatus(IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
-		List<IssueStatusUpdateRequest> issueStatusUpdateRequests = issuesStatusUpdateRequest.getIssueStatusUpdateRequests();
-		for (IssueStatusUpdateRequest issueStatusUpdateRequest : issueStatusUpdateRequests) {
-			log.debug("status id = {}", issueStatusUpdateRequest.getId());
-			log.debug("status = {}", issueStatusUpdateRequest.getStatus());
-		}
-		return Collections.emptyList();
-	}
-
 	public Long updateTitle(Long id, IssueTitleUpdateRequest issueTitleUpdateRequest) {
 		log.debug("status id = {}", id);
 		log.debug("title = {}", issueTitleUpdateRequest.getTitle());

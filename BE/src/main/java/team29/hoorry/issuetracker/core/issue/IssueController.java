@@ -133,7 +133,7 @@ public class IssueController {
 	@PatchMapping("/status")
 	public ResponseEntity<Void> updateAllStatus(
 		@RequestBody IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
-		issueMockService.updateAllStatus(issuesStatusUpdateRequest);
+		issueService.updateAllStatus(issuesStatusUpdateRequest);
 		return ResponseEntity.ok().build();
 	}
 
