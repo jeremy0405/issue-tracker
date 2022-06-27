@@ -6,7 +6,7 @@ import Button from 'components/Atoms/Button';
 import { TabTypes } from 'components/Atoms/Tab';
 import Tabs from 'components/Molecules/Tabs';
 
-import subNavButtonStyleInfo from 'helpers/constants/subNavButtonStyles';
+import { SUB_NAV_BUTTON_STYLES } from 'helpers/constants/ButtonStyles';
 
 const StyledDiv = styled.div`
   display: flex;
@@ -46,7 +46,7 @@ const SubNav = ({ labelCount, milestoneCount, HandleOnClick, type = 'ADD' }: Sub
     },
   ];
 
-  const buttonStyles = type === 'CLOSE' ? subNavButtonStyleInfo.close : subNavButtonStyleInfo.add;
+  const buttonStyles = type === 'CLOSE' ? SUB_NAV_BUTTON_STYLES.close : SUB_NAV_BUTTON_STYLES.add;
 
   return (
     <StyledDiv>
