@@ -113,15 +113,21 @@ public class IssueController {
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/api/issues/{id}/comments")
+	@PostMapping("/{id}/comments")
 	public ResponseEntity<Void> write(@PathVariable("id") Long issueId, @RequestBody CommentSaveRequest commentSaveRequest) {
 		commentService.write(issueId, commentSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
-	@PostMapping("/api/issues/{id}/reaction")
+	@PostMapping("/{id}/reaction")
 	public ResponseEntity<Void> addReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.addReaction(commentId, reactionSaveRequest);
+		return ResponseEntity.ok().build();
+	}
+
+	@DeleteMapping("/{id}/reaction")
+	public ResponseEntity<Void> deleteReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
+		commentService.deleteReaction(commentId, reactionSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 

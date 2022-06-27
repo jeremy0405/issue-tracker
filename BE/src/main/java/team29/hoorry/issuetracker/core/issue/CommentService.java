@@ -45,5 +45,15 @@ public class CommentService {
 
 		return savedCommentReaction.getId();
 	}
+
+	public void deleteReaction(Long commentId, ReactionSaveRequest reactionSaveRequest) {
+		Comment comment = commentRepository.findById(commentId)
+			.orElseThrow(() -> new NoSuchElementException("해당 commentId를 가진 코멘트는 없습니다."));
+		Member member = memberRepository.findById(reactionSaveRequest.getMemberId())
+			.orElseThrow(() -> new NoSuchElementException("해당 memberId를 가진 멤버는 없습니다."));
+		Reaction reaction = Reaction.findByEmoji(reactionSaveRequest.getReaction());
+
+		commentReactionRepository.deleteByCommentAndMemberAndReaction(comment, member, reaction);
+	}
 }
 
