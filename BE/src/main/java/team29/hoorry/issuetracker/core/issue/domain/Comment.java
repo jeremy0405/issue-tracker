@@ -45,7 +45,7 @@ public class Comment extends BaseTimeEntity {
 	@OneToMany(mappedBy = "comment", cascade = CascadeType.REMOVE, orphanRemoval = true)
 	private Set<CommentReaction> reactions = new HashSet<>();
 
-	public static Comment of(Issue issue, Member writer, String content, List<CommentReaction> reactions) {
+	public static Comment of(Issue issue, Member writer, String content, Set<CommentReaction> reactions) {
 		return new Comment(null, issue, writer, content, reactions);
 	}
 }

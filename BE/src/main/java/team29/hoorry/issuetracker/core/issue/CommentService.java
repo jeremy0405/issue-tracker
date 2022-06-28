@@ -1,6 +1,7 @@
 package team29.hoorry.issuetracker.core.issue;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -29,7 +30,7 @@ public class CommentService {
 			.orElseThrow(() -> new NoSuchElementException("해당 issueId를 가진 이슈는 없습니다."));
 		Member writer = memberRepository.findById(commentSaveRequest.getMemberId())
 			.orElseThrow(() -> new NoSuchElementException("해당 memberId를 가진 멤버는 없습니다."));
-		Comment savedComment = commentRepository.save(Comment.of(issue, writer, commentSaveRequest.getContent(), new ArrayList<>()));
+		Comment savedComment = commentRepository.save(Comment.of(issue, writer, commentSaveRequest.getContent(), new HashSet<>()));
 		return savedComment.getId();
 	}
 
