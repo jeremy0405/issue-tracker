@@ -1,14 +1,16 @@
 import React, { useRef, useState } from 'react';
 import { useQueryClient } from 'react-query';
 
+import { ServerDataTypes } from 'api/issue';
+
 import styled from 'styled-components';
 import AddIssueForm from 'components/Molecules/AddIssueForm';
 import SideBar from 'components/Molecules/SideBar';
 import Button from 'components/Atoms/Button';
 
-import useInput from 'hooks/useInput';
-import { ServerDataTypes } from 'helpers/utils/fetchData';
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
+
+import useInput from 'hooks/useInput';
 
 const StyledDiv = styled.div`
   h1 {
@@ -157,19 +159,29 @@ const AddIssue = () => {
     },
   ];
 
+  const [isFilled, setIsFilled] = useState<boolean>(false);
+
+  const onChange = (event: React.FormEvent<HTMLInputElement>) => {
+    onChangeInput(event);
+    if (event.currentTarget.value) setIsFilled(true);
+    else setIsFilled(false);
+  };
+
   return (
     <StyledDiv>
       <h1>새로운 이슈 작성</h1>
       <Divider />
       <div className="issue_form">
         <AddIssueForm
+          isActive={isActive}
+          isTyping={isTyping}
           inputMaxLength={15}
           inputPlaceholder="제목"
           inputSize="LARGE"
           inputType="text"
           inputRef={inputRef}
           onBlur={onBlurInput}
-          onChange={onChangeInput}
+          onChange={onChange}
           onClick={onClickInput}
           textareaMaxLength={600}
           textareaPlaceholder="코멘트를 입력하세요"
@@ -181,7 +193,7 @@ const AddIssue = () => {
       <Divider />
       <div className="issue_Buttons">
         <Button buttonStyle="NO_BORDER" iconInfo={{ icon: 'XSquare' }} label="작성취소" size="SMALL" />
-        <Button buttonStyle="STANDARD" disabled label="완료" size="MEDIUM" />
+        <Button buttonStyle="STANDARD" disabled={!isFilled} label="완료" size="MEDIUM" />
       </div>
     </StyledDiv>
   );
