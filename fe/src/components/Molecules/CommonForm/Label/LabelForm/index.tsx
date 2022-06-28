@@ -1,4 +1,7 @@
 import React, { Dispatch, useEffect, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
+
+import { addLabel, replaceLabel } from 'api/label';
 
 import Label, { LabelTypes } from 'components/Atoms/Label';
 import Button from 'components/Atoms/Button';
@@ -10,8 +13,6 @@ import {
 } from 'components/Molecules/CommonForm/Label/LabelForm/index.styles';
 
 import { COMMON_FORM_BUTTON } from 'helpers/constants/ButtonStyles';
-import { useMutation, useQueryClient } from 'react-query';
-import { addLabel, deleteLabel, replaceLabel } from 'api/label';
 
 interface LabelFormTypes {
   mode: 'ADD' | 'CONFIRM';
@@ -37,12 +38,6 @@ const LabelForm = ({ mode = 'ADD', labelInfo, setEditLabel, setIsAddLabel }: Lab
   });
 
   const { mutate: replaceLabelMutate } = useMutation(replaceLabel, {
-    onSuccess: () => {
-      queryClient.invalidateQueries('labels');
-    },
-  });
-
-  const { mutate: deleteLabelMutate } = useMutation(deleteLabel, {
     onSuccess: () => {
       queryClient.invalidateQueries('labels');
     },

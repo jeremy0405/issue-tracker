@@ -1,6 +1,8 @@
-import { useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+
 import axios from 'axios';
+import { ServerDataTypes } from 'api/issue';
 
 import styled from 'styled-components';
 import SubNav from 'components/Molecules/SubNav';
@@ -8,8 +10,6 @@ import CommonForm from 'components/Molecules/CommonForm';
 import LabelForm from 'components/Molecules/CommonForm/Label/LabelForm';
 import LabelList from 'components/Molecules/LabelList';
 import { LabelTypes } from 'components/Atoms/Label';
-
-import { ServerDataTypes } from 'helpers/utils/fetchData';
 
 const StyledLabelList = styled.div`
   & > div:first-child {
