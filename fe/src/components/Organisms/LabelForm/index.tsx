@@ -5,12 +5,8 @@ import { addLabel, replaceLabel } from 'api/label';
 
 import Label, { LabelTypes } from 'components/Atoms/Label';
 import Button from 'components/Atoms/Button';
-import LabelInput from 'components/Molecules/CommonForm/Label/LabelInput';
-import {
-  ButtonWrapper,
-  StyledLabelForm,
-  StyledLabelInfo,
-} from 'components/Molecules/CommonForm/Label/LabelForm/index.styles';
+import LabelInput from 'components/Organisms/LabelForm/LabelInput';
+import { ButtonWrapper, StyledLabelForm, StyledLabelInfo } from 'components/Organisms/LabelForm/index.styles';
 
 import { COMMON_FORM_BUTTON } from 'helpers/constants/ButtonStyles';
 

@@ -4,7 +4,7 @@ import Button from 'components/Atoms/Button';
 import Label, { LabelTypes } from 'components/Atoms/Label';
 
 import CommonForm from 'components/Molecules/CommonForm';
-import LabelForm from 'components/Molecules/CommonForm/Label/LabelForm';
+import LabelForm from 'components/Organisms/LabelForm';
 import CommonItem from 'components/Molecules/CommonList/CommonItem';
 import { ItemStyle, LabelButtonWrapper, LabelDesc } from 'components/Molecules/LabelList/LabelItem/index.styles';
 

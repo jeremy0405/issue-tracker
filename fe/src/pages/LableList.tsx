@@ -5,11 +5,11 @@ import axios from 'axios';
 import { ServerDataTypes } from 'api/issue';
 
 import styled from 'styled-components';
-import SubNav from 'components/Molecules/SubNav';
-import CommonForm from 'components/Molecules/CommonForm';
-import LabelForm from 'components/Molecules/CommonForm/Label/LabelForm';
-import LabelList from 'components/Molecules/LabelList';
 import { LabelTypes } from 'components/Atoms/Label';
+import SubNav from 'components/Molecules/SubNav';
+import LabelList from 'components/Molecules/LabelList/index';
+import CommonForm from 'components/Molecules/CommonForm';
+import LabelForm from 'components/Organisms/LabelForm';
 
 const StyledLabelList = styled.div`
   & > div:first-child {
