@@ -60,9 +60,9 @@ public class IssueController {
 		@RequestParam(name = "query", required = false) String query,
 		@RequestParam Integer page
 	) {
-		IssuesResponse realIssuesResponse = issueService.findAll(query, page);
+		IssuesResponse IssuesResponse = issueService.findAll(query, page);
 
-		return ResponseEntity.ok(realIssuesResponse);
+		return ResponseEntity.ok(IssuesResponse);
 	}
 
 	@Operation(
