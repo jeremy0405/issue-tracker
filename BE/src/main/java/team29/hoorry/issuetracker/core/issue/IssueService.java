@@ -1,7 +1,10 @@
 package team29.hoorry.issuetracker.core.issue;
 
+import java.util.HashSet;
 import java.util.List;
 import java.util.NoSuchElementException;
+import java.util.Optional;
+import java.util.Set;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -15,6 +18,7 @@ import team29.hoorry.issuetracker.core.issue.domain.IssueLabel;
 import team29.hoorry.issuetracker.core.issue.domain.Status;
 import team29.hoorry.issuetracker.core.issue.dto.IssueFilter;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
+import team29.hoorry.issuetracker.core.issue.dto.request.IssuesSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.response.CommentResponse;
 import team29.hoorry.issuetracker.core.issue.dto.response.IssueDetailResponse;
@@ -145,5 +149,35 @@ public class IssueService {
 		} catch (IllegalArgumentException e) {
 			throw new NoSuchElementException("해당 status가 존재하지 않습니다.(status : OPEN, CLOSED)");
 		}
+	}
+
+	@Transactional
+	public void save(IssuesSaveRequest issuesSaveRequest) {
+		String comment = (issuesSaveRequest.getComment() == null) ? "" : issuesSaveRequest.getComment();
+		Member writer = memberRepository.findById(issuesSaveRequest.getWriterId())
+			.orElseThrow(() -> new NoSuchElementException("존재하지 않는 memberId입니다."));
+		List<Member> assignees = memberRepository.findAllById(issuesSaveRequest.getAssigneeIds());
+		List<Label> labels = labelRepository.findAllById(issuesSaveRequest.getLabelIds());
+		Milestone milestone = null;
+		if (issuesSaveRequest.getMilestoneId() != null) {
+			milestone = milestoneRepository.findById(issuesSaveRequest.getMilestoneId())
+				.orElseThrow(() -> new NoSuchElementException("존재하지 않는 milestoneId입니다."));
+		}
+
+		Issue newIssue = Issue.of(
+			issuesSaveRequest.getTitle(),
+			Status.OPEN,
+			writer,
+			new HashSet<>(),
+			new HashSet<>(),
+			new HashSet<>(),
+			milestone
+		);
+
+		newIssue.addComment(comment, writer);
+		newIssue.addAssignees(assignees);
+		newIssue.addLabels(labels);
+
+		issueRepository.save(newIssue);
 	}
 }

@@ -109,7 +109,7 @@ public class IssueController {
 	)
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
-		issueMockService.save(issuesSaveRequest);
+		issueService.save(issuesSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
