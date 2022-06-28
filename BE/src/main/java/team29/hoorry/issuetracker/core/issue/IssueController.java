@@ -159,8 +159,8 @@ public class IssueController {
 			)
 		}
 	)
-	@PostMapping("/{id}/reaction")
-	public ResponseEntity<Void> addReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
+	@PostMapping("/{comment_id}/reaction")
+	public ResponseEntity<Void> addReaction(@PathVariable("comment_id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.addReaction(commentId, reactionSaveRequest);
 		return ResponseEntity.ok().build();
 	}
@@ -185,8 +185,8 @@ public class IssueController {
 			)
 		}
 	)
-	@DeleteMapping("/{id}/reaction")
-	public ResponseEntity<Void> deleteReaction(@PathVariable("id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
+	@DeleteMapping("/{comment_id}/reaction")
+	public ResponseEntity<Void> deleteReaction(@PathVariable("comment_id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.deleteReaction(commentId, reactionSaveRequest);
 		return ResponseEntity.ok().build();
 	}
