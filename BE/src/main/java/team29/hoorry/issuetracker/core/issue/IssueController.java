@@ -60,9 +60,9 @@ public class IssueController {
 		@RequestParam(name = "query", required = false) String query,
 		@RequestParam Integer page
 	) {
-		IssuesResponse realIssuesResponse = issueService.findAll(query, page);
+		IssuesResponse IssuesResponse = issueService.findAll(query, page);
 
-		return ResponseEntity.ok(realIssuesResponse);
+		return ResponseEntity.ok(IssuesResponse);
 	}
 
 	@Operation(
@@ -109,7 +109,7 @@ public class IssueController {
 	)
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
-		issueMockService.save(issuesSaveRequest);
+		issueService.save(issuesSaveRequest);
 		return ResponseEntity.ok().build();
 	}
 
