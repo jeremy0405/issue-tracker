@@ -1,5 +1,4 @@
-import { useRef } from 'react';
-import { ReactComponent as UserImage } from 'assets/userImg/userImageLarge.svg';
+import UserImage from 'components/Atoms/UserImage';
 import Input, { InputTypes } from 'components/Atoms/Input';
 import Textarea, { TextareaTypes } from 'components/Atoms/Textarea';
 import { StyledAddIssueForm, IssueForm } from 'components/Molecules/AddIssueForm/index.styles';
@@ -14,20 +13,22 @@ const AddIssueForm = (props: AddIssueFormTypes) => {
     inputType,
     inputMaxLength,
     inputPlaceholder,
+    inputRef,
     onChange,
     onClick,
     onBlur,
     textareaSize,
     textareaMaxLength,
     textareaPlaceholder,
+    textareaRef,
   } = props;
 
-  const inputRef = useRef<HTMLInputElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const userData = localStorage.getItem('userInfo');
+  const { loginId, profileImageUrl } = JSON.parse(userData!);
 
   return (
     <StyledAddIssueForm>
-      <UserImage />
+      <UserImage imgSize="MEDIUM" loginId={loginId} profileImageUrl={profileImageUrl} />
       <IssueForm>
         <Input
           isActive={isActive}
@@ -41,7 +42,6 @@ const AddIssueForm = (props: AddIssueFormTypes) => {
           inputPlaceholder={inputPlaceholder}
           inputRef={inputRef}
         />
-
         <Textarea
           textareaPlaceholder={textareaPlaceholder}
           textareaMaxLength={textareaMaxLength}

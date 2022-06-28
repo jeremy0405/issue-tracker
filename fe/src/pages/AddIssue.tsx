@@ -1,5 +1,6 @@
 import React, { useRef, useState } from 'react';
-import { useQueryClient } from 'react-query';
+import { useMutation, useQueryClient } from 'react-query';
+import { useNavigate } from 'react-router-dom';
 
 import { ServerDataTypes } from 'api/issue';
 
@@ -11,6 +12,7 @@ import Button from 'components/Atoms/Button';
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
 
 import useInput from 'hooks/useInput';
+import axios from 'axios';
 
 const StyledDiv = styled.div`
   h1 {
@@ -41,10 +43,16 @@ const Divider = styled.div`
   background: ${({ theme }) => theme.colors.line};
 `;
 
-const AddIssue = () => {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
-  const inputRef = useRef<HTMLInputElement>(null);
+interface NewIssueTypes {
+  title: string;
+  comment: string | null;
+  writerId: number;
+  assigneesIds: number[];
+  labelIds: number[];
+  milestoneId: number | null;
+}
 
+const AddIssue = () => {
   const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const queryClient = useQueryClient();
@@ -167,6 +175,45 @@ const AddIssue = () => {
     else setIsFilled(false);
   };
 
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
+  const addIssue = async (newIssue: NewIssueTypes): Promise<NewIssueTypes> => {
+    const { data: addIssueData } = await axios.post<NewIssueTypes>(
+      `${process.env.REACT_APP_SERVER_URL}/api/issues`,
+      newIssue,
+    );
+
+    return addIssueData;
+  };
+
+  const { mutate } = useMutation(addIssue, {
+    onSuccess: () => {
+      queryClient.invalidateQueries('issueData');
+    },
+    onError: (error) => {
+      console.log(error);
+    },
+  });
+
+  const navigate = useNavigate();
+
+  const handleUploadButtonClick = () => {
+    const userData = localStorage.getItem('userInfo');
+
+    const issueInfo: NewIssueTypes = {
+      title: inputRef.current?.value!,
+      comment: textareaRef.current?.value || null,
+      writerId: JSON.parse(userData!).id,
+      assigneesIds: assigneesContentList.map((list) => list.id),
+      labelIds: labelsContentList.map((list) => list.id),
+      milestoneId: milestoneContentList.map((list) => list.id)[0] || null,
+    };
+
+    mutate(issueInfo);
+    navigate('/');
+  };
+
   return (
     <StyledDiv>
       <h1>새로운 이슈 작성</h1>
@@ -192,8 +239,20 @@ const AddIssue = () => {
       </div>
       <Divider />
       <div className="issue_Buttons">
-        <Button buttonStyle="NO_BORDER" iconInfo={{ icon: 'XSquare' }} label="작성취소" size="SMALL" />
-        <Button buttonStyle="STANDARD" disabled={!isFilled} label="완료" size="MEDIUM" />
+        <Button
+          buttonStyle="NO_BORDER"
+          iconInfo={{ icon: 'XSquare' }}
+          label="작성취소"
+          size="SMALL"
+          HandleOnClick={() => navigate(-1)}
+        />
+        <Button
+          buttonStyle="STANDARD"
+          disabled={!isFilled}
+          label="완료"
+          size="MEDIUM"
+          HandleOnClick={handleUploadButtonClick}
+        />
       </div>
     </StyledDiv>
   );
