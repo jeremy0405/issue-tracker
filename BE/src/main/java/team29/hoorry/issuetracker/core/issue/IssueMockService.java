@@ -11,12 +11,6 @@ import team29.hoorry.issuetracker.core.issue.dto.request.IssueTitleUpdateRequest
 @Service
 public class IssueMockService {
 
-	public Long save(IssuesSaveRequest issuesSaveRequest) {
-		log.debug("{}", issuesSaveRequest);
-
-		return null;
-	}
-
 	public Long updateTitle(Long id, IssueTitleUpdateRequest issueTitleUpdateRequest) {
 		log.debug("status id = {}", id);
 		log.debug("title = {}", issueTitleUpdateRequest.getTitle());
