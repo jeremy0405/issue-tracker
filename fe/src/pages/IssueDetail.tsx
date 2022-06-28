@@ -1,12 +1,15 @@
 import { useQuery, useQueryClient } from 'react-query';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+
+import { ServerDataTypes } from 'api/issue';
+
+import styled from 'styled-components';
 import Comment from 'components/Molecules/Comment';
 import IssueHeader from 'components/Molecules/IssueHeader';
 import SideBar from 'components/Molecules/SideBar';
-import styled from 'styled-components';
-import { useParams } from 'react-router-dom';
+
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
-import axios from 'axios';
-import { ServerDataTypes } from 'helpers/utils/fetchData';
 
 const Divider = styled.div`
   width: 100%;
@@ -72,9 +75,6 @@ const IssueDetail = () => {
   if (isLoading) return <div>loading</div>;
   if (error) return <div>error</div>;
   if (!data) return <div>데이터가 없습니다</div>;
-
-  const userInfo = window.localStorage.getItem('userInfo');
-  const user = JSON.parse(userInfo!);
 
   return (
     <>
