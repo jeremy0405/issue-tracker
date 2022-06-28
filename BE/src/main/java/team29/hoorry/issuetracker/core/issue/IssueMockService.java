@@ -1,16 +1,11 @@
 package team29.hoorry.issuetracker.core.issue;
 
-import java.util.Collections;
-import java.util.List;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueLabelsUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueMilestoneUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssueStatusUpdateRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueTitleUpdateRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssuesSaveRequest;
-import team29.hoorry.issuetracker.core.issue.dto.request.IssuesStatusUpdateRequest;
 
 @Slf4j
 @Service

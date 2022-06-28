@@ -1,6 +1,5 @@
 package team29.hoorry.issuetracker.core.issue;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
