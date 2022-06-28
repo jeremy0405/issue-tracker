@@ -1,13 +1,15 @@
 import { useQuery, useQueryClient } from 'react-query';
 import { useState } from 'react';
+import axios from 'axios';
+
 import styled from 'styled-components';
 import SubNav from 'components/Molecules/SubNav';
 import CommonForm from 'components/Molecules/CommonForm';
 import LabelForm from 'components/Molecules/CommonForm/Label/LabelForm';
 import LabelList from 'components/Molecules/LabelList';
 import { LabelTypes } from 'components/Atoms/Label';
+
 import { ServerDataTypes } from 'helpers/utils/fetchData';
-import axios from 'axios';
 
 const StyledLabelList = styled.div`
   & > div:first-child {
@@ -28,32 +30,35 @@ const LabelPage = () => {
     return data;
   };
 
-  const { isLoading, data, error } = useQuery('labels', () => getServerData(`api/labels`), {
+  const {
+    isLoading: labelsDataIsLoading,
+    data: labelsData,
+    error: labelsDataError,
+  } = useQuery('labels', () => getServerData('api/labels'), {
     cacheTime: Infinity,
   });
 
   const [isAddLabel, setIsAddLabel] = useState(false);
-
   const focusAddLabel = () => setIsAddLabel((focus) => !focus);
 
-  if (isLoading) return <div>loading</div>;
-  if (error) return <div>error</div>;
-  if (!data) return <div>데이터가 없습니다</div>;
+  if (labelsDataIsLoading) return <div>loading</div>;
+  if (labelsDataError) return <div>error</div>;
+  if (!labelsData) return <div>데이터가 없습니다</div>;
 
   return (
     <StyledLabelList>
       <SubNav
-        labelCount={data.labels.length}
+        labelCount={labelsData.labels.length}
         milestoneCount={issueData!.milestoneCount}
         type={isAddLabel ? 'CLOSE' : 'ADD'}
         HandleOnClick={focusAddLabel}
       />
       {isAddLabel && (
         <CommonForm title="새로운 레이블 추가" style={{ marginBottom: '24px' }}>
-          <LabelForm mode="ADD" />
+          <LabelForm mode="ADD" setIsAddLabel={setIsAddLabel} />
         </CommonForm>
       )}
-      <LabelList labelData={data.labels} />
+      <LabelList labelData={labelsData.labels} />
     </StyledLabelList>
   );
 };

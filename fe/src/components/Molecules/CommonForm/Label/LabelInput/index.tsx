@@ -1,7 +1,6 @@
 import React, { Dispatch } from 'react';
 
 import styled from 'styled-components';
-import { colors } from 'styles/theme';
 
 import ColorCodeInput from 'components/Atoms/ColorCode';
 import Input from 'components/Atoms/Input';
