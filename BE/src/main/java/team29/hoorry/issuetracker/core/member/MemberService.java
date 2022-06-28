@@ -14,6 +14,7 @@ import team29.hoorry.issuetracker.core.jwt.AccessToken;
 import team29.hoorry.issuetracker.core.jwt.JwtConst;
 import team29.hoorry.issuetracker.core.jwt.JwtGenerator;
 import team29.hoorry.issuetracker.core.jwt.JwtParser;
+import team29.hoorry.issuetracker.core.jwt.JwtRedisRepository;
 import team29.hoorry.issuetracker.core.jwt.JwtRepository;
 import team29.hoorry.issuetracker.core.jwt.JwtValidator;
 import team29.hoorry.issuetracker.core.jwt.RefreshToken;
@@ -32,6 +33,7 @@ public class MemberService {
 
 	private final MemberRepository memberRepository;
 	private final JwtRepository jwtRepository;
+	private final JwtRedisRepository jwtRedisRepository;
 	private final JwtValidator jwtValidator;
 
 	public MembersResponse findAll() {
@@ -50,8 +52,7 @@ public class MemberService {
 		AccessToken accessToken = JwtGenerator.generateAccessToken(member.getId());
 		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(member.getId());
 
-		//todo 나중에 레디스에 저장하면서 expired 시간 정해주어야 함
-		jwtRepository.save(refreshToken);
+		jwtRedisRepository.save(refreshToken);
 		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
 		return new MemberAndJwtResponse(memberResponse, jwtResponse);
@@ -73,8 +74,8 @@ public class MemberService {
 		AccessToken accessToken = JwtGenerator.generateAccessToken(memberId);
 		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(memberId);
 
-		//todo 나중에 레디스에 저장하면서 expired 시간 정해주어야 함
-		jwtRepository.save(refreshToken);
+		jwtRedisRepository.deleteById(JwtParser.extractBearerToken(bearerAuthorization));
+		jwtRedisRepository.save(refreshToken);
 
 		return new JwtResponse(accessToken, refreshToken);
 	}
@@ -91,7 +92,7 @@ public class MemberService {
 		Long memberId = member.getId();
 		AccessToken accessToken = JwtGenerator.generateAccessToken(memberId);
 		RefreshToken refreshToken = JwtGenerator.generateRefreshToken(memberId);
-		jwtRepository.save(refreshToken);
+		jwtRedisRepository.save(refreshToken);
 		JwtResponse jwtResponse = new JwtResponse(accessToken, refreshToken);
 
 		return new MemberAndJwtResponse(memberResponse, jwtResponse);
