@@ -24,7 +24,7 @@ const Routers = (): JSX.Element => {
       <Routes>
         {isOAuth ? (
           <>
-            <Route path="/" element={<Home isOAuth={isOAuth} />}>
+            <Route path="/" element={<Home isOAuth={isOAuth} setIsOAuth={setIsOAuth} />}>
               <Route index element={<Issues />} />
               <Route path="/issues" element={<Issues />} />
               <Route path="/issues/new" element={<AddIssue />} />
@@ -36,7 +36,7 @@ const Routers = (): JSX.Element => {
           </>
         ) : (
           <>
-            <Route path="/" element={<Home isOAuth={isOAuth} />}>
+            <Route path="/" element={<Home isOAuth={isOAuth} setIsOAuth={setIsOAuth} />}>
               <Route index element={<Login />} />
               <Route path="/auth" element={<Oauth setIsOAuth={setIsOAuth} />} />
               <Route path="/sign-up" element={<SignUp setIsOAuth={setIsOAuth} />} />

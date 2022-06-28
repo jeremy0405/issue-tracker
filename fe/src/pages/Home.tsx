@@ -1,3 +1,4 @@
+import { Dispatch, SetStateAction } from 'react';
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from 'components/Organisms/Header';
@@ -12,11 +13,16 @@ const Layer = styled.div`
   }
 `;
 
-const Home = ({ isOAuth }: { isOAuth: boolean }) => {
+interface HomeTypes {
+  isOAuth: boolean;
+  setIsOAuth?: Dispatch<SetStateAction<boolean>>;
+}
+
+const Home = ({ isOAuth, setIsOAuth }: HomeTypes) => {
   return (
     <Layer>
       <div>
-        {isOAuth && <Header />}
+        {isOAuth && <Header setIsOAuth={setIsOAuth} />}
         <Outlet />
       </div>
     </Layer>
