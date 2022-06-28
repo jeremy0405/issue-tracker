@@ -24,7 +24,7 @@ interface IssueHeaderTypes {
 
 const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentCount }: IssueHeaderTypes) => {
   const [isEditable, setIstEditable] = useState<boolean>(false);
-  const [isActive, , onChangeInput, onClickInput, onBlurInput] = useInput();
+  const { isActive, onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const labelTitle = status === 'OPEN' ? '열린 이슈' : '닫힌 이슈';
   const labelBackgroundColor = status === 'OPEN' ? colors.primary.lightBlue : colors.secondary.lightPurple;

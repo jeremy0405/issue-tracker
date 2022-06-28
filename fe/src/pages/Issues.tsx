@@ -34,7 +34,7 @@ const Issues = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
   const { isLoading, data, error } = useGetIssueData();
-  const [, , onChangeInput, onClickInput, onBlurInput] = useInput();
+  const { onChangeInput, onClickInput, onBlurInput } = useInput();
   const navigate = useNavigate();
 
   if (isLoading) return <div>loading</div>;

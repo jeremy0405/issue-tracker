@@ -17,7 +17,7 @@ const ID = 'color_code';
 const MAX_LENGTH = 6;
 
 const ColorCodeInput = ({ colorCode, handleOnClick, handleOnChange }: ColorCodeInputTypes) => {
-  const [isActive, , , onClickInput, onBlurInput] = useInput();
+  const { isActive, onClickInput, onBlurInput } = useInput();
   const [hexCode, setHexCode] = useState<string>(colorCode);
   const [isError, setIsError] = useState<boolean>(false);
 

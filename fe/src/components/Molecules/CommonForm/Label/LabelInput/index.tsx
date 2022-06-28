@@ -32,8 +32,18 @@ const ColorOptionWrapper = styled.div`
 `;
 
 const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelInputTypes) => {
-  const [isActiveTitle, , onChangeInputTitle, onClickInputTitle, onBlurInputTitle] = useInput();
-  const [isActiveDesc, , onChangeInputDesc, onClickInputDesc, onBlurInputDesc] = useInput();
+  const {
+    isActive: isActiveTitle,
+    onChangeInput: onChangeInputTitle,
+    onClickInput: onClickInputTitle,
+    onBlurInput: onBlurInputTitle,
+  } = useInput();
+  const {
+    isActive: isActiveDesc,
+    onChangeInput: onChangeInputDesc,
+    onClickInput: onClickInputDesc,
+    onBlurInput: onBlurInputDesc,
+  } = useInput();
 
   // title, description Input 관련
   const changeTitleInput = (e: React.FormEvent<HTMLInputElement>) => {

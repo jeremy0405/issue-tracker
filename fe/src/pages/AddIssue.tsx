@@ -45,7 +45,7 @@ const AddIssue = () => {
   const textareaRef = useRef<HTMLTextAreaElement>(null);
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
+  const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<ServerDataTypes>('issueData');
