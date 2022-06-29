@@ -60,8 +60,8 @@ export const getServerData = async (URL: string) => {
   }
 };
 
-const useGetIssueData = () => {
-  return useQuery('issueData', () => getServerData('api/issues?page=0'), {
+const useGetIssueData = (page: number) => {
+  return useQuery(`issueData-${page}`, () => getServerData(`api/issues?page=${page}`), {
     cacheTime: Infinity,
   });
 };
