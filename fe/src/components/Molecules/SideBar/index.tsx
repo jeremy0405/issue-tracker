@@ -1,5 +1,4 @@
 /* eslint-disable array-callback-return */
-/* eslint-disable consistent-return */
 /* eslint-disable no-shadow */
 import React from 'react';
 

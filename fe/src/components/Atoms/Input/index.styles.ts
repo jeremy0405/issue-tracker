@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
 import { InputTypes } from 'components/Atoms/Input';
 

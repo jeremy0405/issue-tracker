@@ -1,4 +1,3 @@
-/* eslint-disable consistent-return */
 import styled, { css } from 'styled-components';
 import { ButtonTypes } from 'components/Atoms/Button';
 

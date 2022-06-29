@@ -16,6 +16,7 @@ interface TextOptionsTypes {
 }
 
 interface LabelInputTypes {
+  mode: 'ADD' | 'CONFIRM';
   labelData: LabelTypes;
   setLabelData: Dispatch<React.SetStateAction<LabelTypes>>;
   setDisableFinishButton: Dispatch<React.SetStateAction<boolean>>;
@@ -31,7 +32,7 @@ const ColorOptionWrapper = styled.div`
   }
 `;
 
-const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelInputTypes) => {
+const LabelInput = ({ mode, labelData, setLabelData, setDisableFinishButton }: LabelInputTypes) => {
   const {
     isActive: isActiveTitle,
     onChangeInput: onChangeInputTitle,
@@ -51,7 +52,10 @@ const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelIn
 
     const target = e.target as HTMLInputElement;
     setLabelData({ ...labelData, title: target.value });
-    return target.value ? setDisableFinishButton(false) : setDisableFinishButton(true);
+
+    if (mode === 'ADD') {
+      return target.value ? setDisableFinishButton(false) : setDisableFinishButton(true);
+    }
   };
 
   const changeDescInput = (e: React.FormEvent<HTMLInputElement>) => {

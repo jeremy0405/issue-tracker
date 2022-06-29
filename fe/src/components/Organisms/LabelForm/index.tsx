@@ -10,7 +10,7 @@ import { ButtonWrapper, StyledLabelForm, StyledLabelInfo } from 'components/Orga
 
 import { COMMON_FORM_BUTTON } from 'helpers/constants/ButtonStyles';
 
-interface LabelFormTypes {
+export interface LabelFormTypes {
   mode: 'ADD' | 'CONFIRM';
   labelInfo?: LabelTypes;
   setEditLabel?: Dispatch<React.SetStateAction<boolean>>;
@@ -56,13 +56,21 @@ const LabelForm = ({ mode = 'ADD', labelInfo, setEditLabel, setIsAddLabel }: Lab
     setEditLabel?.(false);
   };
 
+  useEffect(() => {
+    if (mode === 'CONFIRM') {
+      return JSON.stringify(labelInfo) === JSON.stringify(labelData)
+        ? setDisableFinishButton(true)
+        : setDisableFinishButton(false);
+    }
+  }, [labelData]);
+
   return (
     <StyledLabelForm>
       <div>
         <Label {...labelData} title={labelTitle} />
       </div>
       <StyledLabelInfo>
-        <LabelInput {...{ labelData, setLabelData, setDisableFinishButton }} />
+        <LabelInput {...{ labelData, setLabelData, setDisableFinishButton, mode }} />
         <ButtonWrapper>
           {mode === 'ADD' ? (
             <Button {...COMMON_FORM_BUTTON.add} disabled={disableFinishButton} HandleOnClick={postNewLabelData} />
