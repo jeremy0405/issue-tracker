@@ -21,6 +21,9 @@ import {
   CommentContent,
 } from 'components/Molecules/Comment/index.styles';
 
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
+
 interface CommentListTypes {
   writer: AssignTypes;
   createdAt: string;
@@ -135,7 +138,7 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
             </div>
             <div className="table-row">
               <CommentContent>
-                <span>{isOpen ? content : closeComment}</span>
+                {isOpen ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{content!}</ReactMarkdown> : closeComment}
               </CommentContent>
             </div>
           </>

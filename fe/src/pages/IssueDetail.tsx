@@ -102,6 +102,7 @@ const IssueDetail = () => {
             {
               contentList: data.assignees,
               dropdownList: assignees,
+              dropdownTitle: '담당자 필터',
               id: 1,
               indicatorLabel: '담당자',
               type: 'ASSIGN',
@@ -109,6 +110,7 @@ const IssueDetail = () => {
             {
               contentList: data.labels,
               dropdownList: labels,
+              dropdownTitle: '레이블 필터',
               id: 2,
               indicatorLabel: '레이블',
               type: 'LABEL',
@@ -123,6 +125,7 @@ const IssueDetail = () => {
                 },
               ],
               dropdownList: milestones,
+              dropdownTitle: '마일스톤 필터',
               id: 3,
               indicatorLabel: '마일스톤',
               type: 'MILESTONE',

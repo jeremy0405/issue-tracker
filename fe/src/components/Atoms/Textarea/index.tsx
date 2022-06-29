@@ -1,4 +1,4 @@
-import React, { ChangeEventHandler, ReactNode, useEffect, useRef, useState } from 'react';
+import React, { ReactNode, useState } from 'react';
 import axios from 'axios';
 import { Form, StyledTextarea, AddFile, Count } from 'components/Atoms/Textarea/index.styles';
 import Icon from 'components/Atoms/Icon/';
