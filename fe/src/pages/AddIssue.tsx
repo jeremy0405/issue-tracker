@@ -1,5 +1,6 @@
-import { useMutation, useQueryClient } from 'react-query';
+/* eslint-disable react/prop-types */
 import React, { useRef, useState } from 'react';
+import { useMutation, useQueryClient } from 'react-query';
 import { useNavigate } from 'react-router-dom';
 
 import { useGetLabelData } from 'api/label';
@@ -54,101 +55,30 @@ interface NewIssueTypes {
   milestoneId: number | null;
 }
 
+type FilterDataKeys = 'ASSIGN' | 'LABEL' | 'MILESTONE';
+interface ContentListProps {
+  ASSIGN: UserTypes[];
+  LABEL: LabelTypes[];
+  MILESTONE: MilestoneTypes[];
+}
+
 const AddIssue = () => {
   const navigate = useNavigate();
 
-  const inputRef = useRef<HTMLInputElement>(null);
   const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const inputRef = useRef<HTMLInputElement>(null);
 
   const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
-  const [assigneesContentList, setAssigneesContentList] = useState<UserTypes[]>([]);
-  const [labelsContentList, setLabelsContentList] = useState<LabelTypes[]>([]);
-  const [milestoneContentList, setMilestoneContentList] = useState<MilestoneTypes[]>([]);
 
+  const initState: ContentListProps = { ASSIGN: [], LABEL: [], MILESTONE: [] };
+  const [contentList, setContentList] = useState(initState);
   const [isFilled, setIsFilled] = useState<boolean>(false);
 
   const queryClient = useQueryClient();
-  // const data = queryClient.getQueryData<ServerDataTypes>('issueData');
-
-  // if (!data) return <div>데이터가 없습니다</div>;
-
-  // const { assignees, labels, milestones } = data;
 
   const { isLoading: labelsDataIsLoading, data: labelData, error: labelsDataError } = useGetLabelData();
   const { isLoading: milestonesDataIsLoading, data: milestoneData, error: milestonesDataError } = useGetMilestoneData();
   const { isLoading: membersDataIsLoading, data: memberData, error: membersDataError } = useGetMembersData();
-
-  // 하나로 합치도록 해보기
-
-  const handleAssigneesContentList = (event: React.MouseEvent<HTMLInputElement>) => {
-    const { target } = event;
-    if (!(target instanceof HTMLInputElement)) return;
-
-    const { assigneesdata } = target.dataset;
-    if (!assigneesdata) return;
-
-    const [id, loginId, profileImageUrl] = assigneesdata.split(',');
-
-    if (target.checked) {
-      setAssigneesContentList([
-        ...assigneesContentList,
-        {
-          id: Number(id),
-          loginId,
-          profileImageUrl,
-        },
-      ]);
-    } else {
-      setAssigneesContentList(assigneesContentList.filter((el) => el.id !== Number(id)));
-    }
-  };
-
-  const handleLabelsContentList = (event: React.MouseEvent<HTMLInputElement>) => {
-    const { target } = event;
-    if (!(target instanceof HTMLInputElement)) return;
-
-    const { labelsdata } = target.dataset;
-    if (!labelsdata) return;
-
-    const [id, title, backgroundColor] = labelsdata.split(',');
-
-    if (target.checked) {
-      setLabelsContentList([
-        ...labelsContentList,
-        {
-          id: Number(id),
-          title,
-          backgroundColor,
-        },
-      ]);
-    } else {
-      setLabelsContentList(labelsContentList.filter((el) => el.id !== Number(id)));
-    }
-  };
-
-  const handleMilestoneContentList = (event: React.MouseEvent<HTMLInputElement>) => {
-    const { target } = event;
-    if (!(target instanceof HTMLInputElement)) return;
-
-    const { milestonesdata } = target.dataset;
-    if (!milestonesdata) return;
-
-    const [id, title, openIssueCount, closedIssueCount] = milestonesdata.split(',');
-
-    if (target.checked) {
-      setMilestoneContentList([
-        ...milestoneContentList,
-        {
-          id: Number(id),
-          title,
-          openIssueCount: Number(openIssueCount),
-          closedIssueCount: Number(closedIssueCount),
-        },
-      ]);
-    } else {
-      setMilestoneContentList(milestoneContentList.filter((el) => el.id !== Number(id)));
-    }
-  };
 
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     onChangeInput(event);
@@ -165,7 +95,6 @@ const AddIssue = () => {
     return addIssueData;
   };
 
-  // 새로운 이슈를 등록하면 업데이트할 데이터 페이지?
   const { mutate } = useMutation(addIssue, {
     onSuccess: () => {
       queryClient.invalidateQueries('issueData');
@@ -182,9 +111,9 @@ const AddIssue = () => {
       title: inputRef.current?.value!,
       comment: textareaRef.current?.value || null,
       writerId: JSON.parse(userData!).id,
-      assigneesIds: assigneesContentList.map((list) => list.id),
-      labelIds: labelsContentList.map((list) => list.id),
-      milestoneId: milestoneContentList.map((list) => list.id)[0] || null,
+      assigneesIds: contentList.ASSIGN.map((list) => list.id),
+      labelIds: contentList.LABEL.map((list) => list.id),
+      milestoneId: contentList.MILESTONE.map((list) => list.id)[0] || null,
     };
 
     mutate(issueInfo);
@@ -195,33 +124,60 @@ const AddIssue = () => {
   if (labelsDataError || milestonesDataError || membersDataError) return <div>error</div>;
   if (!labelData || !milestoneData || !memberData) return <div>데이터가 없습니다</div>;
 
+  const sideBarData = {
+    ASSIGN: memberData.members,
+    LABEL: labelData.labels,
+    MILESTONE: milestoneData.milestones,
+  };
+
+  const handleContentList = (event: React.MouseEvent<HTMLInputElement>) => {
+    if (!(event.target instanceof HTMLInputElement)) return;
+    const { checked } = event.target;
+    const { type, id } = event.target.dataset;
+
+    const key = type as FilterDataKeys;
+    const sideBarFilterData: (UserTypes | LabelTypes | MilestoneTypes)[] = sideBarData[key];
+    const [checkedData] = sideBarFilterData.filter((el) => el.id === Number(id));
+
+    if (checked) {
+      setContentList({ ...contentList, [key]: [...contentList[key], checkedData] });
+    } else {
+      const contentListFilterData: (UserTypes | LabelTypes | MilestoneTypes)[] = contentList[key];
+
+      setContentList({
+        ...contentList,
+        [key]: contentListFilterData.filter((el) => el.id !== Number(id)),
+      });
+    }
+  };
+
   const sideBarList = [
     {
       id: 1,
-      contentList: assigneesContentList,
-      clickHandler: handleAssigneesContentList,
-      dropdownList: memberData.members,
-      dropdownTitle: '담당자 추가',
-      indicatorLabel: '담당자',
       type: 'ASSIGN',
+      indicatorLabel: '담당자',
+      dropdownTitle: '담당자 추가',
+      dropdownList: memberData.members,
+      contentList: contentList.ASSIGN,
+      clickHandler: handleContentList,
     },
     {
       id: 2,
-      contentList: labelsContentList,
-      clickHandler: handleLabelsContentList,
-      dropdownList: labelData.labels,
-      dropdownTitle: '레이블 추가',
-      indicatorLabel: '레이블',
       type: 'LABEL',
+      indicatorLabel: '레이블',
+      dropdownTitle: '레이블 추가',
+      dropdownList: labelData.labels,
+      contentList: contentList.LABEL,
+      clickHandler: handleContentList,
     },
     {
       id: 3,
-      contentList: milestoneContentList,
-      clickHandler: handleMilestoneContentList,
+      type: 'MILESTONE',
+      indicatorLabel: '마일스톤',
       dropdownTitle: '마일스톤 추가',
       dropdownList: milestoneData.milestones,
-      indicatorLabel: '마일스톤',
-      type: 'MILESTONE',
+      contentList: contentList.MILESTONE,
+      clickHandler: handleContentList,
     },
   ];
 

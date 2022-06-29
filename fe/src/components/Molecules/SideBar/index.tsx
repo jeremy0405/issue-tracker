@@ -18,9 +18,11 @@ export interface SideBarListType {
   type: string;
   indicatorLabel: string;
   dropdownTitle?: string;
-  dropdownList: DropdownListTypes[];
+  dropdownList: AssignTypes[] | LabelTypes[] | MilestoneTypes[];
   contentList: ContentListType[];
+  // eslint-disable-next-line no-unused-vars
   clickHandler?: (e: React.MouseEvent<HTMLInputElement>) => void;
+  panelType?: 'checkbox' | 'radio';
 }
 
 export interface SideBarTypes {
@@ -28,51 +30,68 @@ export interface SideBarTypes {
 }
 
 const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
+  const isAssignTypes = (props: AssignTypes | LabelTypes | MilestoneTypes): props is AssignTypes => {
+    return (props as AssignTypes).loginId !== undefined;
+  };
+
+  const isLabelTypes = (props: AssignTypes | LabelTypes | MilestoneTypes): props is LabelTypes => {
+    return (props as LabelTypes).backgroundColor !== undefined;
+  };
+
+  const isMilestoneTypes = (props: AssignTypes | LabelTypes | MilestoneTypes): props is MilestoneTypes => {
+    return (
+      (props as MilestoneTypes).openIssueCount !== undefined && (props as MilestoneTypes).closedIssueCount !== undefined
+    );
+  };
+
   return (
     <StyledSideBar>
-      {sideBarList.map(({ id, type, indicatorLabel, dropdownTitle, dropdownList, contentList, clickHandler }) => (
-        <div className="table-row" key={id}>
-          <SideBarItem>
-            <Dropdown
-              dropdownTitle={dropdownTitle}
-              dropdownList={dropdownList}
-              indicatorLabel={indicatorLabel}
-              indicatorStyle="SIDEBAR"
-              panelType="checkbox"
-              clickHandler={clickHandler}
-            />
-            <Content type={type}>
-              {contentList.map((props: ContentListType) => {
-                if ('loginId' in props)
-                  return (
-                    <User key={props.id}>
-                      <UserImage profileImageUrl={props.profileImageUrl} loginId={props.loginId} imgSize="MEDIUM" />
-                      <p>{props.loginId}</p>
-                    </User>
-                  );
+      {sideBarList.map(
+        ({ id, type, indicatorLabel, dropdownTitle, dropdownList, contentList, clickHandler, panelType }) => (
+          <div className="table-row" key={id}>
+            <SideBarItem>
+              <Dropdown
+                type={type}
+                dropdownTitle={dropdownTitle}
+                dropdownList={dropdownList}
+                indicatorLabel={indicatorLabel}
+                indicatorStyle="SIDEBAR"
+                panelType={panelType}
+                clickHandler={clickHandler}
+              />
+              <Content type={type}>
+                {contentList.map((props: ContentListType) => {
+                  if (isAssignTypes(props))
+                    return (
+                      <User key={props.id}>
+                        <UserImage profileImageUrl={props.profileImageUrl} loginId={props.loginId} imgSize="MEDIUM" />
+                        <p>{props.loginId}</p>
+                      </User>
+                    );
 
-                if ('backgroundColor' in props)
-                  return (
-                    <Label
-                      key={props.id}
-                      backgroundColor={props.backgroundColor}
-                      title={props.title}
-                      labelStyle="STANDARD"
-                      titleColor="black"
-                    />
-                  );
-                if ('openIssueCount' in props)
-                  return (
-                    <div key={props.id}>
-                      <Milestone openIssueCount={props.openIssueCount} closedIssueCount={props.closedIssueCount} />
-                      <p>{props.title}</p>
-                    </div>
-                  );
-              })}
-            </Content>
-          </SideBarItem>
-        </div>
-      ))}
+                  if (isLabelTypes(props))
+                    return (
+                      <Label
+                        key={props.id}
+                        backgroundColor={props.backgroundColor}
+                        title={props.title}
+                        labelStyle="STANDARD"
+                        titleColor={props.titleColor}
+                      />
+                    );
+                  if (isMilestoneTypes(props))
+                    return (
+                      <div key={props.id}>
+                        <Milestone openIssueCount={props.openIssueCount} closedIssueCount={props.closedIssueCount} />
+                        <p>{props.title}</p>
+                      </div>
+                    );
+                })}
+              </Content>
+            </SideBarItem>
+          </div>
+        ),
+      )}
     </StyledSideBar>
   );
 };
