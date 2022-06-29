@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 const StyledCommonList = styled.ul`
+  min-width: 800px;
   border: 1px solid ${({ theme }) => theme.colors.line};
   border-radius: 16px;
 

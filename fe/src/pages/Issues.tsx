@@ -1,6 +1,6 @@
 /* eslint-disable react/jsx-no-bind */
 import { useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 
 import useGetIssueData from 'api/issue';
 
@@ -8,6 +8,7 @@ import styled from 'styled-components';
 import FilterBar from 'components/Molecules/FilterBar';
 import IssueList from 'components/Molecules/IssueList';
 import SubNav from 'components/Molecules/SubNav';
+import Pagination from 'components/Molecules/Pagination';
 
 import useInput from 'hooks/useInput';
 import ISSUE_FILTER from 'helpers/constants/IssueFilter';
@@ -33,7 +34,11 @@ const StyledDiv = styled.div`
 const Issues = () => {
   const inputRef = useRef<HTMLInputElement>(null);
 
-  const { isLoading, data, error } = useGetIssueData();
+  const [searchParams, setSearchParams] = useSearchParams();
+  const page = searchParams.get('page');
+
+  const { isLoading, data, error } = useGetIssueData(Number(page));
+
   const { onChangeInput, onClickInput, onBlurInput } = useInput();
   const navigate = useNavigate();
 
@@ -100,6 +105,7 @@ const Issues = () => {
         issues={data.issues}
         filterTabs={filterTabs}
       />
+      <Pagination data={data.issues} page={page} setSearchParams={setSearchParams} />
     </>
   );
 };

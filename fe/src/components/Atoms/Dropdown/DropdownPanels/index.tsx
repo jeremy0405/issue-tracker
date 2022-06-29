@@ -22,9 +22,6 @@ export interface DropdownPanelsTypes {
 const DropdownPanels = ({ panelType = 'radio', dropdownTitle = '필터 이름', ...props }: DropdownPanelsTypes) => {
   const { dropdownList, clickHandler } = props;
 
-  // is:open, author:@me, assignee:@me , mentions:@me ,is:closed //is:issue제외
-  // assignee, label, milestone, author,
-
   return (
     <StyledDropdownPanels>
       <DropdonwTitle>{dropdownTitle}</DropdonwTitle>

@@ -1,11 +1,9 @@
 import { useState } from 'react';
-import { useQuery, useQueryClient } from 'react-query';
 
-import axios from 'axios';
-import { ServerDataTypes } from 'api/issue';
+import { useGetLabelData } from 'api/label';
+import useGetMilestoneData from 'api/milestone';
 
 import styled from 'styled-components';
-import { LabelTypes } from 'components/Atoms/Label';
 import SubNav from 'components/Molecules/SubNav';
 import LabelList from 'components/Molecules/LabelList/index';
 import CommonForm from 'components/Molecules/CommonForm';
@@ -17,39 +15,28 @@ const StyledLabelList = styled.div`
   }
 `;
 
-interface LabelServerDataTypes {
-  labels: LabelTypes[];
-}
-
 const LabelPage = () => {
-  const queryClient = useQueryClient();
-  const issueData = queryClient.getQueryData<ServerDataTypes>('issueData');
-
-  const getServerData = async (URL: string): Promise<LabelServerDataTypes> => {
-    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/${URL}`);
-    return data;
-  };
-
+  const { isLoading: labelsDataIsLoading, data: labelsData, error: labelsDataError } = useGetLabelData();
   const {
-    isLoading: labelsDataIsLoading,
-    data: labelsData,
-    error: labelsDataError,
-  } = useQuery('labels', () => getServerData('api/labels'), {
-    cacheTime: Infinity,
-  });
+    isLoading: milestonesDataIsLoading,
+    data: milestonesData,
+    error: milestonesDataError,
+  } = useGetMilestoneData();
 
   const [isAddLabel, setIsAddLabel] = useState(false);
   const focusAddLabel = () => setIsAddLabel((focus) => !focus);
 
-  if (labelsDataIsLoading) return <div>loading</div>;
-  if (labelsDataError) return <div>error</div>;
-  if (!labelsData) return <div>데이터가 없습니다</div>;
+  if (labelsDataIsLoading || milestonesDataIsLoading) return <div>loading</div>;
+  if (labelsDataError || milestonesDataError) return <div>error</div>;
+  if (!labelsData || !milestonesData) return <div>데이터가 없습니다</div>;
+
+  const milestoneCount = milestonesData.milestones.length;
 
   return (
     <StyledLabelList>
       <SubNav
         labelCount={labelsData.labels.length}
-        milestoneCount={issueData!.milestoneCount}
+        milestoneCount={milestoneCount}
         type={isAddLabel ? 'CLOSE' : 'ADD'}
         HandleOnClick={focusAddLabel}
       />
