@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.common.annotation.LoginRequired;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.label.dto.LabelAddRequest;
 import team29.hoorry.issuetracker.core.label.dto.LabelUpdateRequest;
@@ -43,6 +44,7 @@ public class LabelController {
 				})
 		}
 	)
+	@LoginRequired
 	@GetMapping
 	public ResponseEntity<LabelsResponse> labels() {
 		LabelsResponse labelsResponse = labelService.findAll();
@@ -65,6 +67,7 @@ public class LabelController {
 			)
 		}
 	)
+	@LoginRequired
 	@PostMapping
 	public ResponseEntity<Void> add(@Validated @RequestBody LabelAddRequest labelAddRequest) {
 		labelService.save(labelAddRequest);
@@ -87,6 +90,7 @@ public class LabelController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}")
 	public ResponseEntity<Void> update(@PathVariable Long id, @RequestBody LabelUpdateRequest labelUpdateRequest) {
 		labelService.update(id, labelUpdateRequest);
@@ -109,6 +113,7 @@ public class LabelController {
 			)
 		}
 	)
+	@LoginRequired
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		labelService.delete(id);

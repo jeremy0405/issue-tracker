@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.common.annotation.LoginRequired;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestoneAddRequest;
 import team29.hoorry.issuetracker.core.milestone.dto.MilestoneUpdateRequest;
@@ -44,6 +45,7 @@ public class MilestoneController {
 				})
 		}
 	)
+	@LoginRequired
 	@GetMapping
 	public ResponseEntity<MilestonesResponse> inquire() {
 		MilestonesResponse milestonesResponse = milestoneService.findAll();
@@ -70,6 +72,7 @@ public class MilestoneController {
 				})
 		}
 	)
+	@LoginRequired
 	@PostMapping
 	public ResponseEntity<Void> register(@RequestBody MilestoneAddRequest milestoneAddRequest) {
 		milestoneService.save(milestoneAddRequest);
@@ -96,6 +99,7 @@ public class MilestoneController {
 				})
 		}
 	)
+	@LoginRequired
 	@PatchMapping
 	public ResponseEntity<Void> update(@RequestBody MilestoneUpdateRequest milestoneUpdateRequest) {
 		milestoneService.update(milestoneUpdateRequest);
@@ -122,6 +126,7 @@ public class MilestoneController {
 				})
 		}
 	)
+	@LoginRequired
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		milestoneService.delete(id);

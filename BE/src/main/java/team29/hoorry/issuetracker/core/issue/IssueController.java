@@ -17,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import team29.hoorry.issuetracker.core.common.annotation.LoginRequired;
 import team29.hoorry.issuetracker.core.exception.dto.ErrorResponse;
 import team29.hoorry.issuetracker.core.issue.dto.request.CommentSaveRequest;
 import team29.hoorry.issuetracker.core.issue.dto.request.IssueAssigneesUpdateRequest;
@@ -55,6 +56,7 @@ public class IssueController {
 				})
 		}
 	)
+	@LoginRequired
 	@GetMapping
 	public ResponseEntity<IssuesResponse> issues(
 		@RequestParam(name = "query", required = false) String query,
@@ -80,6 +82,7 @@ public class IssueController {
 				})
 		}
 	)
+	@LoginRequired
 	@GetMapping("/{id}")
 	public ResponseEntity<IssueDetailResponse> issueDetail(@PathVariable Long id) {
 		IssueDetailResponse issueDetailResponse = issueService.findById(id);
@@ -107,6 +110,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PostMapping
 	public ResponseEntity<Void> save(@RequestBody IssuesSaveRequest issuesSaveRequest) {
 		issueService.save(issuesSaveRequest);
@@ -133,6 +137,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PostMapping("/{id}/comments")
 	public ResponseEntity<Void> write(@PathVariable("id") Long issueId, @RequestBody CommentSaveRequest commentSaveRequest) {
 		commentService.write(issueId, commentSaveRequest);
@@ -159,6 +164,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PostMapping("/{comment_id}/reaction")
 	public ResponseEntity<Void> addReaction(@PathVariable("comment_id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.addReaction(commentId, reactionSaveRequest);
@@ -185,6 +191,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@DeleteMapping("/{comment_id}/reaction")
 	public ResponseEntity<Void> deleteReaction(@PathVariable("comment_id") Long commentId, @RequestBody ReactionSaveRequest reactionSaveRequest) {
 		commentService.deleteReaction(commentId, reactionSaveRequest);
@@ -211,6 +218,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/status")
 	public ResponseEntity<Void> updateAllStatus(
 		@RequestBody IssuesStatusUpdateRequest issuesStatusUpdateRequest) {
@@ -238,6 +246,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}/status")
 	public ResponseEntity<Void> updateStatus(
 		@PathVariable Long id,
@@ -266,6 +275,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}/title")
 	public ResponseEntity<Void> updateTitle(
 		@PathVariable Long id,
@@ -294,6 +304,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}/labels")
 	public ResponseEntity<Void> updateLabels(
 		@PathVariable Long id,
@@ -322,6 +333,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}/milestone")
 	public ResponseEntity<Void> updateMilestone(
 		@PathVariable Long id,
@@ -350,6 +362,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@PatchMapping("/{id}/assignees")
 	public ResponseEntity<Void> updateAssignees(
 		@PathVariable Long id,
@@ -378,6 +391,7 @@ public class IssueController {
 			)
 		}
 	)
+	@LoginRequired
 	@DeleteMapping("/{id}")
 	public ResponseEntity<Void> delete(@PathVariable Long id) {
 		issueService.delete(id);
