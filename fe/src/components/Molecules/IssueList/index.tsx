@@ -59,9 +59,8 @@ const IssueList = (props: IssueListTypes) => {
   ];
 
   const clickedAllIssues = (id: string, isChecked: boolean) => {
-    const newArr: string[] = [];
     if (isChecked) {
-      issues.content.map((issue: IssueItemTypes) => newArr.push(String(issue.id)));
+      const newArr = issues.content.map((issue: IssueItemTypes) => String(issue.id));
       setCheckedIssue([...newArr, id]);
     } else {
       setCheckedIssue([]);

@@ -12,7 +12,7 @@ export type DropdownListTypes = {
   dueDate?: string;
   openIssueCount?: number;
   closedIssueCount?: number;
-  titleColor?: string;
+  titleColor?: 'black' | 'white';
   backgroundColor?: string;
   profileImageUrl?: string;
 };
@@ -33,7 +33,7 @@ export type MilestoneTypes = {
 export type LabelTypes = {
   id: number;
   title: string;
-  titleColor?: string;
+  titleColor: 'black' | 'white';
   backgroundColor: string;
   description?: string;
 };
