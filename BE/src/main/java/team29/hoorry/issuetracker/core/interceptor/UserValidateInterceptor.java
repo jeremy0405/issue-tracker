@@ -3,7 +3,9 @@ package team29.hoorry.issuetracker.core.interceptor;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import lombok.AllArgsConstructor;
+import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
+import team29.hoorry.issuetracker.core.common.annotation.LoginRequired;
 import team29.hoorry.issuetracker.core.exception.EmptyTokenException;
 import team29.hoorry.issuetracker.core.exception.ExceptionMessage;
 import team29.hoorry.issuetracker.core.exception.InvalidTokenException;
@@ -16,14 +18,19 @@ public class UserValidateInterceptor implements HandlerInterceptor {
 	private final JwtValidator jwtValidator;
 
 	@Override
-	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
-		throws Exception {
-		// Swagger 관련 요청 제외
-		String uri = request.getRequestURI();
-		if (uri.contains("swagger") || uri.contains("api-docs") || uri.contains("webjars")) {
+	public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) {
+		if (isSwaggerRequest(request.getRequestURI())) {
 			return true;
 		}
 
+		if (isLoginRequiredRequest(handler)) {
+			validateJwt(request);
+		}
+
+		return true;
+	}
+
+	private void validateJwt(HttpServletRequest request) {
 		String token = request.getHeader(JwtConst.AUTHORIZATION);
 
 		if (token == null) {
@@ -33,7 +40,13 @@ public class UserValidateInterceptor implements HandlerInterceptor {
 		if (!jwtValidator.validate(token)) {
 			throw new InvalidTokenException(ExceptionMessage.INVALID_TOKEN_MESSAGE);
 		}
+	}
 
-		return true;
+	private boolean isLoginRequiredRequest(Object handler) {
+		return handler instanceof HandlerMethod && ((HandlerMethod) handler).hasMethodAnnotation(LoginRequired.class);
+	}
+
+	private boolean isSwaggerRequest(String uri) {
+		return uri.contains("swagger") || uri.contains("api-docs") || uri.contains("webjars");
 	}
 }
