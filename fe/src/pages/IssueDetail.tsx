@@ -53,7 +53,7 @@ export interface IssueDetailDataTypes {
   writer: UserTypes;
   assignees: UserTypes[];
   labels: LabelTypes[];
-  milestones: MilestoneTypes[];
+  milestone: MilestoneTypes;
   comments: CommentsTypes[];
 }
 
@@ -101,35 +101,29 @@ const IssueDetail = () => {
         <SideBar
           sideBarList={[
             {
-              contentList: data.assignees,
-              dropdownList: memberData.members,
-              dropdownTitle: '담당자 필터',
               id: 1,
-              indicatorLabel: '담당자',
               type: 'ASSIGN',
+              indicatorLabel: '담당자',
+              dropdownTitle: '담당자 필터',
+              dropdownList: memberData.members,
+              contentList: data.assignees,
             },
             {
-              contentList: data.labels,
-              dropdownList: labelData.labels,
-              dropdownTitle: '레이블 필터',
               id: 2,
-              indicatorLabel: '레이블',
               type: 'LABEL',
+              indicatorLabel: '레이블',
+              dropdownTitle: '레이블 필터',
+              dropdownList: labelData.labels,
+              contentList: data.labels,
             },
             {
-              contentList: [
-                {
-                  id: 1,
-                  title: '1주차 마일스톤 BE',
-                  openIssueCount: 9,
-                  closedIssueCount: 8,
-                },
-              ],
-              dropdownList: milestoneData.milestones,
-              dropdownTitle: '마일스톤 필터',
               id: 3,
-              indicatorLabel: '마일스톤',
               type: 'MILESTONE',
+              indicatorLabel: '마일스톤',
+              dropdownTitle: '마일스톤 필터',
+              dropdownList: milestoneData.milestones,
+              panelType: 'radio',
+              contentList: [data.milestone],
             },
           ]}
         />

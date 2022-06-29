@@ -15,6 +15,7 @@ export type FilterBarTypes = DropdownTypes & InputTypes;
 
 const FilterBar = (props: FilterBarTypes): JSX.Element => {
   const {
+    type,
     indicatorStyle,
     indicatorLabel,
     dropdownTitle,
@@ -34,6 +35,7 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
   return (
     <StyledFilterBar>
       <Dropdown
+        type={type}
         isActive={isActive}
         indicatorStyle={indicatorStyle}
         indicatorLabel={indicatorLabel}
