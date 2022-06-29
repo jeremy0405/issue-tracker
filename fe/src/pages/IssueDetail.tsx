@@ -1,8 +1,10 @@
-import { useQuery, useQueryClient } from 'react-query';
+import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
 
-import { ServerDataTypes } from 'api/issue';
+import { useGetLabelData } from 'api/label';
+import useGetMilestoneData from 'api/milestone';
+import useGetMembersData from 'api/member';
 
 import styled from 'styled-components';
 import Comment from 'components/Molecules/Comment';
@@ -67,14 +69,13 @@ const IssueDetail = () => {
     cacheTime: Infinity,
   });
 
-  const queryClient = useQueryClient();
-  const issueData = queryClient.getQueryData<ServerDataTypes>('issueData');
-  if (!issueData) return <div>issueData 없음</div>;
-  const { assignees, labels, milestones } = issueData;
+  const { isLoading: labelsDataIsLoading, data: labelData, error: labelsDataError } = useGetLabelData();
+  const { isLoading: milestonesDataIsLoading, data: milestoneData, error: milestonesDataError } = useGetMilestoneData();
+  const { isLoading: membersDataIsLoading, data: memberData, error: membersDataError } = useGetMembersData();
 
-  if (isLoading) return <div>loading</div>;
-  if (error) return <div>error</div>;
-  if (!data) return <div>데이터가 없습니다</div>;
+  if (isLoading || labelsDataIsLoading || milestonesDataIsLoading || membersDataIsLoading) return <div>loading</div>;
+  if (error || labelsDataError || milestonesDataError || membersDataError) return <div>error</div>;
+  if (!data || !labelData || !milestoneData || !memberData) return <div>데이터가 없습니다</div>;
 
   return (
     <>
@@ -101,7 +102,7 @@ const IssueDetail = () => {
           sideBarList={[
             {
               contentList: data.assignees,
-              dropdownList: assignees,
+              dropdownList: memberData.members,
               dropdownTitle: '담당자 필터',
               id: 1,
               indicatorLabel: '담당자',
@@ -109,7 +110,7 @@ const IssueDetail = () => {
             },
             {
               contentList: data.labels,
-              dropdownList: labels,
+              dropdownList: labelData.labels,
               dropdownTitle: '레이블 필터',
               id: 2,
               indicatorLabel: '레이블',
@@ -124,7 +125,7 @@ const IssueDetail = () => {
                   closedIssueCount: 8,
                 },
               ],
-              dropdownList: milestones,
+              dropdownList: milestoneData.milestones,
               dropdownTitle: '마일스톤 필터',
               id: 3,
               indicatorLabel: '마일스톤',

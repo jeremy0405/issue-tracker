@@ -1,8 +1,10 @@
-import React, { useRef, useState } from 'react';
 import { useMutation, useQueryClient } from 'react-query';
+import React, { useRef, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 
-import { ServerDataTypes } from 'api/issue';
+import { useGetLabelData } from 'api/label';
+import useGetMilestoneData from 'api/milestone';
+import useGetMembersData from 'api/member';
 
 import styled from 'styled-components';
 import AddIssueForm from 'components/Molecules/AddIssueForm';
@@ -53,19 +55,30 @@ interface NewIssueTypes {
 }
 
 const AddIssue = () => {
+  const navigate = useNavigate();
+
+  const inputRef = useRef<HTMLInputElement>(null);
+  const textareaRef = useRef<HTMLTextAreaElement>(null);
+
   const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
-
-  const queryClient = useQueryClient();
-  const data = queryClient.getQueryData<ServerDataTypes>('issueData');
-
-  if (!data) return <div>데이터가 없습니다</div>;
-
-  const { assignees, labels, milestones } = data;
-
-  // 하나로 합치도록 해보기
   const [assigneesContentList, setAssigneesContentList] = useState<UserTypes[]>([]);
   const [labelsContentList, setLabelsContentList] = useState<LabelTypes[]>([]);
   const [milestoneContentList, setMilestoneContentList] = useState<MilestoneTypes[]>([]);
+
+  const [isFilled, setIsFilled] = useState<boolean>(false);
+
+  const queryClient = useQueryClient();
+  // const data = queryClient.getQueryData<ServerDataTypes>('issueData');
+
+  // if (!data) return <div>데이터가 없습니다</div>;
+
+  // const { assignees, labels, milestones } = data;
+
+  const { isLoading: labelsDataIsLoading, data: labelData, error: labelsDataError } = useGetLabelData();
+  const { isLoading: milestonesDataIsLoading, data: milestoneData, error: milestonesDataError } = useGetMilestoneData();
+  const { isLoading: membersDataIsLoading, data: memberData, error: membersDataError } = useGetMembersData();
+
+  // 하나로 합치도록 해보기
 
   const handleAssigneesContentList = (event: React.MouseEvent<HTMLInputElement>) => {
     const { target } = event;
@@ -137,46 +150,11 @@ const AddIssue = () => {
     }
   };
 
-  const sideBarList = [
-    {
-      id: 1,
-      contentList: assigneesContentList,
-      clickHandler: handleAssigneesContentList,
-      dropdownList: assignees,
-      dropdownTitle: '담당자 추가',
-      indicatorLabel: '담당자',
-      type: 'ASSIGN',
-    },
-    {
-      id: 2,
-      contentList: labelsContentList,
-      clickHandler: handleLabelsContentList,
-      dropdownList: labels,
-      dropdownTitle: '레이블 추가',
-      indicatorLabel: '레이블',
-      type: 'LABEL',
-    },
-    {
-      id: 3,
-      contentList: milestoneContentList,
-      clickHandler: handleMilestoneContentList,
-      dropdownTitle: '마일스톤 추가',
-      dropdownList: milestones,
-      indicatorLabel: '마일스톤',
-      type: 'MILESTONE',
-    },
-  ];
-
-  const [isFilled, setIsFilled] = useState<boolean>(false);
-
   const onChange = (event: React.FormEvent<HTMLInputElement>) => {
     onChangeInput(event);
     if (event.currentTarget.value) setIsFilled(true);
     else setIsFilled(false);
   };
-
-  const inputRef = useRef<HTMLInputElement>(null);
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
 
   const addIssue = async (newIssue: NewIssueTypes): Promise<NewIssueTypes> => {
     const { data: addIssueData } = await axios.post<NewIssueTypes>(
@@ -187,6 +165,7 @@ const AddIssue = () => {
     return addIssueData;
   };
 
+  // 새로운 이슈를 등록하면 업데이트할 데이터 페이지?
   const { mutate } = useMutation(addIssue, {
     onSuccess: () => {
       queryClient.invalidateQueries('issueData');
@@ -195,8 +174,6 @@ const AddIssue = () => {
       console.log(error);
     },
   });
-
-  const navigate = useNavigate();
 
   const handleUploadButtonClick = () => {
     const userData = localStorage.getItem('userInfo');
@@ -213,6 +190,40 @@ const AddIssue = () => {
     mutate(issueInfo);
     navigate('/');
   };
+
+  if (labelsDataIsLoading || milestonesDataIsLoading || membersDataIsLoading) return <div>loading</div>;
+  if (labelsDataError || milestonesDataError || membersDataError) return <div>error</div>;
+  if (!labelData || !milestoneData || !memberData) return <div>데이터가 없습니다</div>;
+
+  const sideBarList = [
+    {
+      id: 1,
+      contentList: assigneesContentList,
+      clickHandler: handleAssigneesContentList,
+      dropdownList: memberData.members,
+      dropdownTitle: '담당자 추가',
+      indicatorLabel: '담당자',
+      type: 'ASSIGN',
+    },
+    {
+      id: 2,
+      contentList: labelsContentList,
+      clickHandler: handleLabelsContentList,
+      dropdownList: labelData.labels,
+      dropdownTitle: '레이블 추가',
+      indicatorLabel: '레이블',
+      type: 'LABEL',
+    },
+    {
+      id: 3,
+      contentList: milestoneContentList,
+      clickHandler: handleMilestoneContentList,
+      dropdownTitle: '마일스톤 추가',
+      dropdownList: milestoneData.milestones,
+      indicatorLabel: '마일스톤',
+      type: 'MILESTONE',
+    },
+  ];
 
   return (
     <StyledDiv>

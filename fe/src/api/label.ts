@@ -1,5 +1,13 @@
 import axios from 'axios';
+import { useQuery } from 'react-query';
 import { LabelTypes } from 'components/Atoms/Label';
+import { getServerData } from 'api/issue';
+
+export const useGetLabelData = () => {
+  return useQuery('labels', () => getServerData('api/labels'), {
+    cacheTime: Infinity,
+  });
+};
 
 export const addLabel = async (newLabel: LabelTypes): Promise<LabelTypes> => {
   const { id, ...anotherInfo } = newLabel;

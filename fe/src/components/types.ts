@@ -8,8 +8,11 @@ export type DropdownListTypes = {
   id: number;
   title?: string;
   loginId?: string;
+  description?: string;
+  dueDate?: string;
   openIssueCount?: number;
   closedIssueCount?: number;
+  titleColor?: string;
   backgroundColor?: string;
   profileImageUrl?: string;
 };
