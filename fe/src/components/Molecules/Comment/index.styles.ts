@@ -1,6 +1,7 @@
 import styled from 'styled-components';
 import { colors, fontStyles } from 'styles/theme';
 import { CommentTypes } from 'components/Molecules/Comment';
+import markdownReset from 'styles/markdown';
 
 type StyledCommentTypes = Pick<CommentTypes, 'isOpen' | 'isNewComment'> & { isEditable: boolean };
 
@@ -68,6 +69,8 @@ export const CommentHeader = styled.div<{ isOpen: boolean }>`
 export const CommentContent = styled.div`
   padding: 24px 16px;
   background: ${colors.offWhite};
+
+  ${markdownReset};
 `;
 
 export const EditButton = styled.div`

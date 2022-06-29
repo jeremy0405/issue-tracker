@@ -1,6 +1,7 @@
 import { Outlet } from 'react-router-dom';
 import styled from 'styled-components';
 import Header from 'components/Organisms/Header';
+import { HomeTypes } from 'Router/index';
 
 const Layer = styled.div`
   padding: 0px 80px;
@@ -12,11 +13,11 @@ const Layer = styled.div`
   }
 `;
 
-const Home = ({ isOAuth }: { isOAuth: boolean }) => {
+const Home = ({ isOAuth, setIsOAuth }: HomeTypes) => {
   return (
     <Layer>
       <div>
-        {isOAuth && <Header />}
+        {isOAuth && <Header setIsOAuth={setIsOAuth} />}
         <Outlet />
       </div>
     </Layer>

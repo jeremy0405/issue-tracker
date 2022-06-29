@@ -1,4 +1,5 @@
 import React, { ReactNode, useState } from 'react';
+import axios from 'axios';
 import { Form, StyledTextarea, AddFile, Count } from 'components/Atoms/Textarea/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
@@ -39,6 +40,22 @@ const Textarea = ({
 
   const count = typingValue.length || 0;
 
+  const handleUpload = async (e: { target: HTMLInputElement }) => {
+    const file = e.target.files![0];
+
+    const { data } = await axios.post(
+      `${process.env.REACT_APP_SERVER_URL}/api/upload`,
+      { file },
+      {
+        headers: {
+          'Content-Type': 'multipart/form-data',
+        },
+      },
+    );
+
+    textareaRef.current!.value += `\n![](${data.fileUrl})\n`;
+  };
+
   return (
     <Form isActive={isActive} onClick={handleFormClick}>
       {typingValue && (
@@ -59,7 +76,7 @@ const Textarea = ({
       <Count>{`띄어쓰기 포함 ${count}자`}</Count>
       <AddFile>
         <label className="addFile" htmlFor="addFile">
-          <input id="addFile" type="file" />
+          <input id="addFile" type="file" onChange={handleUpload} />
           <Icon icon="PaperClip" />
           <span>파일 첨부하기</span>
         </label>

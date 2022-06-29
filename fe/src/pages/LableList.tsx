@@ -1,10 +1,15 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
+import { useQuery, useQueryClient } from 'react-query';
+
+import axios from 'axios';
+import { ServerDataTypes } from 'api/issue';
+
 import styled from 'styled-components';
-import SubNav from 'components/Molecules/SubNav';
-import CommonForm from 'components/Molecules/CommonForm';
-import LabelForm from 'components/Molecules/CommonForm/Label/LabelForm';
-import LabelList from 'components/Molecules/LabelList';
 import { LabelTypes } from 'components/Atoms/Label';
+import SubNav from 'components/Molecules/SubNav';
+import LabelList from 'components/Molecules/LabelList/index';
+import CommonForm from 'components/Molecules/CommonForm';
+import LabelForm from 'components/Organisms/LabelForm';
 
 const StyledLabelList = styled.div`
   & > div:first-child {
@@ -12,50 +17,48 @@ const StyledLabelList = styled.div`
   }
 `;
 
-const LabelPage = () => {
-  const [isAddLabel, setIsAddLabel] = useState(false);
+interface LabelServerDataTypes {
+  labels: LabelTypes[];
+}
 
+const LabelPage = () => {
+  const queryClient = useQueryClient();
+  const issueData = queryClient.getQueryData<ServerDataTypes>('issueData');
+
+  const getServerData = async (URL: string): Promise<LabelServerDataTypes> => {
+    const { data } = await axios.get(`${process.env.REACT_APP_SERVER_URL}/${URL}`);
+    return data;
+  };
+
+  const {
+    isLoading: labelsDataIsLoading,
+    data: labelsData,
+    error: labelsDataError,
+  } = useQuery('labels', () => getServerData('api/labels'), {
+    cacheTime: Infinity,
+  });
+
+  const [isAddLabel, setIsAddLabel] = useState(false);
   const focusAddLabel = () => setIsAddLabel((focus) => !focus);
 
-  // get 요청으로 바꾸기
-  const labelData: LabelTypes[] = [
-    {
-      id: 1,
-      title: 'bug',
-      titleColor: 'white',
-      backgroundColor: '#B9062F',
-      description: "Something isn't working",
-    },
-    {
-      id: 2,
-      title: 'documentation',
-      titleColor: 'white',
-      backgroundColor: '#007AFF',
-      description: 'Improvements or additions to documentation',
-    },
-    {
-      id: 3,
-      title: 'duplicate',
-      titleColor: 'white',
-      backgroundColor: '#000000',
-      description: 'This issue or pull request already exists',
-    },
-  ];
+  if (labelsDataIsLoading) return <div>loading</div>;
+  if (labelsDataError) return <div>error</div>;
+  if (!labelsData) return <div>데이터가 없습니다</div>;
 
   return (
     <StyledLabelList>
       <SubNav
-        labelCount={labelData.length}
-        milestoneCount={2}
+        labelCount={labelsData.labels.length}
+        milestoneCount={issueData!.milestoneCount}
         type={isAddLabel ? 'CLOSE' : 'ADD'}
         HandleOnClick={focusAddLabel}
       />
       {isAddLabel && (
         <CommonForm title="새로운 레이블 추가" style={{ marginBottom: '24px' }}>
-          <LabelForm mode="ADD" />
+          <LabelForm mode="ADD" setIsAddLabel={setIsAddLabel} />
         </CommonForm>
       )}
-      <LabelList labelData={labelData} />
+      <LabelList labelData={labelsData.labels} />
     </StyledLabelList>
   );
 };

@@ -1,11 +1,15 @@
 /* eslint-disable camelcase */
-import React, { useState } from 'react';
+import React, { Dispatch, SetStateAction, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useMutation } from 'react-query';
+
 import axios from 'axios';
 
 import styled from 'styled-components';
 import Button from 'components/Atoms/Button';
 import Input from 'components/Atoms/Input';
+
+import { AuthTypes } from 'helpers/utils/fetchData';
 
 const StyledSignUpForm = styled.div`
   form + form {
@@ -34,13 +38,30 @@ interface SignUpFormTypes {
   avatar_url: string;
 }
 
+interface UserInfoTypes {
+  oauth_id: number | null;
+  login_id: string;
+  login_password: string | null;
+  name: string | null;
+  email: string | null;
+  profile_image_url: string;
+}
+
 type UserInfoKeys = 'login_id' | 'login_password' | 'name' | 'email' | 'profile_image_url' | 'oauth_id';
 
-const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
+type ResponsesUserInfoTypes = Pick<AuthTypes, 'memberResponse' | 'jwtResponse'>;
+
+const SignUpForm = ({
+  authData,
+  setIsOAuth,
+}: {
+  authData: SignUpFormTypes;
+  setIsOAuth: Dispatch<SetStateAction<boolean>>;
+}) => {
   // eslint-disable-next-line camelcase
   const { id, login, name, email, avatar_url } = authData;
 
-  const initUserInfo: { [key in UserInfoKeys]: string | number | null } = {
+  const initUserInfo: UserInfoTypes = {
     login_id: login,
     login_password: null,
     name,
@@ -54,10 +75,12 @@ const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
 
   const isFilled = () => {
     let fill = true;
+
     Object.keys(userInfo).forEach((key) => {
       const k = key as UserInfoKeys;
       if (!userInfo[k]) fill = false;
     });
+
     return fill;
   };
 
@@ -75,18 +98,33 @@ const SignUpForm = ({ authData }: { authData: SignUpFormTypes }) => {
     { key: 3, inputType: 'text', maxLength: 12, placeholder: '닉네임', userData: name, infoKey: 'name' },
   ];
 
+  const addUser = async (newUser: UserInfoTypes): Promise<ResponsesUserInfoTypes> => {
+    const { data: addLabelData } = await axios.post<ResponsesUserInfoTypes>(
+      `${process.env.REACT_APP_SERVER_URL}/api/members`,
+      newUser,
+    );
+    return addLabelData;
+  };
+
+  const navigate = useNavigate();
+
+  const { mutate } = useMutation(addUser, {
+    onSuccess: async (data) => {
+      const { jwtResponse, memberResponse } = data;
+
+      axios.defaults.headers.common.Authorization = `Bearer ${jwtResponse.accessToken}`;
+      axios.defaults.withCredentials = true;
+
+      localStorage.setItem('refresh_token', jwtResponse.refreshToken);
+      localStorage.setItem('userInfo', JSON.stringify(memberResponse));
+
+      await setIsOAuth(true);
+      navigate('/issues');
+    },
+  });
+
   const handleClickSignUpButton = () => {
-    axios
-      .post(`${process.env.REACT_APP_SERVER_URL}/api/members`, userInfo)
-      .then((response) => {
-        const { data } = response;
-        window.localStorage.setItem('refresh_token', data.refreshToken);
-        const navigate = useNavigate();
-        navigate('/issues');
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+    mutate(userInfo);
   };
 
   return (

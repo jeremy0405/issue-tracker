@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components';
 import { LabelTypes } from 'components/Atoms/Label/';
 
 type LabelStyleTypes = Pick<LabelTypes, 'labelStyle' | 'titleColor' | 'backgroundColor'>;
- 
+
 const StyledLabel = styled.div<LabelStyleTypes>`
   display: flex;
   align-items: center;
@@ -20,9 +20,6 @@ const StyledLabel = styled.div<LabelStyleTypes>`
         `};
   ${({ theme }) => theme.fontStyles.textXSmall};
   cursor: default;
-  span {
-    margin-left: 5px;
-  }
 
   ${({ labelStyle }) =>
     labelStyle === 'LINE' &&

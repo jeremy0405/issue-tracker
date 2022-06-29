@@ -11,9 +11,20 @@ const Form = styled.div`
 `;
 
 const LoginForm = (): JSX.Element => {
-  const [isIdActive, isIdTyping, onChangeInputId, onClickInputId, onBlurInputId] = useInput();
-  const [isPasswordActive, isPasswordTyping, onChangeInputPassword, onClickInputPassword, onBlurInputPassword] =
-    useInput();
+  const {
+    isActive: isIdActive,
+    isTyping: isIdTyping,
+    onChangeInput: onChangeInputId,
+    onClickInput: onClickInputId,
+    onBlurInput: onBlurInputId,
+  } = useInput();
+  const {
+    isActive: isPasswordActive,
+    isTyping: isPasswordTyping,
+    onChangeInput: onChangeInputPassword,
+    onClickInput: onClickInputPassword,
+    onBlurInput: onBlurInputPassword,
+  } = useInput();
   const [idMaxLength, passwordMaxLength] = [10, 10];
   const inputIdRef = useRef<HTMLInputElement>(null);
   const inputPasswordRef = useRef<HTMLInputElement>(null);

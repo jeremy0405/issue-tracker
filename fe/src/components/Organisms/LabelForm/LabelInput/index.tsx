@@ -1,7 +1,6 @@
 import React, { Dispatch } from 'react';
 
 import styled from 'styled-components';
-import { colors } from 'styles/theme';
 
 import ColorCodeInput from 'components/Atoms/ColorCode';
 import Input from 'components/Atoms/Input';
@@ -17,6 +16,7 @@ interface TextOptionsTypes {
 }
 
 interface LabelInputTypes {
+  mode: 'ADD' | 'CONFIRM';
   labelData: LabelTypes;
   setLabelData: Dispatch<React.SetStateAction<LabelTypes>>;
   setDisableFinishButton: Dispatch<React.SetStateAction<boolean>>;
@@ -32,9 +32,19 @@ const ColorOptionWrapper = styled.div`
   }
 `;
 
-const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelInputTypes) => {
-  const [isActiveTitle, , onChangeInputTitle, onClickInputTitle, onBlurInputTitle] = useInput();
-  const [isActiveDesc, , onChangeInputDesc, onClickInputDesc, onBlurInputDesc] = useInput();
+const LabelInput = ({ mode, labelData, setLabelData, setDisableFinishButton }: LabelInputTypes) => {
+  const {
+    isActive: isActiveTitle,
+    onChangeInput: onChangeInputTitle,
+    onClickInput: onClickInputTitle,
+    onBlurInput: onBlurInputTitle,
+  } = useInput();
+  const {
+    isActive: isActiveDesc,
+    onChangeInput: onChangeInputDesc,
+    onClickInput: onClickInputDesc,
+    onBlurInput: onBlurInputDesc,
+  } = useInput();
 
   // title, description Input 관련
   const changeTitleInput = (e: React.FormEvent<HTMLInputElement>) => {
@@ -42,7 +52,10 @@ const LabelInput = ({ labelData, setLabelData, setDisableFinishButton }: LabelIn
 
     const target = e.target as HTMLInputElement;
     setLabelData({ ...labelData, title: target.value });
-    return target.value ? setDisableFinishButton(false) : setDisableFinishButton(true);
+
+    if (mode === 'ADD') {
+      return target.value ? setDisableFinishButton(false) : setDisableFinishButton(true);
+    }
   };
 
   const changeDescInput = (e: React.FormEvent<HTMLInputElement>) => {

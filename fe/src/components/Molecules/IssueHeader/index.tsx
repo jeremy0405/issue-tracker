@@ -1,15 +1,16 @@
 import { useRef, useState } from 'react';
+
 import { colors } from 'styles/theme';
 import Icon from 'components/Atoms/Icon/index';
 import Label from 'components/Atoms/Label';
 import Button from 'components/Atoms/Button';
 import Input from 'components/Atoms/Input';
-import useInput from 'hooks/useInput';
-import convertPreviousDate from 'helpers/utils/convertPreviousDate';
+import { StyledIssueTitle, StyledIssueInfo } from 'components/Molecules/IssueHeader/index.styles';
 
 import { AssignTypes } from 'components/types';
 
-import { StyledIssueTitle, StyledIssueInfo } from 'components/Molecules/IssueHeader/index.styles';
+import useInput from 'hooks/useInput';
+import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 
 interface IssueHeaderTypes {
   id: number;
@@ -23,7 +24,7 @@ interface IssueHeaderTypes {
 
 const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentCount }: IssueHeaderTypes) => {
   const [isEditable, setIstEditable] = useState<boolean>(false);
-  const [isActive, isTyping, onChangeInput, onClickInput, onBlurInput] = useInput();
+  const { isActive, onChangeInput, onClickInput, onBlurInput } = useInput();
 
   const labelTitle = status === 'OPEN' ? '열린 이슈' : '닫힌 이슈';
   const labelBackgroundColor = status === 'OPEN' ? colors.primary.lightBlue : colors.secondary.lightPurple;
@@ -124,7 +125,7 @@ const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentC
           id={0}
           labelStyle="STANDARD"
           title={labelTitle}
-          titleColor={labelTextColor}
+          titleColor="black"
           icon={<Icon fill={labelBackgroundColor} icon="AlertCircle" stroke={labelTextColor} />}
         />
         <span>{`이 이슈가 ${timeStamp}에 ${writer.loginId}님에 의해 열렸습니다`}</span>

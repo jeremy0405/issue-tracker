@@ -1,5 +1,6 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
 import { useRef, useState } from 'react';
+
 import { colors } from 'styles/theme';
 import Icon from 'components/Atoms/Icon/index';
 import Label from 'components/Atoms/Label';
@@ -8,6 +9,7 @@ import Button from 'components/Atoms/Button';
 import UserImage from 'components/Atoms/UserImage';
 
 import { AssignTypes } from 'components/types';
+
 import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 
 import {
@@ -18,6 +20,9 @@ import {
   CommentHeader,
   CommentContent,
 } from 'components/Molecules/Comment/index.styles';
+
+import ReactMarkdown from 'react-markdown';
+import remarkGfm from 'remark-gfm';
 
 interface CommentListTypes {
   writer: AssignTypes;
@@ -61,8 +66,8 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
     <StyledCommentList>
       <UserImage
         imgSize="MEDIUM"
-        loginId={isNewComment ? userInfo?.id : comments?.writer.loginId}
-        profileImageUrl={isNewComment ? userInfo?.avatar_url : comments?.writer.profileImageUrl}
+        loginId={isNewComment ? userInfo?.loginId : comments?.writer.loginId}
+        profileImageUrl={isNewComment ? userInfo?.profileImageUrl : comments?.writer.profileImageUrl}
       />
       <StyledComment isOpen={isOpen} isEditable={isEditable} isNewComment={isNewComment}>
         {isEditable || isNewComment ? (
@@ -120,12 +125,7 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
                 <div className="commentBadge">
                   {isWriter && isOpen && (
                     <>
-                      <Label
-                        backgroundColor={colors.background}
-                        titleColor={colors.label}
-                        labelStyle="LINE"
-                        title="작성자"
-                      />
+                      <Label backgroundColor={colors.background} titleColor="black" labelStyle="LINE" title="작성자" />
                       <EditButton role="button" onClick={handleEditButtonClick}>
                         <Icon icon="Edit" stroke={colors.label} />
                         <span className="editLabel">편집</span>
@@ -138,7 +138,7 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
             </div>
             <div className="table-row">
               <CommentContent>
-                <span>{isOpen ? content : closeComment}</span>
+                {isOpen ? <ReactMarkdown remarkPlugins={[remarkGfm]}>{content!}</ReactMarkdown> : closeComment}
               </CommentContent>
             </div>
           </>
