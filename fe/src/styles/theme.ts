@@ -1,5 +1,3 @@
-import markdownReset from 'styles/markdown';
-
 export const colors = {
   titleActive: '#14142B',
   body: '#4E4B66',
@@ -108,7 +106,6 @@ const theme = {
   buttonSize,
   textInputSize,
   textAreaSize,
-  markdownReset,
 };
 
 export default theme;
