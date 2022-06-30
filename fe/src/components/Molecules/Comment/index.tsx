@@ -15,7 +15,6 @@ import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 import {
   StyledComment,
   StyledCommentList,
-  EditButton,
   EditButtons,
   CommentHeader,
   CommentContent,
@@ -33,13 +32,15 @@ interface CommentListTypes {
 }
 
 export interface CommentTypes {
+  isNewComment?: boolean;
   isWriter?: boolean;
   isOpen: boolean;
-  isNewComment?: boolean;
   comments?: CommentListTypes;
+  isIssueWriter?: boolean;
+  isEditer?: boolean;
 }
 
-const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTypes) => {
+const Comment = ({ isWriter = false, isOpen, isNewComment, comments, isIssueWriter, isEditer }: CommentTypes) => {
   // 다시 열릴 경우
   const openComment = '이슈가 열렸습니다.';
   const closeComment = '이슈가 닫혔습니다.';
@@ -82,10 +83,7 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
               {isNewComment ? (
                 <Button
                   buttonStyle="STANDARD"
-                  iconInfo={{
-                    icon: 'Plus',
-                    stroke: `${colors.offWhite}`,
-                  }}
+                  iconInfo={{ icon: 'Plus', stroke: `${colors.offWhite}` }}
                   label="코멘트 작성"
                   size="SMALL"
                 />
@@ -93,19 +91,14 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
                 <>
                   <Button
                     buttonStyle="SECONDARY"
-                    iconInfo={{
-                      icon: 'XSquare',
-                    }}
+                    iconInfo={{ icon: 'XSquare' }}
                     label="편집 취소"
                     size="SMALL"
                     HandleOnClick={handleEditButtonClick}
                   />
                   <Button
                     buttonStyle="STANDARD"
-                    iconInfo={{
-                      icon: 'Edit',
-                      stroke: `${colors.offWhite}`,
-                    }}
+                    iconInfo={{ icon: 'Edit', stroke: `${colors.offWhite}` }}
                     label="편집 완료"
                     size="SMALL"
                     HandleOnClick={handleChangeComment}
@@ -123,14 +116,17 @@ const Comment = ({ isWriter = false, isOpen, isNewComment, comments }: CommentTy
                   <span className="timeStamp">{convertPreviousDate(new Date(), comments!.updatedAt)}</span>
                 </div>
                 <div className="commentBadge">
-                  {isWriter && isOpen && (
-                    <>
-                      <Label backgroundColor={colors.background} titleColor="black" labelStyle="LINE" title="작성자" />
-                      <EditButton role="button" onClick={handleEditButtonClick}>
-                        <Icon icon="Edit" stroke={colors.label} />
-                        <span className="editLabel">편집</span>
-                      </EditButton>
-                    </>
+                  {isIssueWriter && (
+                    <Label backgroundColor={colors.background} titleColor="black" labelStyle="LINE" title="작성자" />
+                  )}
+                  {isEditer && (
+                    <Button
+                      buttonStyle="NO_BORDER"
+                      iconInfo={{ icon: 'Edit', stroke: colors.label }}
+                      label="편집"
+                      size="SMALL"
+                      HandleOnClick={handleEditButtonClick}
+                    />
                   )}
                   <Icon icon="Smile" stroke={colors.label} />
                 </div>

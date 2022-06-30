@@ -63,6 +63,17 @@ export const CommentHeader = styled.div<{ isOpen: boolean }>`
     span {
       margin: 2px 0px 0px 5px;
     }
+
+    button {
+      &:hover {
+        cursor: pointer;
+        color: ${({ theme }) => theme.colors.primary.blue};
+
+        svg {
+          stroke: ${({ theme }) => theme.colors.primary.blue};
+        }
+      }
+    }
   }
 `;
 

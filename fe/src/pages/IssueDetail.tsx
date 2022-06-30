@@ -48,7 +48,7 @@ interface CommentsTypes {
 }
 export interface IssueDetailDataTypes {
   id: number;
-  status: string;
+  status: 'OPEN' | 'CLOSED';
   title: string;
   writer: UserTypes;
   assignees: UserTypes[];
@@ -77,6 +77,13 @@ const IssueDetail = () => {
   if (error || labelsDataError || milestonesDataError || membersDataError) return <div>error</div>;
   if (!data || !labelData || !milestoneData || !memberData) return <div>데이터가 없습니다</div>;
 
+  const userInfo = localStorage.getItem('userInfo');
+  const { id } = JSON.parse(userInfo!);
+
+  const isAssignee = data.assignees.some((el: UserTypes) => el.id === id);
+
+  // console.log(data);
+
   return (
     <>
       <div>
@@ -84,7 +91,7 @@ const IssueDetail = () => {
           id={data.id}
           status={data.status}
           title={data.title}
-          isWriter
+          isEditer={isAssignee}
           writer={data.writer}
           commentCount={data.comments.length}
           createTime="2022-06-26T15:41:03.730526"
@@ -94,11 +101,18 @@ const IssueDetail = () => {
       <Content>
         <CommentList>
           {data.comments.map((comment) => (
-            <Comment key={`${comment.createdAt}-${comment.content}`} isOpen isWriter comments={comment} />
+            <Comment
+              key={`${comment.createdAt}-${comment.content}`}
+              isOpen
+              isIssueWriter={data.writer.id === comment.writer.id}
+              isEditer={comment.writer.id === id}
+              comments={comment}
+            />
           ))}
           <Comment isNewComment isOpen isWriter />
         </CommentList>
         <SideBar
+          isEditer={isAssignee}
           sideBarList={[
             {
               id: 1,

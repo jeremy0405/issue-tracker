@@ -50,7 +50,7 @@ interface NewIssueTypes {
   title: string;
   comment: string | null;
   writerId: number;
-  assigneesIds: number[];
+  assigneeIds: number[];
   labelIds: number[];
   milestoneId: number | null;
 }
@@ -111,7 +111,7 @@ const AddIssue = () => {
       title: inputRef.current?.value!,
       comment: textareaRef.current?.value || null,
       writerId: JSON.parse(userData!).id,
-      assigneesIds: contentList.ASSIGN.map((list) => list.id),
+      assigneeIds: contentList.ASSIGN.map((list) => list.id),
       labelIds: contentList.LABEL.map((list) => list.id),
       milestoneId: contentList.MILESTONE.map((list) => list.id)[0] || null,
     };
@@ -202,7 +202,7 @@ const AddIssue = () => {
           textareaSize="LARGE"
           textareaRef={textareaRef}
         />
-        <SideBar sideBarList={sideBarList} />
+        <SideBar isEditer sideBarList={sideBarList} />
       </div>
       <Divider />
       <div className="issue_Buttons">

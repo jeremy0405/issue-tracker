@@ -15,14 +15,14 @@ import convertPreviousDate from 'helpers/utils/convertPreviousDate';
 interface IssueHeaderTypes {
   id: number;
   title?: string;
-  status: string;
-  isWriter: boolean;
+  status: 'OPEN' | 'CLOSED';
+  isEditer: boolean;
   writer: AssignTypes;
   createTime: string;
   commentCount: number;
 }
 
-const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentCount }: IssueHeaderTypes) => {
+const IssueHeader = ({ status, isEditer, writer, id, title, createTime, commentCount }: IssueHeaderTypes) => {
   const [isEditable, setIstEditable] = useState<boolean>(false);
   const { isActive, onChangeInput, onClickInput, onBlurInput } = useInput();
 
@@ -70,25 +70,20 @@ const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentC
             </>
           )}
         </div>
-        {isWriter && (
+        {isEditer && (
           <div className="issueButtons">
             {isEditable ? (
               <>
                 <Button
                   buttonStyle="SECONDARY"
-                  iconInfo={{
-                    icon: 'XSquare',
-                  }}
+                  iconInfo={{ icon: 'XSquare' }}
                   label="편집 취소"
                   size="SMALL"
                   HandleOnClick={handleEditButtonClick}
                 />
                 <Button
                   buttonStyle="STANDARD"
-                  iconInfo={{
-                    icon: 'Edit',
-                    stroke: '#FEFEFE',
-                  }}
+                  iconInfo={{ icon: 'Edit', stroke: '#FEFEFE' }}
                   label="편집 완료"
                   size="SMALL"
                   HandleOnClick={handleChangeComment}
@@ -98,27 +93,18 @@ const IssueHeader = ({ status, isWriter, writer, id, title, createTime, commentC
               <>
                 <Button
                   buttonStyle="SECONDARY"
-                  iconInfo={{
-                    icon: 'Edit',
-                  }}
+                  iconInfo={{ icon: 'Edit' }}
                   label="제목 편집"
                   size="SMALL"
                   HandleOnClick={handleEditButtonClick}
                 />
-                <Button
-                  buttonStyle="SECONDARY"
-                  iconInfo={{
-                    icon: 'Archive',
-                  }}
-                  label="이슈 닫기"
-                  size="SMALL"
-                />
+                <Button buttonStyle="SECONDARY" iconInfo={{ icon: 'Archive' }} label="이슈 닫기" size="SMALL" />
               </>
             )}
           </div>
         )}
       </StyledIssueTitle>
-      <StyledIssueInfo>
+      <StyledIssueInfo status={status}>
         <Label
           backgroundColor={labelBackgroundColor}
           description="string"

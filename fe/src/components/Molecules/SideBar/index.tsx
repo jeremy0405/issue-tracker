@@ -27,9 +27,10 @@ export interface SideBarListType {
 
 export interface SideBarTypes {
   sideBarList: SideBarListType[];
+  isEditer?: boolean;
 }
 
-const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
+const SideBar = ({ sideBarList, isEditer }: SideBarTypes): JSX.Element => {
   const isAssignTypes = (props: AssignTypes | LabelTypes | MilestoneTypes): props is AssignTypes => {
     return (props as AssignTypes).loginId !== undefined;
   };
@@ -45,7 +46,7 @@ const SideBar = ({ sideBarList }: SideBarTypes): JSX.Element => {
   };
 
   return (
-    <StyledSideBar>
+    <StyledSideBar isEditer={isEditer}>
       {sideBarList.map(
         ({ id, type, indicatorLabel, dropdownTitle, dropdownList, contentList, clickHandler, panelType }) => (
           <div className="table-row" key={id}>

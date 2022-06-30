@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled, { css } from 'styled-components';
 import { colors, fontStyles } from 'styles/theme';
 
 export const StyledIssueTitle = styled.div`
@@ -38,7 +38,7 @@ export const StyledIssueTitle = styled.div`
   }
 `;
 
-export const StyledIssueInfo = styled.div`
+export const StyledIssueInfo = styled.div<{ status: 'OPEN' | 'CLOSED' }>`
   display: flex;
   align-items: center;
   margin-top: 16px;
@@ -50,6 +50,11 @@ export const StyledIssueInfo = styled.div`
     & > span {
       ${fontStyles.textXSmall}
     }
+
+    border: ${({ status }) =>
+      status === 'OPEN'
+        ? css`2px solid ${({ theme }) => theme.colors.primary.blue};`
+        : css`2px solid ${({ theme }) => theme.colors.secondary.purple};`};
   }
 
   span {

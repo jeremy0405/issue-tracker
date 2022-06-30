@@ -13,7 +13,7 @@ Open.args = {
   id: 1,
   title: '이슈1',
   status: 'OPEN',
-  isWriter: true,
+  isEditer: true,
   writer: {
     id: 1,
     loginId: 'who-hoo',
@@ -27,11 +27,11 @@ Open.args = {
 export const Close = Template.bind({});
 Close.args = {
   ...Open.args,
-  status: 'CLOSE',
+  status: 'CLOSED',
 };
 
 export const NoWriter = Template.bind({});
 NoWriter.args = {
   ...Open.args,
-  isWriter: false,
+  isEditer: false,
 };
