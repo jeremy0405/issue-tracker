@@ -1,3 +1,4 @@
+import { Suspense } from 'react';
 import { Outlet } from 'react-router-dom';
 
 import { useRecoilValue } from 'recoil';
@@ -20,12 +21,14 @@ const Home = () => {
   const isOAuth = useRecoilValue(OAuthState);
 
   return (
-    <Layer>
-      <div>
-        {isOAuth && <Header />}
-        <Outlet />
-      </div>
-    </Layer>
+    <Suspense fallback={<div>loading</div>}>
+      <Layer>
+        <div>
+          {isOAuth && <Header />}
+          <Outlet />
+        </div>
+      </Layer>
+    </Suspense>
   );
 };
 
