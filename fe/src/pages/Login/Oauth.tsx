@@ -1,12 +1,16 @@
-import { useQuery } from 'react-query';
-import { Dispatch, SetStateAction } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
+import { useQuery } from 'react-query';
+
+import { useSetRecoilState } from 'recoil';
+import { OAuthState } from 'Router';
 
 import axios from 'axios';
 
 import { AuthTypes } from 'helpers/utils/fetchData';
 
-const Oauth = ({ setIsOAuth }: { setIsOAuth: Dispatch<SetStateAction<boolean>> }) => {
+const Oauth = () => {
+  const setIsOAuth = useSetRecoilState(OAuthState);
+
   const location = useLocation();
   const navigate = useNavigate();
 

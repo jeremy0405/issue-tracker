@@ -1,7 +1,9 @@
 /* eslint-disable jsx-a11y/mouse-events-have-key-events */
 /* eslint-disable camelcase */
-import { useState, Dispatch, SetStateAction } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { useSetRecoilState } from 'recoil';
+import { OAuthState } from 'Router';
 
 import styled from 'styled-components';
 import Logo from 'components/Atoms/Logo';
@@ -37,7 +39,8 @@ const User = styled.div<LogoutButtonTypes>`
   }
 `;
 
-const Header = ({ setIsOAuth }: { setIsOAuth: Dispatch<SetStateAction<boolean>> | undefined }) => {
+const Header = () => {
+  const setIsOAuth = useSetRecoilState(OAuthState);
   const navigate = useNavigate();
   const [logoutModal, setLogoutModal] = useState(false);
 

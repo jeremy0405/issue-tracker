@@ -1,26 +1,19 @@
-import { useState, Dispatch, SetStateAction } from 'react';
 import { BrowserRouter } from 'react-router-dom';
+import { atom, useRecoilValue } from 'recoil';
 
-import PrivateRouter from './private';
-import PublicRouter from './public';
+import PrivateRouter from 'Router/private';
+import PublicRouter from 'Router/public';
 
-export interface HomeTypes {
-  isOAuth: boolean;
-  setIsOAuth: Dispatch<SetStateAction<boolean>>;
-}
+export const OAuthState = atom({
+  key: 'OAuthState',
+  default: !!window.localStorage.getItem('refresh_token'),
+});
 
 const Routers = (): JSX.Element => {
-  const hasToken = () => !!window.localStorage.getItem('refresh_token');
-  const [isOAuth, setIsOAuth] = useState<boolean>(hasToken());
+  const isOAuth = useRecoilValue(OAuthState);
 
   return (
-    <BrowserRouter basename={process.env.PUBLIC_URL}>
-      {isOAuth ? (
-        <PrivateRouter isOAuth={isOAuth} setIsOAuth={setIsOAuth} />
-      ) : (
-        <PublicRouter isOAuth={isOAuth} setIsOAuth={setIsOAuth} />
-      )}
-    </BrowserRouter>
+    <BrowserRouter basename={process.env.PUBLIC_URL}>{isOAuth ? <PrivateRouter /> : <PublicRouter />}</BrowserRouter>
   );
 };
 

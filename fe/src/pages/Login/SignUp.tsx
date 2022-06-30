@@ -1,5 +1,7 @@
-import { Dispatch, SetStateAction } from 'react';
 import { useQueryClient } from 'react-query';
+
+import { useSetRecoilState } from 'recoil';
+import { OAuthState } from 'Router';
 
 import styled from 'styled-components';
 import Logo from 'components/Atoms/Logo';
@@ -29,7 +31,9 @@ const StyledSignUp = styled.div`
   }
 `;
 
-const SignUp = ({ setIsOAuth }: { setIsOAuth: Dispatch<SetStateAction<boolean>> }) => {
+const SignUp = () => {
+  const setIsOAuth = useSetRecoilState(OAuthState);
+
   const queryClient = useQueryClient();
   const data = queryClient.getQueryData<AuthTypes>('auth');
 
