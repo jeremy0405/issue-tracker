@@ -24,6 +24,7 @@ export interface FilterTabTypes {
   type: string;
   dropdownTitle: string;
   dropdownList: DropdownListTypes[];
+  contentList?: string | string[];
   indicatorLabel: string;
 }
 
@@ -106,6 +107,7 @@ const IssueList = (props: IssueListTypes) => {
                 key={tabs.id}
                 dropdownTitle={tabs.dropdownTitle}
                 dropdownList={tabs.dropdownList}
+                contentList={tabs.contentList}
                 indicatorLabel={tabs.indicatorLabel}
                 indicatorStyle="STANDARD"
                 onChange={onChange}

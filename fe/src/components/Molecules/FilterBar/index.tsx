@@ -16,6 +16,7 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
     indicatorLabel,
     dropdownTitle,
     dropdownList,
+    contentList,
     panelType,
     inputType,
     inputPlaceholder,
@@ -38,6 +39,7 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
         indicatorLabel={indicatorLabel}
         dropdownTitle={dropdownTitle}
         dropdownList={dropdownList}
+        contentList={contentList}
         panelType={panelType}
         onChange={onChange}
       />

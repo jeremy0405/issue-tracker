@@ -6,12 +6,11 @@ import Dropdown from 'components/Atoms/Dropdown';
 import UserImage from 'components/Atoms/UserImage';
 import Label from 'components/Atoms/Label';
 import Milestone from 'components/Atoms/Milestone';
-
 import { StyledSideBar, SideBarItem, Content, User } from 'components/Molecules/SideBar/index.styles';
 
 import { AssignTypes, LabelTypes, MilestoneTypes } from 'components/types';
 
-type ContentListType = AssignTypes | MilestoneTypes | LabelTypes;
+export type ContentListType = AssignTypes | MilestoneTypes | LabelTypes;
 
 export interface SideBarListType {
   id: number;
@@ -22,7 +21,6 @@ export interface SideBarListType {
   contentList: ContentListType[];
   // eslint-disable-next-line no-unused-vars
   clickHandler?: (e: React.MouseEvent<HTMLInputElement>) => void;
-
   panelType?: 'checkbox' | 'radio';
 }
 
@@ -57,6 +55,21 @@ const SideBar = ({ sideBarList, isEditer, onChange }: SideBarTypes): JSX.Element
                 type={type}
                 dropdownTitle={dropdownTitle}
                 dropdownList={dropdownList}
+                contentList={contentList.map((props: ContentListType) => {
+                  if (isAssignTypes(props)) {
+                    return props.loginId;
+                  }
+
+                  if (isLabelTypes(props)) {
+                    return props.title;
+                  }
+
+                  if (isMilestoneTypes(props)) {
+                    return props.title;
+                  }
+
+                  return '';
+                })}
                 indicatorLabel={indicatorLabel}
                 indicatorStyle="SIDEBAR"
                 panelType={panelType}

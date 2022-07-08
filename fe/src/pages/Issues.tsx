@@ -14,7 +14,6 @@ import SubNav from 'components/Molecules/SubNav';
 import Pagination from 'components/Molecules/Pagination';
 
 import useInput from 'hooks/useInput';
-import ISSUE_FILTER from 'helpers/constants/IssueFilter';
 
 interface QueryStringTypes {
   page: number;
@@ -125,6 +124,39 @@ const Issues = () => {
   if (error) return <div>error</div>;
   if (!data) return <div>데이터가 없습니다</div>;
 
+  const ISSUE_FILTER = [
+    {
+      id: 'open',
+      type: 'status',
+      title: '열린 이슈',
+      contentList: recoilValue.status,
+    },
+    {
+      id: '@me',
+      type: 'author',
+      title: '내가 작성한 이슈',
+      contentList: recoilValue.author,
+    },
+    {
+      id: '@me',
+      type: 'assignee',
+      title: '나에게 할당된 이슈',
+      contentList: recoilValue.assignee,
+    },
+    {
+      id: '@me',
+      type: 'mentions',
+      title: '내가 댓글을 남긴 이슈',
+      contentList: recoilValue.mentions,
+    },
+    {
+      id: 'closed',
+      type: 'status',
+      title: '닫힌 이슈',
+      contentList: recoilValue.status,
+    },
+  ];
+
   const filterTabs = [
     {
       id: 1,
@@ -132,6 +164,7 @@ const Issues = () => {
       dropdownTitle: '담당자 필터',
       dropdownList: data.assignees,
       indicatorLabel: '담당자',
+      contentList: recoilValue.assignee,
     },
     {
       id: 2,
@@ -139,6 +172,7 @@ const Issues = () => {
       dropdownTitle: '레이블 필터',
       dropdownList: data.labels,
       indicatorLabel: '레이블',
+      contentList: recoilValue.label,
     },
     {
       id: 3,
@@ -146,6 +180,7 @@ const Issues = () => {
       dropdownTitle: '마일스톤 필터',
       dropdownList: data.milestones,
       indicatorLabel: '마일스톤',
+      contentList: recoilValue.milestone,
     },
     {
       id: 4,
@@ -153,6 +188,7 @@ const Issues = () => {
       dropdownTitle: '작성자 필터',
       dropdownList: data.writers,
       indicatorLabel: '작성자',
+      contentList: recoilValue.author,
     },
   ];
 

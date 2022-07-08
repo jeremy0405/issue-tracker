@@ -1,3 +1,4 @@
+import React from 'react';
 import { useQuery } from 'react-query';
 import { useParams } from 'react-router-dom';
 import axios from 'axios';
@@ -12,7 +13,6 @@ import IssueHeader from 'components/Molecules/IssueHeader';
 import SideBar from 'components/Molecules/SideBar';
 
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
-import React from 'react';
 
 const Divider = styled.div`
   width: 100%;

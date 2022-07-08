@@ -55,11 +55,11 @@ interface NewIssueTypes {
   milestoneId: number | null;
 }
 
-type FilterDataKeys = 'ASSIGN' | 'LABEL' | 'MILESTONE';
+type FilterDataKeys = 'assignee' | 'label' | 'milestone';
 interface ContentListProps {
-  ASSIGN: UserTypes[];
-  LABEL: LabelTypes[];
-  MILESTONE: MilestoneTypes[];
+  assignee: UserTypes[];
+  label: LabelTypes[];
+  milestone: MilestoneTypes[];
 }
 
 const AddIssue = () => {
@@ -70,7 +70,7 @@ const AddIssue = () => {
 
   const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
 
-  const initState: ContentListProps = { ASSIGN: [], LABEL: [], MILESTONE: [] };
+  const initState: ContentListProps = { assignee: [], label: [], milestone: [] };
   const [contentList, setContentList] = useState(initState);
   const [isFilled, setIsFilled] = useState<boolean>(false);
 
@@ -111,9 +111,9 @@ const AddIssue = () => {
       title: inputRef.current?.value!,
       comment: textareaRef.current?.value || null,
       writerId: JSON.parse(userData!).id,
-      assigneeIds: contentList.ASSIGN.map((list) => list.id),
-      labelIds: contentList.LABEL.map((list) => list.id),
-      milestoneId: contentList.MILESTONE.map((list) => list.id)[0] || null,
+      assigneeIds: contentList.assignee.map((list) => list.id),
+      labelIds: contentList.label.map((list) => list.id),
+      milestoneId: contentList.milestone.map((list) => list.id)[0] || null,
     };
 
     mutate(issueInfo);
@@ -125,9 +125,9 @@ const AddIssue = () => {
   if (!labelData || !milestoneData || !memberData) return <div>데이터가 없습니다</div>;
 
   const sideBarData = {
-    ASSIGN: memberData.members,
-    LABEL: labelData.labels,
-    MILESTONE: milestoneData.milestones,
+    assignee: memberData.members,
+    label: labelData.labels,
+    milestone: milestoneData.milestones,
   };
 
   const handleContentList = (event: React.FormEvent<HTMLElement>) => {
@@ -158,7 +158,7 @@ const AddIssue = () => {
       indicatorLabel: '담당자',
       dropdownTitle: '담당자 추가',
       dropdownList: memberData.members,
-      contentList: contentList.ASSIGN,
+      contentList: contentList.assignee,
     },
     {
       id: 2,
@@ -166,7 +166,7 @@ const AddIssue = () => {
       indicatorLabel: '레이블',
       dropdownTitle: '레이블 추가',
       dropdownList: labelData.labels,
-      contentList: contentList.LABEL,
+      contentList: contentList.label,
     },
     {
       id: 3,
@@ -174,7 +174,7 @@ const AddIssue = () => {
       indicatorLabel: '마일스톤',
       dropdownTitle: '마일스톤 추가',
       dropdownList: milestoneData.milestones,
-      contentList: contentList.MILESTONE,
+      contentList: contentList.milestone,
     },
   ];
 

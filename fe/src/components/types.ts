@@ -16,6 +16,7 @@ export type DropdownListTypes = {
   backgroundColor?: string;
   profileImageUrl?: string;
   type?: string;
+  contentList?: string | string[];
 };
 
 export type AssignTypes = {

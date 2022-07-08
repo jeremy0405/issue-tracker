@@ -12,6 +12,7 @@ const Dropdown = ({ open = false, ...props }: DropdownTypes) => {
     indicatorStyle,
     panelType,
     dropdownList,
+    contentList,
     dropdownTitle,
     clickHandler,
     onChange,
@@ -26,6 +27,7 @@ const Dropdown = ({ open = false, ...props }: DropdownTypes) => {
         type={type}
         panelType={panelType}
         dropdownList={dropdownList}
+        contentList={contentList}
         dropdownTitle={dropdownTitle}
         clickHandler={clickHandler}
         onChange={onChange}
