@@ -1,7 +1,9 @@
-import { useState } from 'react';
+import React, { useState } from 'react';
+
+import { useRecoilState } from 'recoil';
+import { QueryStringState } from 'pages/Issues';
 
 import { DropdownListTypes } from 'components/types';
-import OPENCLOSE_FILTER from 'helpers/constants/openCloseFilter';
 
 import CheckBox from 'components/Atoms/CheckBox';
 import { TabTypes } from 'components/Atoms/Tab';
@@ -13,10 +15,13 @@ import Tabs from 'components/Molecules/Tabs/';
 import IssueItem, { IssueItemTypes as ItemTypes } from 'components/Molecules/IssueList/IssueItem';
 import { OpenCloseTab } from 'components/Molecules/IssueList/index.styles';
 
+import OPENCLOSE_FILTER from 'helpers/constants/openCloseFilter';
+
 type IssueItemTypes = Omit<ItemTypes, 'checkedItemHandler' | 'checkedIssue'>;
 
 export interface FilterTabTypes {
   id: number;
+  type: string;
   dropdownTitle: string;
   dropdownList: DropdownListTypes[];
   indicatorLabel: string;
@@ -29,32 +34,32 @@ export interface IssueListTypes {
     content: IssueItemTypes[];
   };
   filterTabs: FilterTabTypes[];
+  onChange?: (event: React.FormEvent<HTMLElement>) => void;
 }
 
 const IssueList = (props: IssueListTypes) => {
-  const { openIssueCount, closedIssueCount, issues, filterTabs } = props;
+  const { openIssueCount, closedIssueCount, issues, filterTabs, onChange } = props;
 
   const [checkedIssue, setCheckedIssue] = useState<string[]>([]);
+
+  const [recoilValue, setRecoilValue] = useRecoilState(QueryStringState);
 
   const issueStateTab: TabTypes[] = [
     {
       count: openIssueCount,
-      iconInfo: {
-        icon: 'AlertCircle',
-      },
+      iconInfo: { icon: 'AlertCircle' },
       label: '열린 이슈',
-      link: '/issues?q=is:open',
+      link: `/issues?page=0&query=is:open`,
       tabStyle: 'STANDARD',
+      HandleOnClick: () => setRecoilValue({ ...recoilValue, page: 0, status: 'open' }),
     },
     {
       count: closedIssueCount,
-      iconInfo: {
-        icon: 'Archive',
-        stroke: '#14142B',
-      },
+      iconInfo: { icon: 'Archive', stroke: '#14142B' },
       label: '닫힌 이슈',
-      link: '/issues?q=is:closed',
+      link: `/issues?page=0&query=is:closed`,
       tabStyle: 'STANDARD',
+      HandleOnClick: () => setRecoilValue({ ...recoilValue, page: 0, status: 'closed' }),
     },
   ];
 
@@ -101,9 +106,10 @@ const IssueList = (props: IssueListTypes) => {
                 key={tabs.id}
                 dropdownTitle={tabs.dropdownTitle}
                 dropdownList={tabs.dropdownList}
-                panelType="checkbox"
                 indicatorLabel={tabs.indicatorLabel}
                 indicatorStyle="STANDARD"
+                onChange={onChange}
+                type={tabs.type}
               />
             ))
           ) : (
@@ -114,6 +120,7 @@ const IssueList = (props: IssueListTypes) => {
               panelType="checkbox"
               indicatorLabel={OPENCLOSE_FILTER.indicatorLabel}
               indicatorStyle="STANDARD"
+              onChange={onChange}
             />
           )}
         </div>

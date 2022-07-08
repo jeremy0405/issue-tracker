@@ -1,6 +1,9 @@
 import React from 'react';
+import { useRecoilState } from 'recoil';
+import { QueryStringState } from 'pages/Issues';
 import Button from 'components/Atoms/Button';
-import { StyledPageButton, StyledPagination } from './index.styles';
+import { StyledPageButton, StyledPagination } from 'components/Molecules/Pagination/index.styles';
+import { useNavigate } from 'react-router-dom';
 
 interface DataTypes {
   content: any;
@@ -16,29 +19,27 @@ interface DataTypes {
   totalPages: number;
 }
 
-const Pagination = ({
-  data,
-  page,
-  setSearchParams,
-}: {
-  data: DataTypes;
-  page: string | null;
-  setSearchParams: any;
-}) => {
+const Pagination = ({ data, page }: { data: DataTypes; page: string | null }) => {
+  const navigate = useNavigate();
+  const [filterData, setFilterData] = useRecoilState(QueryStringState);
+
   const handlePaginationClick = (event: React.MouseEvent<HTMLButtonElement>) => {
     if (!(event.target instanceof HTMLButtonElement)) return;
     const clickedPage = event.target.dataset.id;
     const pageParams = Number(clickedPage) - 1;
 
-    setSearchParams({ page: pageParams! });
+    setFilterData({ ...filterData, page: pageParams! });
+    navigate(`/issues?page=${pageParams}&query=is:${filterData.status}`);
   };
 
   const handleClickPriviousButton = () => {
-    setSearchParams({ page: Number(page) - 1 });
+    setFilterData({ ...filterData, page: Number(page) - 1 });
+    navigate(`/issues?page=${Number(page) - 1}&query=is:${filterData.status}`);
   };
 
   const handleClickNextButton = () => {
-    setSearchParams({ page: Number(page) + 1 });
+    setFilterData({ ...filterData, page: Number(page) + 1 });
+    navigate(`/issues?page=${Number(page) + 1}&query=is:${filterData.status}`);
   };
 
   const isFocus = (id: number) => Number(page) === id;

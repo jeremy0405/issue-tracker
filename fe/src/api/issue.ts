@@ -4,6 +4,8 @@ import { IssueItemTypes } from 'components/Molecules/IssueList/IssueItem';
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
 import { useNavigate } from 'react-router-dom';
 import { jwtResponseTypes } from 'helpers/utils/fetchData';
+import { useRecoilValue } from 'recoil';
+import { filterValueState } from 'pages/Issues';
 
 export interface ServerDataTypes {
   openIssueCount: number;
@@ -60,8 +62,10 @@ export const getServerData = async (URL: string) => {
   }
 };
 
-const useGetIssueData = (page: number) => {
-  return useQuery(`issueData-${page}`, () => getServerData(`api/issues?page=${page}`), {
+const useGetIssueData = () => {
+  const enCodeUrl = useRecoilValue(filterValueState);
+
+  return useQuery(['issueData', enCodeUrl], () => getServerData(`api/issues?${enCodeUrl}`), {
     cacheTime: Infinity,
   });
 };

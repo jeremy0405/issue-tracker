@@ -1,23 +1,28 @@
 const ISSUE_FILTER = [
   {
-    id: 1,
+    id: 'open',
     title: '열린 이슈',
+    type: 'status',
   },
   {
-    id: 2,
+    id: '@me',
     title: '내가 작성한 이슈',
+    type: 'author',
   },
   {
-    id: 3,
+    id: '@me',
     title: '나에게 할당된 이슈',
+    type: 'assignee',
   },
   {
-    id: 4,
+    id: '@me',
     title: '내가 댓글을 남긴 이슈',
+    type: 'mentions',
   },
   {
-    id: 5,
+    id: 'closed',
     title: '닫힌 이슈',
+    type: 'status',
   },
 ];
 

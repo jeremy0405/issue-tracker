@@ -1,15 +1,11 @@
-import styled from 'styled-components';
-import Dropdown, { DropdownTypes } from 'components/Atoms/Dropdown';
-import Input, { InputTypes } from 'components/Atoms/Input';
-import useInput from 'hooks/useInput';
 import { useRef } from 'react';
+import { useRecoilValue, useSetRecoilState } from 'recoil';
+import { InputValueState, QueryStringState } from 'pages/Issues';
 
-const StyledFilterBar = styled.div`
-  display: flex;
-  form {
-    border-radius: 0px 16px 16px 0px;
-  }
-`;
+import Dropdown, { DropdownTypes } from 'components/Atoms/Dropdown';
+import { InputTypes } from 'components/Atoms/Input';
+import useInput from 'hooks/useInput';
+import { StyledFilterBar, StyledForm, StyledInput } from 'components/Molecules/FilterBar/index.styles';
 
 export type FilterBarTypes = DropdownTypes & InputTypes;
 
@@ -21,16 +17,17 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
     dropdownTitle,
     dropdownList,
     panelType,
-    inputSize,
     inputType,
-    inputStyle,
-    inputValue,
     inputPlaceholder,
     inputMaxLength,
+    onChange,
   } = props;
 
   const { isActive, isTyping, onChangeInput, onClickInput, onBlurInput } = useInput();
   const inputRef = useRef<HTMLInputElement>(null);
+
+  const setInputValue = useSetRecoilState(QueryStringState);
+  const inputValue = useRecoilValue(InputValueState);
 
   return (
     <StyledFilterBar>
@@ -42,21 +39,23 @@ const FilterBar = (props: FilterBarTypes): JSX.Element => {
         dropdownTitle={dropdownTitle}
         dropdownList={dropdownList}
         panelType={panelType}
+        onChange={onChange}
       />
-      <Input
-        isActive={isActive}
-        isTyping={isTyping}
-        inputSize={inputSize}
-        inputType={inputType}
-        inputStyle={inputStyle}
-        inputMaxLength={inputMaxLength}
-        inputValue={inputValue}
-        inputPlaceholder={inputPlaceholder}
-        inputRef={inputRef}
-        onChange={onChangeInput}
-        onClick={onClickInput}
-        onBlur={onBlurInput}
-      />
+      <StyledForm isActive={isActive} isTyping={isTyping} onClick={() => inputRef?.current?.focus()}>
+        <StyledInput
+          type={inputType}
+          maxLength={inputMaxLength}
+          value={inputValue}
+          placeholder={inputPlaceholder}
+          ref={inputRef}
+          onChange={(e) => {
+            // setInputValue(e.target.value);
+            onChangeInput(e);
+          }}
+          onClick={onClickInput}
+          onBlur={onBlurInput}
+        />
+      </StyledForm>
     </StyledFilterBar>
   );
 };

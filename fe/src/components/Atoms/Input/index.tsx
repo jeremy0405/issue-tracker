@@ -1,5 +1,5 @@
 /* eslint-disable jsx-a11y/label-has-associated-control */
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Form, StyledInput } from 'components/Atoms/Input/index.styles';
 import Icon from 'components/Atoms/Icon/';
 
@@ -41,7 +41,7 @@ const Input = ({
     onBlur,
   } = props;
 
-  useEffect(() => {}, [inputValue]);
+  const [value, setValue] = useState(inputValue);
 
   return (
     <Form
@@ -60,15 +60,16 @@ const Input = ({
         maxLength={inputMaxLength}
         type={inputType}
         disabled={disabled}
-        defaultValue={inputValue || ''}
+        defaultValue={inputValue}
+        // value={inputValue}
         placeholder={inputPlaceholder}
         ref={inputRef}
         onBlur={onBlur}
         onChange={(event) => {
-          const { value } = event.currentTarget;
+          const { value: targetValue } = event.currentTarget;
           onChange(event);
           // eslint-disable-next-line no-param-reassign
-          if (Number(value) >= inputMaxLength) event.currentTarget.value = value.slice(0, inputMaxLength);
+          if (Number(targetValue) >= inputMaxLength) event.currentTarget.value = targetValue.slice(0, inputMaxLength);
         }}
       />
     </Form>

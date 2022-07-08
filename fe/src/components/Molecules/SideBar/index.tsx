@@ -9,7 +9,7 @@ import Milestone from 'components/Atoms/Milestone';
 
 import { StyledSideBar, SideBarItem, Content, User } from 'components/Molecules/SideBar/index.styles';
 
-import { AssignTypes, DropdownListTypes, LabelTypes, MilestoneTypes } from 'components/types';
+import { AssignTypes, LabelTypes, MilestoneTypes } from 'components/types';
 
 type ContentListType = AssignTypes | MilestoneTypes | LabelTypes;
 
@@ -22,15 +22,17 @@ export interface SideBarListType {
   contentList: ContentListType[];
   // eslint-disable-next-line no-unused-vars
   clickHandler?: (e: React.MouseEvent<HTMLInputElement>) => void;
+
   panelType?: 'checkbox' | 'radio';
 }
 
 export interface SideBarTypes {
   sideBarList: SideBarListType[];
   isEditer?: boolean;
+  onChange?: (event: React.FormEvent<HTMLElement>) => void;
 }
 
-const SideBar = ({ sideBarList, isEditer }: SideBarTypes): JSX.Element => {
+const SideBar = ({ sideBarList, isEditer, onChange }: SideBarTypes): JSX.Element => {
   const isAssignTypes = (props: AssignTypes | LabelTypes | MilestoneTypes): props is AssignTypes => {
     return (props as AssignTypes).loginId !== undefined;
   };
@@ -59,6 +61,7 @@ const SideBar = ({ sideBarList, isEditer }: SideBarTypes): JSX.Element => {
                 indicatorStyle="SIDEBAR"
                 panelType={panelType}
                 clickHandler={clickHandler}
+                onChange={onChange}
               />
               <Content type={type}>
                 {contentList.map((props: ContentListType) => {

@@ -5,7 +5,7 @@ export interface UserTypes {
 }
 
 export type DropdownListTypes = {
-  id: number;
+  id: number | string;
   title?: string;
   loginId?: string;
   description?: string;
@@ -15,6 +15,7 @@ export type DropdownListTypes = {
   titleColor?: 'black' | 'white';
   backgroundColor?: string;
   profileImageUrl?: string;
+  type?: string;
 };
 
 export type AssignTypes = {

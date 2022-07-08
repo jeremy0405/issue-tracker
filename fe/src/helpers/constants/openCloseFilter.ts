@@ -3,11 +3,11 @@ const OPENCLOSE_FILTER = {
   dropdownTitle: '상태 변경',
   dropdownList: [
     {
-      id: 1,
+      id: 'open',
       title: '선택한 이슈 열기',
     },
     {
-      id: 2,
+      id: 'closed',
       title: '선택한 이슈 닫기',
     },
   ],

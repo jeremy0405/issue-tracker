@@ -12,6 +12,7 @@ import IssueHeader from 'components/Molecules/IssueHeader';
 import SideBar from 'components/Molecules/SideBar';
 
 import { UserTypes, LabelTypes, MilestoneTypes } from 'components/types';
+import React from 'react';
 
 const Divider = styled.div`
   width: 100%;
@@ -82,7 +83,9 @@ const IssueDetail = () => {
 
   const isAssignee = data.assignees.some((el: UserTypes) => el.id === id);
 
-  // console.log(data);
+  const onChange = (event: React.FormEvent<HTMLElement>) => {
+    console.log(event.target);
+  };
 
   return (
     <>
@@ -105,18 +108,18 @@ const IssueDetail = () => {
               key={`${comment.createdAt}-${comment.content}`}
               isOpen
               isIssueWriter={data.writer.id === comment.writer.id}
-              isEditer={comment.writer.id === id}
+              isEditer
               comments={comment}
             />
           ))}
           <Comment isNewComment isOpen isWriter />
         </CommentList>
         <SideBar
-          isEditer={isAssignee}
+          isEditer
           sideBarList={[
             {
               id: 1,
-              type: 'ASSIGN',
+              type: 'assignee',
               indicatorLabel: '담당자',
               dropdownTitle: '담당자 필터',
               dropdownList: memberData.members,
@@ -124,7 +127,7 @@ const IssueDetail = () => {
             },
             {
               id: 2,
-              type: 'LABEL',
+              type: 'label',
               indicatorLabel: '레이블',
               dropdownTitle: '레이블 필터',
               dropdownList: labelData.labels,
@@ -132,7 +135,7 @@ const IssueDetail = () => {
             },
             {
               id: 3,
-              type: 'MILESTONE',
+              type: 'milestone',
               indicatorLabel: '마일스톤',
               dropdownTitle: '마일스톤 필터',
               dropdownList: milestoneData.milestones,
@@ -140,6 +143,7 @@ const IssueDetail = () => {
               contentList: [data.milestone],
             },
           ]}
+          onChange={onChange}
         />
       </Content>
     </>

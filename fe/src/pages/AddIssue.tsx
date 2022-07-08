@@ -130,7 +130,7 @@ const AddIssue = () => {
     MILESTONE: milestoneData.milestones,
   };
 
-  const handleContentList = (event: React.MouseEvent<HTMLInputElement>) => {
+  const handleContentList = (event: React.FormEvent<HTMLElement>) => {
     if (!(event.target instanceof HTMLInputElement)) return;
     const { checked } = event.target;
     const { type, id } = event.target.dataset;
@@ -154,30 +154,27 @@ const AddIssue = () => {
   const sideBarList = [
     {
       id: 1,
-      type: 'ASSIGN',
+      type: 'assignee',
       indicatorLabel: '담당자',
       dropdownTitle: '담당자 추가',
       dropdownList: memberData.members,
       contentList: contentList.ASSIGN,
-      clickHandler: handleContentList,
     },
     {
       id: 2,
-      type: 'LABEL',
+      type: 'label',
       indicatorLabel: '레이블',
       dropdownTitle: '레이블 추가',
       dropdownList: labelData.labels,
       contentList: contentList.LABEL,
-      clickHandler: handleContentList,
     },
     {
       id: 3,
-      type: 'MILESTONE',
+      type: 'milestone',
       indicatorLabel: '마일스톤',
       dropdownTitle: '마일스톤 추가',
       dropdownList: milestoneData.milestones,
       contentList: contentList.MILESTONE,
-      clickHandler: handleContentList,
     },
   ];
 
@@ -202,7 +199,7 @@ const AddIssue = () => {
           textareaSize="LARGE"
           textareaRef={textareaRef}
         />
-        <SideBar isEditer sideBarList={sideBarList} />
+        <SideBar isEditer sideBarList={sideBarList} onChange={handleContentList} />
       </div>
       <Divider />
       <div className="issue_Buttons">

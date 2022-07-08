@@ -3,6 +3,7 @@ import Tab, { TabTypes } from 'components/Atoms/Tab';
 
 const StyledTabs = styled.div`
   display: flex;
+  min-width: fit-content;
 `;
 
 interface TabInfoTypes {
@@ -11,8 +12,8 @@ interface TabInfoTypes {
 
 const Tabs = ({ tabInfos }: TabInfoTypes) => {
   // eslint-disable-next-line react/destructuring-assignment
-  const Tabs1 = tabInfos.map((tab: TabTypes) => {
-    const { label, link, count, iconInfo, tabStyle, border } = tab;
+  const TabList = tabInfos.map((tab) => {
+    const { label, link, count, iconInfo, tabStyle, border, HandleOnClick } = tab;
 
     return (
       <Tab
@@ -23,10 +24,11 @@ const Tabs = ({ tabInfos }: TabInfoTypes) => {
         iconInfo={iconInfo}
         tabStyle={tabStyle}
         border={border}
+        HandleOnClick={HandleOnClick}
       />
     );
   });
-  return <StyledTabs>{Tabs1}</StyledTabs>;
+  return <StyledTabs>{TabList}</StyledTabs>;
 };
 
 export default Tabs;
