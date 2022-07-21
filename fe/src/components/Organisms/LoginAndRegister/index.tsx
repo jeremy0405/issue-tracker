@@ -33,7 +33,7 @@ const LoginAndRegister = (): JSX.Element => {
       </a>
       <p>or</p>
       <LoginForm />
-      <Link to="#!" className="sign_up">
+      <Link to="/sign-up" className="sign_up">
         회원가입
       </Link>
     </StyledLoginAndRegister>

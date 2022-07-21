@@ -1,41 +1,25 @@
 /* eslint-disable camelcase */
-import React, { Dispatch, SetStateAction, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { useMutation } from 'react-query';
 
+import { useSetRecoilState } from 'recoil';
+import { OAuthState } from 'Router';
+
 import axios from 'axios';
 
-import styled from 'styled-components';
 import Button from 'components/Atoms/Button';
 import Input from 'components/Atoms/Input';
+import { StyledDiv, StyledSignUpForm } from 'components/Organisms/SignUpForm/index.styles';
 
 import { AuthTypes } from 'helpers/utils/fetchData';
-
-const StyledSignUpForm = styled.div`
-  form + form {
-    margin-top: 10px;
-  }
-
-  button {
-    margin-top: 50px;
-  }
-
-  span {
-    display: inline-block;
-    margin: 15px 10px;
-  }
-
-  form:disabled {
-    background: ${({ theme }) => theme.colors.line};
-  }
-`;
 
 interface SignUpFormTypes {
   id: number;
   login: string;
   name: string | null;
   email: string | null;
-  avatar_url: string;
+  avatar_url: string | null;
 }
 
 interface UserInfoTypes {
@@ -44,48 +28,53 @@ interface UserInfoTypes {
   login_password: string | null;
   name: string | null;
   email: string | null;
-  profile_image_url: string;
+  profile_image_url: string | null;
 }
+
+type isErrorTypes = Omit<UserInfoTypes, 'email' | 'profile_image_url' | 'oauth_id'>;
 
 type UserInfoKeys = 'login_id' | 'login_password' | 'name' | 'email' | 'profile_image_url' | 'oauth_id';
 
 type ResponsesUserInfoTypes = Pick<AuthTypes, 'memberResponse' | 'jwtResponse'>;
 
-const SignUpForm = ({
-  authData,
-  setIsOAuth,
-}: {
-  authData: SignUpFormTypes;
-  setIsOAuth: Dispatch<SetStateAction<boolean>>;
-}) => {
-  // eslint-disable-next-line camelcase
-  const { id, login, name, email, avatar_url } = authData;
-
+const SignUpForm = ({ authData }: { authData: SignUpFormTypes | undefined }) => {
   const initUserInfo: UserInfoTypes = {
-    login_id: login,
+    login_id: authData?.login || '',
     login_password: null,
-    name,
-    email,
-    profile_image_url: avatar_url,
-    oauth_id: id,
+    name: authData?.name || '',
+    email: authData?.email || null,
+    profile_image_url: authData?.avatar_url || null,
+    oauth_id: authData?.id || null,
   };
 
-  // 값이 하나라도 비어있으면 회원가입 버튼 비활성화하는 기능 추가하기
-  const [userInfo, setUserInfo] = useState(initUserInfo);
+  const setIsOAuth = useSetRecoilState(OAuthState);
 
-  const isFilled = () => {
-    let fill = true;
+  const [userInfo, setUserInfo] = useState(initUserInfo);
+  const [isError, setIsError] = useState({ login_id: false, login_password: false, email: false, name: false });
+
+  const isBlank = () => {
+    let blank = false;
 
     Object.keys(userInfo).forEach((key) => {
       const k = key as UserInfoKeys;
-      if (!userInfo[k]) fill = false;
+      if (key === 'profile_image_url' || key === 'oauth_id') return;
+      if (!userInfo[k]) blank = true;
     });
 
-    return fill;
+    return blank;
   };
 
   const formData = [
-    { key: 0, inputType: 'text', maxLength: 12, placeholder: '아이디', userData: login, infoKey: 'login_id' },
+    {
+      key: 0,
+      inputType: 'text',
+      maxLength: 12,
+      placeholder: '아이디',
+      userData: initUserInfo.login_id,
+      infoKey: 'login_id',
+      pattern: /^[ㄱ-힣a-zA-Z0-9-*~^_]*$/g,
+      patternMsg: '아이디는 한글,영문,숫자,특수문자(-*~^_)만 입력가능합니다.',
+    },
     {
       key: 1,
       inputType: 'password',
@@ -93,9 +82,29 @@ const SignUpForm = ({
       placeholder: '비밀번호',
       userData: null,
       infoKey: 'login_password',
+      pattern: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+      patternMsg: '비밀번호는 영문,숫자,특수문자(-*~^_)만 입력가능합니다.',
     },
-    { key: 2, inputType: 'email', maxLength: 12, placeholder: '이메일', userData: email, infoKey: 'email' },
-    { key: 3, inputType: 'text', maxLength: 12, placeholder: '닉네임', userData: name, infoKey: 'name' },
+    {
+      key: 2,
+      inputType: 'email',
+      maxLength: 20,
+      placeholder: '이메일',
+      userData: initUserInfo.email,
+      infoKey: 'email',
+      pattern: /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i,
+      patternMsg: '',
+    },
+    {
+      key: 3,
+      inputType: 'text',
+      maxLength: 12,
+      placeholder: '닉네임',
+      userData: initUserInfo.name,
+      infoKey: 'name',
+      pattern: /^[ㄱ-힣a-zA-Z0-9-*~^_]*$/i,
+      patternMsg: '아이디는 한,영,숫자, 특수문자(-*~^_)만 입력가능합니다.',
+    },
   ];
 
   const addUser = async (newUser: UserInfoTypes): Promise<ResponsesUserInfoTypes> => {
@@ -127,31 +136,43 @@ const SignUpForm = ({
     mutate(userInfo);
   };
 
+  useEffect(() => {
+    // console.log(userInfo);
+  }, [userInfo]);
+
   return (
     <StyledSignUpForm>
-      {formData.map(({ key, inputType, maxLength, placeholder, userData, infoKey }) => (
-        <div key={key}>
-          <span>{placeholder}</span>
-          <Input
-            inputMaxLength={maxLength}
-            inputPlaceholder={placeholder}
-            inputSize="LARGE"
-            inputType={inputType}
-            inputValue={userData!}
-            onClick={() => console.log('클릭')}
-            onChange={(event: React.FormEvent<HTMLInputElement>) => {
-              const { value } = event.currentTarget;
-              setUserInfo({ ...userInfo, [infoKey]: value });
-            }}
-          />
-        </div>
-      ))}
+      {formData.map(({ key, inputType, maxLength, placeholder, userData, infoKey, pattern, patternMsg }) => {
+        const dataKey = infoKey as keyof isErrorTypes;
+        const errorCheck = isError[dataKey];
+
+        return (
+          <StyledDiv key={key} isError={errorCheck} str={placeholder}>
+            <span>{placeholder}</span>
+            <p className="caption">{patternMsg}</p>
+            <Input
+              inputMaxLength={maxLength}
+              inputPlaceholder={placeholder}
+              inputSize="LARGE"
+              inputType={inputType}
+              inputValue={userData!}
+              onClick={() => console.log('클릭')}
+              onChange={(event: React.FormEvent<HTMLInputElement>) => {
+                const { value } = event.currentTarget;
+                setUserInfo({ ...userInfo, [infoKey]: value });
+                setIsError({ ...isError, [infoKey]: !value.match(pattern) });
+              }}
+            />
+          </StyledDiv>
+        );
+      })}
+
       <Button
         buttonStyle="STANDARD"
         label="회원가입"
         size="LARGE"
         HandleOnClick={handleClickSignUpButton}
-        disabled={!isFilled()}
+        disabled={isBlank()}
       />
     </StyledSignUpForm>
   );

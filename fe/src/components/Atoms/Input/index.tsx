@@ -18,6 +18,7 @@ export interface InputTypes {
   // eslint-disable-next-line no-unused-vars
   onChange: (event: React.FormEvent<HTMLInputElement>) => void;
   onBlur?: () => void;
+  pattern?: RegExp;
 }
 
 const defaultMaxLength = 20;
